@@ -19,3 +19,8 @@
 # Нефункциональные требования
 
 ## Технические требования
+
+1. Экран задач реализован с помощью UITableView. Экран файлов реализован с помощью UICollectionView
+2. В приложении использованы UIWebViewController, UImageView, UIButton, UILabel, TabBarController, NavigationController, NavigationBar, UITableView, UICollectionView, UITableViewCell и др.
+3. Приложение должно поддерживать устройства iPhone с iOS 13 или выше, предусмотрен только портретный режим.
+4. Все шрифты в приложении — системные, не нужно их скачивать; в Interface Builder это шрифт «System» в выпадающем списке, а при вёрстке из кода — [`systemFont(ofSize:weight:)`](https://developer.apple.com/documentation/uikit/uifont/1619027-systemfont). В текущих версиях iOS (13—16) системный шрифт — это шрифт `SF Pro`, но в будущих версиях он может поменяться.
