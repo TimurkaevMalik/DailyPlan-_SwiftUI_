@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */; };
-		BC7EFA322C6C6A8000FB24EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA312C6C6A8000FB24EA /* ContentView.swift */; };
+		BC7EFA322C6C6A8000FB24EA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA312C6C6A8000FB24EA /* RootView.swift */; };
 		BC7EFA342C6C6A8000FB24EA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA332C6C6A8000FB24EA /* Item.swift */; };
 		BC7EFA362C6C6A8200FB24EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */; };
 		BC7EFA392C6C6A8200FB24EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFA382C6C6A8200FB24EA /* Preview Assets.xcassets */; };
 		BC7EFA432C6C6A8200FB24EA /* DailyPlanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA422C6C6A8200FB24EA /* DailyPlanTests.swift */; };
 		BC7EFA4D2C6C6A8200FB24EA /* DailyPlanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */; };
 		BC7EFA4F2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */; };
+		BCF072602C70D72800999035 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarController.swift */; };
+		BCF072632C70DC9F00999035 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Fonts.swift */; };
+		BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072642C70F0F300999035 /* TabBarButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +40,7 @@
 /* Begin PBXFileReference section */
 		BC7EFA2C2C6C6A8000FB24EA /* DailyPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanApp.swift; sourceTree = "<group>"; };
-		BC7EFA312C6C6A8000FB24EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BC7EFA312C6C6A8000FB24EA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RootView.swift; path = TabBarController/RootView.swift; sourceTree = "<group>"; };
 		BC7EFA332C6C6A8000FB24EA /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC7EFA382C6C6A8200FB24EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -46,6 +49,9 @@
 		BC7EFA482C6C6A8200FB24EA /* DailyPlanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPlanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITests.swift; sourceTree = "<group>"; };
 		BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BCF0725F2C70D72800999035 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		BCF072622C70DC9F00999035 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		BCF072642C70F0F300999035 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +102,9 @@
 		BC7EFA2E2C6C6A8000FB24EA /* DailyPlan */ = {
 			isa = PBXGroup;
 			children = (
+				BCF072612C70DC8300999035 /* Helpers */,
+				BCF0725D2C70D6EB00999035 /* Controllers */,
 				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
-				BC7EFA312C6C6A8000FB24EA /* ContentView.swift */,
 				BC7EFA332C6C6A8000FB24EA /* Item.swift */,
 				BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */,
 				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
@@ -128,6 +135,32 @@
 				BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */,
 			);
 			path = DailyPlanUITests;
+			sourceTree = "<group>";
+		};
+		BCF0725D2C70D6EB00999035 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BC7EFA312C6C6A8000FB24EA /* RootView.swift */,
+				BCF0725E2C70D6F800999035 /* TabBarController */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BCF0725E2C70D6F800999035 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				BCF0725F2C70D72800999035 /* TabBarController.swift */,
+				BCF072642C70F0F300999035 /* TabBarButton.swift */,
+			);
+			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		BCF072612C70DC8300999035 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BCF072622C70DC9F00999035 /* Fonts.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,9 +293,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC7EFA322C6C6A8000FB24EA /* ContentView.swift in Sources */,
+				BC7EFA322C6C6A8000FB24EA /* RootView.swift in Sources */,
+				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
+				BCF072602C70D72800999035 /* TabBarController.swift in Sources */,
 				BC7EFA342C6C6A8000FB24EA /* Item.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
+				BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,18 +468,22 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.practicum.Timurkaev.DailyPlan;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.Timurkaev.DailyPlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -461,18 +501,22 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.practicum.Timurkaev.DailyPlan;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.Timurkaev.DailyPlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
