@@ -19,23 +19,31 @@ struct TabBarController: View {
     
     var body: some View {
         
-        HStack {
+        
+        VStack(spacing: 0){
             
-            TabBarButton(action: {
-                selectedTab = .tasks
-            }, imageName: "list.bullet.circle", buttonText: "Задачи", buttonColor: .blue, isActive: selectedTab == .tasks)
+            Rectangle()
+                .frame(height: 0.2)
+                .tint(Color.gray)
             
-            TabBarButton(action: {
-                selectedTab = .files
-            }, imageName: "folder.circle", buttonText: "Задачи", buttonColor: .iconsSecondary, isActive: selectedTab == .files)
-            
-            TabBarButton(action: {
-                selectedTab = .settings
-            }, imageName: "gearshape.circle", buttonText: "Задачи", buttonColor: .iconsSecondary, isActive: selectedTab == .settings)
-            
+            HStack {
+                
+                TabBarButton(action: {
+                    selectedTab = .tasks
+                }, imageName: "list.bullet.circle", buttonText: "Задачи", buttonColor: .iconsSecondary, isActive: selectedTab == .tasks)
+                
+                
+                TabBarButton(action: {
+                    selectedTab = .files
+                }, imageName: "folder.circle", buttonText: "Задачи", buttonColor: .iconsSecondary, isActive: selectedTab == .files)
+                
+                TabBarButton(action: {
+                    selectedTab = .settings
+                }, imageName: "gearshape.circle", buttonText: "Задачи", buttonColor: .iconsSecondary, isActive: selectedTab == .settings)
+                
+            }
+            .frame(height: 50)
         }
-        .buttonStyle(PlainButtonStyle())
-        .frame(height: 82)
     }
 }
 

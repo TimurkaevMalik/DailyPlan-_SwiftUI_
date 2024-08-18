@@ -13,15 +13,18 @@ struct RootView: View {
     @State var selectedTab: Tabs = .tasks
     var body: some View {
         
-        VStack {
-            Text("Hello, world")
-                .padding()
-                .font(.callout)
+        VStack (spacing: 0) {
+            
+            if selectedTab == .tasks {
+                TaskViewController()
+            } else if selectedTab == .files {
+                FilesViewController()
+            } else if selectedTab == .settings {
+                SettingsViewController()
+            }
+
+            TabBarController(selectedTab: $selectedTab)
         }
-        
-        Spacer()
-        
-        TabBarController(selectedTab: $selectedTab)
     }
 }
 

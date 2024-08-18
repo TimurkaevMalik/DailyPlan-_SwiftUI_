@@ -23,28 +23,35 @@ struct TabBarButton: View {
             
             GeometryReader { geo in
                 
-                if isActive {
-                    Rectangle()
-                        .foregroundColor(.blue)
-                        .frame(width: geo.size.width/2.3, height: 4)
-                        .padding(.leading, geo.size.width/4)
-                        .cornerRadius(10)
-                }
-                
-                VStack (alignment: .center, spacing: 4) {
+                VStack(alignment: .center, spacing: 0) {
                     
-                    Image(systemName: imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
+                    if isActive {
+                        Rectangle()
+                            .foregroundColor(.blue)
+                            .frame(width: geo.size.width/2.3, height: 4)
+                        
+                            .clipShape(.rect(
+                                topLeadingRadius: 0,
+                                bottomLeadingRadius: 20,
+                                bottomTrailingRadius: 20,
+                                topTrailingRadius: 0))
+                    }
                     
-                    Text(buttonText)
-                        .font(Font.tabBar)
+                    VStack (alignment: .center, spacing: 4) {
+                        
+                        Image(systemName: imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                        
+                        Text(buttonText)
+                            .font(Font.tabBar)
+                    }
+                    .frame(width: geo.size.width, height: geo.size.height)
                 }
-                .frame(width: geo.size.width, height: geo.size.height)
             }
+            .tint(buttonColor)
         }
-        .tint(buttonColor)
     }
 }
 

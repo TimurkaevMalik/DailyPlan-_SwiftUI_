@@ -18,6 +18,9 @@
 		BCF072602C70D72800999035 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarController.swift */; };
 		BCF072632C70DC9F00999035 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Fonts.swift */; };
 		BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072642C70F0F300999035 /* TabBarButton.swift */; };
+		BCF072682C71AD4800999035 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072672C71AD4800999035 /* TaskViewController.swift */; };
+		BCF0726B2C71B55800999035 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0726A2C71B55800999035 /* FilesViewController.swift */; };
+		BCF0726E2C71B58600999035 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0726D2C71B58600999035 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		BCF0725F2C70D72800999035 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		BCF072622C70DC9F00999035 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BCF072642C70F0F300999035 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
+		BCF072672C71AD4800999035 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		BCF0726A2C71B55800999035 /* FilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
+		BCF0726D2C71B58600999035 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +148,9 @@
 			children = (
 				BC7EFA312C6C6A8000FB24EA /* RootView.swift */,
 				BCF0725E2C70D6F800999035 /* TabBarController */,
+				BCF072662C71ACE300999035 /* TaskViewController */,
+				BCF072692C71B54400999035 /* FilesViewController */,
+				BCF0726C2C71B56F00999035 /* SettingsViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -161,6 +170,30 @@
 				BCF072622C70DC9F00999035 /* Fonts.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		BCF072662C71ACE300999035 /* TaskViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BCF072672C71AD4800999035 /* TaskViewController.swift */,
+			);
+			path = TaskViewController;
+			sourceTree = "<group>";
+		};
+		BCF072692C71B54400999035 /* FilesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BCF0726A2C71B55800999035 /* FilesViewController.swift */,
+			);
+			path = FilesViewController;
+			sourceTree = "<group>";
+		};
+		BCF0726C2C71B56F00999035 /* SettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				BCF0726D2C71B58600999035 /* SettingsViewController.swift */,
+			);
+			path = SettingsViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,11 +327,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7EFA322C6C6A8000FB24EA /* RootView.swift in Sources */,
+				BCF072682C71AD4800999035 /* TaskViewController.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
 				BCF072602C70D72800999035 /* TabBarController.swift in Sources */,
 				BC7EFA342C6C6A8000FB24EA /* Item.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
+				BCF0726B2C71B55800999035 /* FilesViewController.swift in Sources */,
 				BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */,
+				BCF0726E2C71B58600999035 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
