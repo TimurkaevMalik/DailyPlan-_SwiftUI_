@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct TaskViewController: View {
+    
+    @State private var tasks = TaskCell.getTasks()
+    
     var body: some View {
-        Color.red
+        Text("SOME")
     }
 }
 

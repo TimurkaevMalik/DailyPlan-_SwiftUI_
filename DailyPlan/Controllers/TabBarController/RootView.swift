@@ -11,6 +11,7 @@ import SwiftUI
 struct RootView: View {
     
     @State var selectedTab: Tabs = .tasks
+    
     var body: some View {
         
         VStack (spacing: 0) {
@@ -22,8 +23,11 @@ struct RootView: View {
             } else if selectedTab == .settings {
                 SettingsViewController()
             }
-
+            
+            Spacer()
+            
             TabBarController(selectedTab: $selectedTab)
+            
         }
     }
 }

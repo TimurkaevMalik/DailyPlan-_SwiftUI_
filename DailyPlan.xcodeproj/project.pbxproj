@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EBB332C730AC900F86B52 /* TaskCategory.swift */; };
+		BC6EBB362C730B3900F86B52 /* TaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EBB352C730B3900F86B52 /* TaskRecord.swift */; };
 		BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */; };
 		BC7EFA322C6C6A8000FB24EA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA312C6C6A8000FB24EA /* RootView.swift */; };
 		BC7EFA342C6C6A8000FB24EA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA332C6C6A8000FB24EA /* Item.swift */; };
@@ -15,6 +17,7 @@
 		BC7EFA432C6C6A8200FB24EA /* DailyPlanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA422C6C6A8200FB24EA /* DailyPlanTests.swift */; };
 		BC7EFA4D2C6C6A8200FB24EA /* DailyPlanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */; };
 		BC7EFA4F2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */; };
+		BCC288FA2C7304A3008E7176 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC288F92C7304A3008E7176 /* TaskCell.swift */; };
 		BCF072602C70D72800999035 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarController.swift */; };
 		BCF072632C70DC9F00999035 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Fonts.swift */; };
 		BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072642C70F0F300999035 /* TabBarButton.swift */; };
@@ -41,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC6EBB332C730AC900F86B52 /* TaskCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategory.swift; sourceTree = "<group>"; };
+		BC6EBB352C730B3900F86B52 /* TaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRecord.swift; sourceTree = "<group>"; };
 		BC7EFA2C2C6C6A8000FB24EA /* DailyPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanApp.swift; sourceTree = "<group>"; };
 		BC7EFA312C6C6A8000FB24EA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RootView.swift; path = TabBarController/RootView.swift; sourceTree = "<group>"; };
@@ -52,6 +57,7 @@
 		BC7EFA482C6C6A8200FB24EA /* DailyPlanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPlanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITests.swift; sourceTree = "<group>"; };
 		BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BCC288F92C7304A3008E7176 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		BCF0725F2C70D72800999035 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		BCF072622C70DC9F00999035 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BCF072642C70F0F300999035 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
@@ -108,12 +114,13 @@
 		BC7EFA2E2C6C6A8000FB24EA /* DailyPlan */ = {
 			isa = PBXGroup;
 			children = (
+				BCC288FB2C730740008E7176 /* Models */,
 				BCF072612C70DC8300999035 /* Helpers */,
 				BCF0725D2C70D6EB00999035 /* Controllers */,
+				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
 				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
 				BC7EFA332C6C6A8000FB24EA /* Item.swift */,
 				BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */,
-				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
 			);
 			path = DailyPlan;
 			sourceTree = "<group>";
@@ -141,6 +148,16 @@
 				BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */,
 			);
 			path = DailyPlanUITests;
+			sourceTree = "<group>";
+		};
+		BCC288FB2C730740008E7176 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BCC288F92C7304A3008E7176 /* TaskCell.swift */,
+				BC6EBB332C730AC900F86B52 /* TaskCategory.swift */,
+				BC6EBB352C730B3900F86B52 /* TaskRecord.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		BCF0725D2C70D6EB00999035 /* Controllers */ = {
@@ -330,11 +347,14 @@
 				BCF072682C71AD4800999035 /* TaskViewController.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
 				BCF072602C70D72800999035 /* TabBarController.swift in Sources */,
+				BCC288FA2C7304A3008E7176 /* TaskCell.swift in Sources */,
 				BC7EFA342C6C6A8000FB24EA /* Item.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
 				BCF0726B2C71B55800999035 /* FilesViewController.swift in Sources */,
 				BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */,
+				BC6EBB362C730B3900F86B52 /* TaskRecord.swift in Sources */,
 				BCF0726E2C71B58600999035 /* SettingsViewController.swift in Sources */,
+				BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
