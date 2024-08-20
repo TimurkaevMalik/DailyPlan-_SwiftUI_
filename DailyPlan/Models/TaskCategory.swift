@@ -11,5 +11,5 @@ import Foundation
 struct TaskCategory {
     
     let title: String
-    let tasks: [TaskCell]
+    let tasks: [Task]
 }

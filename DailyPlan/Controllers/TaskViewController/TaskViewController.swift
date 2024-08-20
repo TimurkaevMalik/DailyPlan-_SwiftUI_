@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskViewController: View {
     
-    @State private var tasks = TaskCell.getTasks()
+    @State private var tasks = Task.getTasks()
     
     var body: some View {
         Text("SOME")

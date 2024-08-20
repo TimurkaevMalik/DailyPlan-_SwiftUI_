@@ -9,11 +9,11 @@ import SwiftUI
 
 struct TabBarButton: View {
     
-    var action: () -> Void
-    var imageName: String
-    var buttonText: String
-    var buttonColor: Color
-    var isActive: Bool
+    let action: () -> Void
+    let imageName: String
+    let buttonText: String
+    let buttonColor: Color
+    let isActive: Bool
     
     var body: some View {
         
