@@ -9,52 +9,63 @@ import SwiftUI
 
 struct TabBarButton: View {
     
-    let action: () -> Void
     let imageName: String
     let buttonText: String
     let buttonColor: Color
     let isActive: Bool
+    let action: () -> Void
     
     var body: some View {
         
         Button {
             action()
         } label: {
-            
             GeometryReader { geo in
-                
                 VStack(alignment: .center, spacing: 0) {
                     
                     if isActive {
-                        Rectangle()
-                            .foregroundColor(.blue)
-                            .frame(width: geo.size.width/2.3, height: 4)
-                        
-                            .clipShape(.rect(
-                                topLeadingRadius: 0,
-                                bottomLeadingRadius: 20,
-                                bottomTrailingRadius: 20,
-                                topTrailingRadius: 0))
+                        makeCursor(geo: geo)
                     }
                     
-                    VStack (alignment: .center, spacing: 4) {
-                        
-                        Image(systemName: imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24, height: 24)
+                    VStack(spacing: 4) {
+                        tabItemImage()
                         
                         Text(buttonText)
                             .font(Font.tabBar)
                     }
-                    .frame(width: geo.size.width, height: geo.size.height)
+                    .tint(buttonColor)
+                    .frame(width: geo.size.width,
+                           height: geo.size.height)
                 }
             }
-            .tint(buttonColor)
         }
     }
 }
 
+extension TabBarButton {
+    private func makeCursor(geo: GeometryProxy) -> some View {
+        Rectangle()
+            .foregroundColor(.blue)
+            .frame(width: geo.size.width/3, height: 4)
+            .clipShape(.rect(
+                topLeadingRadius: 0,
+                bottomLeadingRadius: 20,
+                bottomTrailingRadius: 20,
+                topTrailingRadius: 0))
+    }
+    
+    private func tabItemImage() -> some View {
+        Image(systemName: imageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 24, height: 24)
+    }
+}
+
 #Preview {
-    TabBarButton(action: {print("action")}, imageName: "list.bullet.circle", buttonText: "Tasks", buttonColor: .iconsSecondary, isActive: true)
+    TabBarButton(imageName: "list.bullet.circle",
+                 buttonText: "Tasks",
+                 buttonColor: .iconsSecondary,
+                 isActive: true,
+                 action: {})
 }

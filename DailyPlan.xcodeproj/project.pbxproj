@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546132C74C01300E6AD68 /* TaskCell.swift */; };
 		BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */; };
+		BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2084BE2D4A5AA4008C1118 /* RootView.swift */; };
 		BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EBB332C730AC900F86B52 /* TaskCategory.swift */; };
 		BC6EBB362C730B3900F86B52 /* TaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EBB352C730B3900F86B52 /* TaskRecord.swift */; };
 		BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */; };
-		BC7EFA322C6C6A8000FB24EA /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA312C6C6A8000FB24EA /* RootView.swift */; };
-		BC7EFA342C6C6A8000FB24EA /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA332C6C6A8000FB24EA /* Item.swift */; };
 		BC7EFA362C6C6A8200FB24EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */; };
 		BC7EFA392C6C6A8200FB24EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFA382C6C6A8200FB24EA /* Preview Assets.xcassets */; };
 		BC7EFA432C6C6A8200FB24EA /* DailyPlanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA422C6C6A8200FB24EA /* DailyPlanTests.swift */; };
@@ -22,7 +21,7 @@
 		BCA93C182C74DFFC0028DE2D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C172C74DFFC0028DE2D /* Extensions.swift */; };
 		BCA93C1A2C74F6B70028DE2D /* TextContainerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* TextContainerButton.swift */; };
 		BCC288FA2C7304A3008E7176 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC288F92C7304A3008E7176 /* Task.swift */; };
-		BCF072602C70D72800999035 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarController.swift */; };
+		BCF072602C70D72800999035 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarView.swift */; };
 		BCF072632C70DC9F00999035 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Fonts.swift */; };
 		BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072642C70F0F300999035 /* TabBarButton.swift */; };
 		BCF072682C71AD4800999035 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072672C71AD4800999035 /* TaskViewController.swift */; };
@@ -50,12 +49,11 @@
 /* Begin PBXFileReference section */
 		BC0546132C74C01300E6AD68 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkButton.swift; sourceTree = "<group>"; };
+		BC2084BE2D4A5AA4008C1118 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BC6EBB332C730AC900F86B52 /* TaskCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategory.swift; sourceTree = "<group>"; };
 		BC6EBB352C730B3900F86B52 /* TaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRecord.swift; sourceTree = "<group>"; };
 		BC7EFA2C2C6C6A8000FB24EA /* DailyPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanApp.swift; sourceTree = "<group>"; };
-		BC7EFA312C6C6A8000FB24EA /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RootView.swift; path = TabBarController/RootView.swift; sourceTree = "<group>"; };
-		BC7EFA332C6C6A8000FB24EA /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC7EFA382C6C6A8200FB24EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BC7EFA3E2C6C6A8200FB24EA /* DailyPlanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPlanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +64,7 @@
 		BCA93C172C74DFFC0028DE2D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BCA93C192C74F6B70028DE2D /* TextContainerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextContainerButton.swift; sourceTree = "<group>"; };
 		BCC288F92C7304A3008E7176 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		BCF0725F2C70D72800999035 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		BCF0725F2C70D72800999035 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BCF072622C70DC9F00999035 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BCF072642C70F0F300999035 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		BCF072672C71AD4800999035 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				BCF0725D2C70D6EB00999035 /* Controllers */,
 				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
 				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
-				BC7EFA332C6C6A8000FB24EA /* Item.swift */,
 				BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */,
 			);
 			path = DailyPlan;
@@ -159,6 +156,16 @@
 			path = DailyPlanUITests;
 			sourceTree = "<group>";
 		};
+		BCA93C1B2C7503D30028DE2D /* TaskCell */ = {
+			isa = PBXGroup;
+			children = (
+				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
+				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
+				BCA93C192C74F6B70028DE2D /* TextContainerButton.swift */,
+			);
+			path = TaskCell;
+			sourceTree = "<group>";
+		};
 		BCC288FB2C730740008E7176 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,10 +179,8 @@
 		BCEF08B12C74DBAA0014A8AA /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
 				BCF072642C70F0F300999035 /* TabBarButton.swift */,
-				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
-				BCA93C192C74F6B70028DE2D /* TextContainerButton.swift */,
+				BCA93C1B2C7503D30028DE2D /* TaskCell */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -183,21 +188,21 @@
 		BCF0725D2C70D6EB00999035 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BC7EFA312C6C6A8000FB24EA /* RootView.swift */,
-				BCF0725E2C70D6F800999035 /* TabBarController */,
-				BCF072662C71ACE300999035 /* TaskViewController */,
+				BC2084BE2D4A5AA4008C1118 /* RootView.swift */,
+				BCF0725E2C70D6F800999035 /* TabBarView */,
+				BCF072662C71ACE300999035 /* TaskView */,
 				BCF072692C71B54400999035 /* FilesViewController */,
 				BCF0726C2C71B56F00999035 /* SettingsViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		BCF0725E2C70D6F800999035 /* TabBarController */ = {
+		BCF0725E2C70D6F800999035 /* TabBarView */ = {
 			isa = PBXGroup;
 			children = (
-				BCF0725F2C70D72800999035 /* TabBarController.swift */,
+				BCF0725F2C70D72800999035 /* TabBarView.swift */,
 			);
-			path = TabBarController;
+			path = TabBarView;
 			sourceTree = "<group>";
 		};
 		BCF072612C70DC8300999035 /* Helpers */ = {
@@ -209,12 +214,12 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		BCF072662C71ACE300999035 /* TaskViewController */ = {
+		BCF072662C71ACE300999035 /* TaskView */ = {
 			isa = PBXGroup;
 			children = (
 				BCF072672C71AD4800999035 /* TaskViewController.swift */,
 			);
-			path = TaskViewController;
+			path = TaskView;
 			sourceTree = "<group>";
 		};
 		BCF072692C71B54400999035 /* FilesViewController */ = {
@@ -363,13 +368,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC7EFA322C6C6A8000FB24EA /* RootView.swift in Sources */,
 				BCF072682C71AD4800999035 /* TaskViewController.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
-				BCF072602C70D72800999035 /* TabBarController.swift in Sources */,
+				BCF072602C70D72800999035 /* TabBarView.swift in Sources */,
 				BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */,
 				BCC288FA2C7304A3008E7176 /* Task.swift in Sources */,
-				BC7EFA342C6C6A8000FB24EA /* Item.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
 				BCA93C1A2C74F6B70028DE2D /* TextContainerButton.swift in Sources */,
 				BCF0726B2C71B55800999035 /* FilesViewController.swift in Sources */,
@@ -379,6 +382,7 @@
 				BCF0726E2C71B58600999035 /* SettingsViewController.swift in Sources */,
 				BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */,
 				BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */,
+				BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

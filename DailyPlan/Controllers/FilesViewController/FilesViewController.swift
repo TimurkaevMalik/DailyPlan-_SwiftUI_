@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FilesViewController: View {
     var body: some View {
-        Color.cyan
+        Color.white
     }
 }
 

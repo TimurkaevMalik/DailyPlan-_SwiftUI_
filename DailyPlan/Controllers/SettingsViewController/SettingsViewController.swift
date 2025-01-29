@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsViewController: View {
     var body: some View {
-        Color.mint
+        Color.white
     }
 }
 

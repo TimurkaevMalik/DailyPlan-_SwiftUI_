@@ -23,8 +23,8 @@ struct TextContainerButton: View {
             GeometryReader { geo in
                 
                 Rectangle()
-                    .stroke(Color.clear, lineWidth: 1)
-                    .clipShape(RoundedRectangle(cornerRadius: geo.size.height/10))
+                    .tint(.white)
+                    .clipShape(.rect(cornerRadius: geo.size.height/10))
                     .overlay(
                         RoundedRectangle(cornerRadius:  geo.size.height/10)
                             .strokeBorder(color, lineWidth: 1))

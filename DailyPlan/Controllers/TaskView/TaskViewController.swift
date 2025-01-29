@@ -9,10 +9,10 @@ import SwiftUI
 
 struct TaskViewController: View {
     
-    @State private var tasks = Task.getTasks()
+    @State private var tasks = Task.getTasksMock()
     
     var body: some View {
-        Text("SOME")
+        Color.cyan
     }
 }
 
