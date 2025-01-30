@@ -15,11 +15,11 @@ struct TabBarView: View {
     var body: some View {
         
         if selectedTab == .tasks {
-            TaskViewController()
+            TaskView()
         } else if selectedTab == .files {
-            FilesViewController()
+            FoldersView()
         } else if selectedTab == .settings {
-            SettingsViewController()
+            SettingsView()
         }
         
         Spacer(minLength: 0)

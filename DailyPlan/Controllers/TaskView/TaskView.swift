@@ -1,5 +1,5 @@
 //
-//  TaskViewController.swift
+//  TaskView.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 18.08.2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TaskViewController: View {
+struct TaskView: View {
     
     @State private var tasks: [Task] = {
         let array = Task.getTasksMock().sorted(by: { $0.schedule ?? ""  < $1.schedule ?? "" })
@@ -26,5 +26,5 @@ struct TaskViewController: View {
 }
 
 #Preview {
-    TaskViewController()
+    TaskView()
 }
