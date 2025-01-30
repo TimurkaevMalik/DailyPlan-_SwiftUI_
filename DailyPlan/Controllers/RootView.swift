@@ -9,9 +9,6 @@ import SwiftUI
 
 
 struct RootView: View {
-    
-    @State var selectedTab: Tabs = .tasks
-    
     var body: some View {
         TabBarView()
     }

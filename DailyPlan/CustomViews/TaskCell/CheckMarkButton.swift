@@ -11,7 +11,6 @@ struct CheckMarkButton: View {
     
     let color: Color
     let isDone: Bool
-    let size: CGSize
     let action: () -> Void
     
     var body: some View {
@@ -21,39 +20,33 @@ struct CheckMarkButton: View {
             action()
             
         } label: {
-            
-            GeometryReader{geo in
+            ZStack(alignment: .center) {
+                color
                 
-                let width = geo.size.width
-                let height = geo.size.height
-                
-                color.scaledToFill()
-            
                 Capsule()
-                    .size(CGSize(width: width/2.5, height: height/2.5))
                     .stroke(lineWidth: 2)
                     .background(Color.clear)
-                    .padding(.vertical, height/3.3)
-                    .padding(.horizontal, width/3.3)
                     .tint(.black)
+                    .frame(width: 26, height: 26)
                 
                 if isDone == true {
                     
                     Image(systemName: "checkmark")
+                        .resizable()
+                        .frame(width: 28, height: 26)
                         .tint(.white)
-                        .font(Font.system(size: width/2.3, weight: .bold))
-                        .position(CGPoint(x: height/2 + 2 , y: width/2 - 2 ))
+                        .padding(.bottom, 4)
+                        .padding(.leading, 4)
                 }
             }
         }
-        .frame(width: size.width, height: size.height)
-        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .frame(width: 60, height: 60)
     }
 }
 
 #Preview {
     CheckMarkButton(color: .blue,
                     isDone: true,
-                    size: CGSize(width: 100, height: 100),
                     action: {})
 }
