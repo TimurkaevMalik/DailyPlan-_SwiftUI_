@@ -9,10 +9,18 @@ import SwiftUI
 
 struct TaskViewController: View {
     
-    @State private var tasks = Task.getTasksMock()
+    @State private var tasks: [Task] = {
+        let array = Task.getTasksMock().sorted(by: { $0.schedule ?? ""  < $1.schedule ?? "" })
+        return array
+    }()
     
     var body: some View {
-        Color.cyan
+        ScrollView {
+            ForEach(tasks) { task in
+                TaskCell(task: task)
+                    .padding(.vertical, 6)
+            }
+        }
     }
 }
 

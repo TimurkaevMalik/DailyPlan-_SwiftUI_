@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum Tabs: Int {
-    case tasks
-    case files
-    case settings
-}
 
 struct TabBarView: View {
     
@@ -60,6 +55,14 @@ struct TabBarView: View {
             }
         }
         .frame(height: 66)
+    }
+}
+
+private extension TabBarView {
+    enum Tabs: Int {
+        case tasks
+        case files
+        case settings
     }
 }
 

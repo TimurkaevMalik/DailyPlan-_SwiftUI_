@@ -9,59 +9,66 @@ import SwiftUI
 
 struct TaskCell: View {
     
-    @State var task: [Task] = Task.getTasksMock()
+    @State var task: Task
     
     var body: some View {
         
-        List(task, id: \.id ) { task in
+        VStack(alignment: .trailing, spacing: 0) {
             
-            VStack(alignment: .trailing, spacing: 0) {
+            scheduleButton()
+                .padding(.trailing, 12)
+            
+            HStack(spacing: 0) {
+                checkMarkButton()
                 
-                Button {
-                    print("Change timer")
-                } label: {
-                    
-                    if let schedule = task.schedule {
-                        Text(schedule)
-                            .padding(.trailing, 18)
-                            .tint(.black)
-                            .background(RoundedRectangle(cornerRadius: 7).stroke(lineWidth: 1).padding(.trailing, 12).padding(.leading, -7))
-                    }
-                }
-                
-                HStack {
-                    CheckMarkButton(color: task.color,
-                                    isDone: task.isDone,
-                                    size: CGSize(width: 55, height: 55)) {
-                        
-                        if task.isDone == true {
-//                            task.isDone = false
-                        } else if task.isDone == false {
-//                            task.isDone = true
-                        }
-                    }.padding(.leading, 5)
-                    
-                    
-                    TextContainerButton(text: task.description, color: task.color, height: 55) {
-                        
-                        print("Open card")
-                    }
-                    .padding(.leading, -2)
-                    .padding(.trailing, 10)
-                }
+                customTextEditor()
+                    .padding(.leading, 6)
             }
         }
-        .lineSpacing(1)
-        .padding([.all], -18)
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        let task = Task.getTasksMock().sorted(by: {$0.schedule ?? "" > $1.schedule ?? ""})
-
-        TaskCell(task: task)
+extension TaskCell {
+    private func scheduleButton() -> some View {
+        Button {
+            print("Change timer")
+        } label: {
+            
+            if let schedule = task.schedule {
+                Text(schedule)
+                    .padding(.horizontal, 12)
+                    .tint(.black)
+                    
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                        .stroke(task.color)
+                    )
+            }
+        }
     }
+    
+    private func checkMarkButton() -> some View {
+        CheckMarkButton(color: task.color,
+                        isDone: task.isDone) {
+            
+            if task.isDone == true {
+                task.isDone = false
+            } else if task.isDone == false {
+                task.isDone = true
+            }
+        }
+    }
+    
+    private func customTextEditor() -> some View {
+        CustomTextEditor(text: task.description,
+                            color: task.color)
+    }
+}
+
+#Preview {
+    TaskCell(task: Task(name: "name",
+                        description: "description",
+                        color: .red,
+                        schedule: "12:00",
+                        isDone: false))
 }

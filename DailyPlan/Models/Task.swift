@@ -10,10 +10,10 @@ import SwiftUI
 struct Task: Identifiable {
     
     let id = UUID()
-    let name: String?
-    let description: String
-    let color: Color
-    let schedule: String?
+    var name: String?
+    var description: String
+    var color: Color
+    var schedule: String?
     var isDone: Bool
     
     static func getTasksMock() -> [Task] {
