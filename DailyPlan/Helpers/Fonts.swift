@@ -39,7 +39,7 @@ extension Font {
         return Font.custom("LexendDeca-SemiBold", size: 33)
     }
     
-    static var chatHeading: Font {
+    static var taskText: Font {
         return Font.custom("LexendDeca-SemiBold", size: 19)
     }
 }

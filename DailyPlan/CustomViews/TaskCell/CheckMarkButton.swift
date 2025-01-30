@@ -41,7 +41,7 @@ struct CheckMarkButton: View {
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
-        .frame(width: 56, height: 56)
+        .frame(width: 60, height: 60)
     }
 }
 

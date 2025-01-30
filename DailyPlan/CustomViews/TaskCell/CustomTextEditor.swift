@@ -27,9 +27,9 @@ struct CustomTextEditor: View {
             .focused($isFocused)
             .frame(height: editorState.rawValue)
             .padding(.horizontal, 6)
-            .padding(.vertical, 2)
+            .lineSpacing(2)
             .lineLimit(2)
-            .font(Font.chatHeading)
+            .font(Font.taskText)
             .multilineTextAlignment(.leading)
             .overlay {
                 ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -57,7 +57,7 @@ struct CustomTextEditor: View {
             })
             .onChange(of: text) {
                 
-                if text.count > 120 {
+                if text.count > 100 {
                     text = String(text.prefix(120))
                 }
             }
@@ -119,6 +119,6 @@ private extension CustomTextEditor {
 }
 
 #Preview {
-    CustomTextEditor(text: "Description",
+    CustomTextEditor(text: "Description Description Description Description Description Description Description Description",
                      color: .red)
 }

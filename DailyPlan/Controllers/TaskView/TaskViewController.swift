@@ -20,6 +20,7 @@ struct TaskViewController: View {
                 TaskCell(task: task)
                     .padding(.vertical, 6)
             }
+            .padding(.horizontal, 6)
         }
     }
 }

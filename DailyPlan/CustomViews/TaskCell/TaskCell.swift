@@ -18,9 +18,8 @@ struct TaskCell: View {
             scheduleButton()
                 .padding(.trailing, 12)
             
-            HStack(spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
                 checkMarkButton()
-                
                 customTextEditor()
                     .padding(.leading, 6)
             }
@@ -38,10 +37,10 @@ extension TaskCell {
                 Text(schedule)
                     .padding(.horizontal, 12)
                     .tint(.black)
-                    
+                
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                        .stroke(task.color)
+                            .stroke(task.color)
                     )
             }
         }
@@ -61,7 +60,7 @@ extension TaskCell {
     
     private func customTextEditor() -> some View {
         CustomTextEditor(text: task.description,
-                            color: task.color)
+                         color: task.color)
     }
 }
 
