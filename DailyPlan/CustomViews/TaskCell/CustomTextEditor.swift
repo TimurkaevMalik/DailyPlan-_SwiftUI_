@@ -57,7 +57,7 @@ struct CustomTextEditor: View {
             })
             .onChange(of: text) {
                 
-                if text.count > 100 {
+                if text.count > 80 {
                     text = String(text.prefix(120))
                 }
             }
