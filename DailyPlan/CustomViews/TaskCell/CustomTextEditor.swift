@@ -12,12 +12,13 @@ struct CustomTextEditor: View {
     @FocusState private var isFocused: Bool
     @State private var editorState: EditorState = .default
     @State private var buttonsPadding: CGFloat = -30
-    @State var text: String
+    @State private var lastText: String = ""
+    @Binding private var text: String
     
     let color: Color
     
-    init(text: String, color: Color) {
-        self.text = text
+    init(text: Binding<String>, color: Color) {
+        self._text = text
         self.color = color
     }
     
@@ -37,9 +38,6 @@ struct CustomTextEditor: View {
                     Color.clear
                     
                     HStack {
-                        
-                        Spacer()
-                        
                         cancelButton()
                         confirmButton()
                     }
@@ -53,6 +51,7 @@ struct CustomTextEditor: View {
                 })
             }
             .onChange(of: isFocused, {
+                lastText = text
                 switchStateWithAnimation()
             })
             .onChange(of: text) {
@@ -67,6 +66,7 @@ struct CustomTextEditor: View {
 private extension CustomTextEditor {
     func cancelButton() -> some View {
         Button {
+            text = lastText
             isFocused = false
         } label: {
             Image(systemName: "multiply")
@@ -107,7 +107,7 @@ private extension CustomTextEditor {
                 }
             }
         } else {
-            withAnimation(.linear(duration: 0.1)) {
+            withAnimation(.linear(duration: 0.2)) {
                 buttonsPadding = -30
             } completion: {
                 withAnimation {
@@ -119,6 +119,6 @@ private extension CustomTextEditor {
 }
 
 #Preview {
-    CustomTextEditor(text: "Description Description Description Description Description Description Description Description",
+    CustomTextEditor(text: .constant("Description Description Description Description Description Description Description Description"),
                      color: .red)
 }

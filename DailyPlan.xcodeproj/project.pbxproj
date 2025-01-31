@@ -19,6 +19,8 @@
 		BC7EFA4D2C6C6A8200FB24EA /* DailyPlanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */; };
 		BC7EFA4F2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */; };
 		BCA93C1A2C74F6B70028DE2D /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* CustomTextEditor.swift */; };
+		BCB295F42D4D34D100B75559 /* CustomDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F32D4D34CD00B75559 /* CustomDateFormatter.swift */; };
+		BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F52D4D39C900B75559 /* Schedule.swift */; };
 		BCC288FA2C7304A3008E7176 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC288F92C7304A3008E7176 /* Task.swift */; };
 		BCF072602C70D72800999035 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarView.swift */; };
 		BCF072632C70DC9F00999035 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Fonts.swift */; };
@@ -61,6 +63,8 @@
 		BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITests.swift; sourceTree = "<group>"; };
 		BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BCA93C192C74F6B70028DE2D /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
+		BCB295F32D4D34CD00B75559 /* CustomDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDateFormatter.swift; sourceTree = "<group>"; };
+		BCB295F52D4D39C900B75559 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		BCC288F92C7304A3008E7176 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		BCF0725F2C70D72800999035 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BCF072622C70DC9F00999035 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 		BC7EFA2E2C6C6A8000FB24EA /* DailyPlan */ = {
 			isa = PBXGroup;
 			children = (
+				BCB295F22D4D34B400B75559 /* Services */,
 				BCEF08B12C74DBAA0014A8AA /* CustomViews */,
 				BCC288FB2C730740008E7176 /* Models */,
 				BCF072612C70DC8300999035 /* Helpers */,
@@ -164,12 +169,21 @@
 			path = TaskCell;
 			sourceTree = "<group>";
 		};
+		BCB295F22D4D34B400B75559 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BCB295F32D4D34CD00B75559 /* CustomDateFormatter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		BCC288FB2C730740008E7176 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				BCC288F92C7304A3008E7176 /* Task.swift */,
 				BC6EBB332C730AC900F86B52 /* TaskCategory.swift */,
 				BC6EBB352C730B3900F86B52 /* TaskRecord.swift */,
+				BCB295F52D4D39C900B75559 /* Schedule.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -371,6 +385,8 @@
 				BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */,
 				BCC288FA2C7304A3008E7176 /* Task.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
+				BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */,
+				BCB295F42D4D34D100B75559 /* CustomDateFormatter.swift in Sources */,
 				BCA93C1A2C74F6B70028DE2D /* CustomTextEditor.swift in Sources */,
 				BCF0726B2C71B55800999035 /* FoldersView.swift in Sources */,
 				BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */,

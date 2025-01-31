@@ -9,8 +9,9 @@ import SwiftUI
 
 struct TaskView: View {
     
+    @State private var selectedDate: Date = Date()
     @State private var tasks: [Task] = {
-        let array = Task.getTasksMock().sorted(by: { $0.schedule ?? ""  < $1.schedule ?? "" })
+        let array = Task.getTasksMock()
         return array
     }()
     
@@ -29,69 +30,99 @@ struct TaskView: View {
                     }
                 }
                 .padding(.top, 16)
+                .padding(.horizontal, 8)
             }
-            
-            .padding(.horizontal, 8)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                
                 ToolbarItem(placement: .topBarLeading) {
-                    Menu {
-                        Button("Done tasks") {
-                            tasks = Task.getTasksMock().filter({ $0.isDone == true }).sorted(by: { $0.schedule ?? ""  < $1.schedule ?? "" })
+                    makeMenu()
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    
+                    Text(stringFrom(selectedDate: selectedDate))
+                        .frame(width: 120, height: 32)
+                        .background(.ypMilk)
+                        .clipShape(.rect(cornerRadius: 10))
+                        .overlay {
+                            DatePicker("",
+                                       selection: .constant(.now),
+                            displayedComponents: .date)     
                         }
-                        Button("Active tasks") {
-                            tasks = Task.getTasksMock().filter({ $0.isDone == false }).sorted(by: { $0.schedule ?? ""  < $1.schedule ?? "" })
-                        }
-                        Button("All tasks") {
-                            tasks = Task.getTasksMock().sorted(by: { $0.schedule ?? ""  < $1.schedule ?? "" })
-                        }
-                    } label: {
-                        Image(systemName: "slider.vertical.3")
-                            .frame(width: 70, height: 40)
-                            .foregroundStyle(.ypMilkDark)
-                            .background(.ypTomato)
-                            .font(.system(size: 20, weight: .semibold))
-                            .clipShape(.buttonBorder)
-                    }
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "plus")
-                            .frame(width: 70, height: 40)
-                            .foregroundStyle(.ypTomato)
-                            .background(.ypMilkDark)
-                            .font(.system(size: 20, weight: .semibold))
-                            .clipShape(.buttonBorder)
-                    }
+                    addTaskButton()
                 }
             }
         }
     }
-    
-    private let contextMenu =
-        ContextMenu {
-            Button {
-                
-            } label: {
-                HStack {
-                    Image(systemName: "checkmark.square")
-                    Text("Done")
-                }
-            }
-            
-            Button {
-                
-            } label: {
-                HStack {
-                    Image(systemName: "cross.square")
-                    Text("Done")
-                }
-            }
-        }
 }
 
+private extension TaskView {
+    
+    func addTaskButton() -> some View {
+        Button {
+            
+        } label: {
+            Image(systemName: "plus")
+                .frame(width: 70, height: 40)
+                .foregroundStyle(.ypTomato)
+                .background(.ypMilkDark)
+                .font(.system(size: 20, weight: .semibold))
+                .clipShape(.buttonBorder)
+        }
+    }
+    
+    func makeMenu() -> some View {
+        Menu {
+            doneTasksFilter()
+            activeTasksFilter()
+            allTasksFilter()
+        } label: {
+            Image(systemName: "slider.vertical.3")
+                .frame(width: 70, height: 40)
+                .foregroundStyle(.ypMilkDark)
+                .background(.ypTomato)
+                .font(.system(size: 20, weight: .semibold))
+                .clipShape(.buttonBorder)
+        }
+    }
+    
+    func doneTasksFilter() -> some View {
+        Button {
+            tasks = Task.getTasksMock().filter({ $0.isDone == true })
+        } label: {
+            Image(systemName: "checkmark.square")
+            Text("Done tasks")
+        }
+    }
+    
+    func activeTasksFilter() -> some View {
+        Button {
+            tasks = Task.getTasksMock().filter({ $0.isDone == false })
+        } label: {
+            Image(systemName: "square")
+            Text("Active tasks")
+        }
+    }
+    
+    func allTasksFilter() -> some View {
+        Button {
+            tasks = Task.getTasksMock()
+        } label: {
+            Text("All tasks")
+            Image(systemName: "list.bullet.rectangle")
+        }
+    }
+}
+
+private extension TaskView {
+    func stringFrom(selectedDate: Date) -> String {
+        CustomDateFormatter.dateStringFrom(date: selectedDate)
+    }
+}
 
 #Preview {
     TaskView()
