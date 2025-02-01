@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct Task: Identifiable {
-    
     let id = UUID()
     var description: String
     var color: Color

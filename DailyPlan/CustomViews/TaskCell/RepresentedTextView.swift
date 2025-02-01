@@ -13,10 +13,14 @@ struct RepresentedTextView: UIViewRepresentable {
     @State private var state: TextViewState
 
     private let placeHolder: String
+    private let linesNumber: Int
     
-    init(text: Binding<String>, placeHolder: String) {
+    init(text: Binding<String>,
+         placeHolder: String,
+         linesNumber: Int) {
         self._text = text
         self.placeHolder = placeHolder
+        self.linesNumber = linesNumber
         
         if text.wrappedValue.isEmpty {
             state = .empty
@@ -29,7 +33,7 @@ struct RepresentedTextView: UIViewRepresentable {
         
         textView.delegate = context.coordinator
         textView.font = .systemFont(ofSize: 20, weight: .semibold)
-        textView.textContainer.maximumNumberOfLines = 5
+        textView.textContainer.maximumNumberOfLines = linesNumber
         
         if text.isEmpty {
             textView.textColor = .gray

@@ -35,8 +35,9 @@ struct TaskView: View {
                 .padding(.horizontal, 8)
             }
             .navigationBarTitleDisplayMode(.inline)
-            .popover(isPresented: $addTaskTapped) {
+            .sheet(isPresented: $addTaskTapped) {
                 TaskConfigurationView()
+                    .presentationDetents([.medium])
             }
             .toolbar {
                 

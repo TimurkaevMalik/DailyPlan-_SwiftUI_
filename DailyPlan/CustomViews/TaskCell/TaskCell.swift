@@ -50,7 +50,8 @@ private extension TaskCell {
     
     func customTextEditor() -> some View {
         CustomTextView(text: $task.description,
-                         color: task.color,
+                       color: task.color,
+                       focusedHeight: .large,
                          placeHolder: "Description")
     }
 }

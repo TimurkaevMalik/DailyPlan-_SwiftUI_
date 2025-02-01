@@ -10,20 +10,25 @@ import SwiftUI
 struct CustomTextView: View {
     
     @FocusState private var isFocused: Bool
-    @State private var editorState: EditorState
+    @State private var state: EditorState
     @State private var buttonsPadding: CGFloat
     @State private var lastText: String
     @Binding private var text: String
     
     private let color: Color
     private let placeHolder: String
+    private let focusedHeight: FocusedHeight
     
-    init(text: Binding<String>, color: Color, placeHolder: String) {
+    init(text: Binding<String>,
+         color: Color,
+         focusedHeight: FocusedHeight,
+         placeHolder: String) {
         self._text = text
         self.color = color
         self.placeHolder = placeHolder
+        self.focusedHeight = focusedHeight
         
-        editorState = .default
+        state = .default
         buttonsPadding = -30
         lastText = ""
     }
@@ -31,14 +36,11 @@ struct CustomTextView: View {
     var body: some View {
         
         RepresentedTextView(text: $text,
-                            placeHolder: placeHolder)
-            .scrollContentBackground(.hidden)
+                            placeHolder: placeHolder,
+                            linesNumber: focusedHeight == .medium ? 1 : 5)
         .focused($isFocused)
-        .frame(height: editorState.rawValue)
+        .frame(height: state == .focused ? focusedHeight.rawValue : 60)
         .padding(.horizontal, 6)
-        .lineSpacing(2)
-        .lineLimit(2)
-        .font(Font.taskText)
         .multilineTextAlignment(.leading)
         .overlay {
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -92,17 +94,25 @@ private extension CustomTextView {
     }
 }
 
+extension CustomTextView {
+    enum FocusedHeight: CGFloat {
+        case medium = 84
+        case large = 184
+    }
+}
+
 private extension CustomTextView {
-    enum EditorState: CGFloat {
-        case focused = 184
-        case `default` = 60
+    enum EditorState {
+        case focused
+        case `default`
     }
     
     func switchStateWithAnimation() {
-        if editorState == .default {
+        
+        if state == .default {
             
             withAnimation {
-                editorState = .focused
+                state = .focused
             } completion: {
                 withAnimation {
                     buttonsPadding = 6
@@ -113,7 +123,7 @@ private extension CustomTextView {
                 buttonsPadding = -30
             } completion: {
                 withAnimation {
-                    editorState = .default
+                    state = .default
                 }
             }
         }
@@ -122,6 +132,7 @@ private extension CustomTextView {
 
 #Preview {
     CustomTextView(text: .constant(""),
-                     color: .red,
-                     placeHolder: "Description")
+                   color: .red,
+                   focusedHeight: .large,
+                   placeHolder: "Description")
 }

@@ -26,8 +26,8 @@ struct CheckMarkButton: View {
             isDone.toggle()
         } label: {
             ZStack(alignment: .center) {
-                color
                 
+                color
                 Capsule()
                     .tint(.clear)
                     .frame(width: size.width,
