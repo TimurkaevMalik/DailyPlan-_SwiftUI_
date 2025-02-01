@@ -9,35 +9,39 @@ import SwiftUI
 
 struct CheckMarkButton: View {
     
-    let color: Color
-    let isDone: Bool
-    let action: () -> Void
+    @State var color: Color
+    @Binding var isDone: Bool
+    
+    private var size: CGSize
+    
+    init(color: Color, isDone: Binding<Bool>) {
+        self.color = color
+        self._isDone = isDone
+        size = CGSize(width: 26, height: 26)
+    }
     
     var body: some View {
         
         Button {
-            
-            action()
-            
+            isDone.toggle()
         } label: {
             ZStack(alignment: .center) {
                 color
                 
                 Capsule()
-                    .stroke(lineWidth: 2)
-                    .background(Color.clear)
-                    .tint(.black)
-                    .frame(width: 26, height: 26)
-                
-                if isDone == true {
-                    
-                    Image(systemName: "checkmark")
-                        .resizable()
-                        .frame(width: 28, height: 26)
-                        .tint(.white)
-                        .padding(.bottom, 4)
-                        .padding(.leading, 4)
-                }
+                    .tint(.clear)
+                    .frame(width: size.width,
+                           height: size.height)
+                    .overlay {
+                        if isDone {
+                            RoundedRectangle(cornerRadius: size.width / 2)
+                                .tint(.iconsSecondary)
+                        } else {
+                            RoundedRectangle(cornerRadius: size.width / 2)
+                                .stroke(lineWidth: 4)
+                                .tint(.iconsSecondary)
+                        }
+                    }
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -45,8 +49,10 @@ struct CheckMarkButton: View {
     }
 }
 
+
 #Preview {
-    CheckMarkButton(color: .blue,
-                    isDone: true,
-                    action: {})
+    @Previewable @State var isDone = true
+
+    CheckMarkButton(color: .ypLightPink,
+                    isDone: $isDone)
 }

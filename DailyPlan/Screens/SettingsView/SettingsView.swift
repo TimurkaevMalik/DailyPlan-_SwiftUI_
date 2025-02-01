@@ -1,5 +1,5 @@
 //
-//  FilesViewController.swift
+//  SettingsView.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 18.08.2024.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct FilesViewController: View {
+struct SettingsView: View {
     var body: some View {
         Color.white
     }
 }
 
 #Preview {
-    FilesViewController()
+    SettingsView()
 }

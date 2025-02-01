@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct RootView: View {
+    @State var text: String = ""
     var body: some View {
         TabBarView()
     }

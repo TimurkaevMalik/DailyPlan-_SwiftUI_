@@ -27,47 +27,60 @@ struct TaskCell: View {
     }
 }
 
-extension TaskCell {
-    private func scheduleButton() -> some View {
+private extension TaskCell {
+    func scheduleButton() -> some View {
         Button {
-            print("Change timer")
-        } label: {
             
-            if let schedule = task.schedule {
-                Text(schedule)
+        } label: {
+            if let scheduleString = stringFrom(schedule: task.schedule) {
+                Text(scheduleString)
                     .padding(.horizontal, 12)
                     .tint(.black)
-                
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(task.color)
-                    )
+                            .stroke(task.color))
             }
         }
     }
     
-    private func checkMarkButton() -> some View {
+    func checkMarkButton() -> some View {
         CheckMarkButton(color: task.color,
-                        isDone: task.isDone) {
+                        isDone: $task.isDone)
+    }
+    
+    func customTextEditor() -> some View {
+        CustomTextView(text: $task.description,
+                         color: task.color,
+                         placeHolder: "Description")
+    }
+}
+
+private extension TaskCell {
+    func stringFrom(schedule: Schedule) -> String? {
+        
+        if let start = schedule.start,
+           let end = schedule.end {
             
-            if task.isDone == true {
-                task.isDone = false
-            } else if task.isDone == false {
-                task.isDone = true
-            }
+            let endString = timeStringFrom(date: end)
+            let startString = timeStringFrom(date: start)
+            
+            return "\(startString) - \(endString)"
+            
+        } else if let start = schedule.start {
+            return timeStringFrom(date: start)
+        } else {
+            return nil
         }
     }
     
-    private func customTextEditor() -> some View {
-        CustomTextEditor(text: task.description,
-                         color: task.color)
+    func timeStringFrom(date: Date) -> String {
+        CustomDateFormatter.timeStringFrom(date: date)
     }
 }
 
 #Preview {
-    TaskCell(task: Task(name: "name",
-                        description: "description",
+    TaskCell(task: Task(description: "description",
                         color: .red,
-                        schedule: "12:00",
+                        schedule: .init(start: .distantPast, end: .distantFuture),
                         isDone: false))
 }
