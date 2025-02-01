@@ -23,7 +23,7 @@ class CustomDateFormatter {
     }
     
     static func dateStringFrom(date: Date) -> String {
-        formatter.dateFormat = "DD.MM.YYYY"
+        formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)
     }
 }
