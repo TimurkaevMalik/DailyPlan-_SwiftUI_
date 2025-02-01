@@ -30,7 +30,6 @@ struct CustomTextView: View {
     
     var body: some View {
         
-        Text(text)
         RepresentedTextView(text: $text,
                             placeHolder: placeHolder)
             .scrollContentBackground(.hidden)
