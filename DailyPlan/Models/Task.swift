@@ -10,98 +10,84 @@ import SwiftUI
 struct Task: Identifiable {
     
     let id = UUID()
-    let name: String?
-    let description: String
-    let color: Color
-    let schedule: String?
+    var description: String
+    var color: Color
+    var schedule: Schedule
     var isDone: Bool
-    
+}
+
+extension Task {
     static func getTasksMock() -> [Task] {
-        
         [
-            Task(name: "First",
-                     description: "Eat food",
-                     color: .blue,
-                     schedule: "17:00 - 18:00",
-                     isDone: true),
+            Task(description: "Eat food",
+                 color: .blue,
+                 schedule: Schedule(start: .now, end: .now),
+                 isDone: true),
             
-            Task(name: "Second",
-                     description: "Go to school",
-                     color: .orange,
-                     schedule: "17:00 - 18:00",
-                     isDone: false),
+            Task(description: "Go to school",
+                 color: .orange,
+                 schedule: Schedule(start: .now, end: .now),
+                 isDone: false),
             
-            Task(name: nil,
-                     description: "Study at school again and again till I die",
-                     color: .purple,
-                     schedule: nil,
-                     isDone: false),
+            Task(description: "Study at school again and again till I die",
+                 color: .purple,
+                 schedule: Schedule(start: .now, end: nil),
+                 isDone: false),
             
-            Task(name: nil,
-                     description: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
-                     color: .green,
-                     schedule: nil,
-                     isDone: false),
+            Task(description: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
+                 color: .green,
+                 schedule: Schedule(start: nil, end: nil),
+                 isDone: false),
             
-            Task(name: "Dishes",
-                     description: "Wash the dishes",
-                     color: .cyan,
-                     schedule: nil,
-                     isDone: false),
+            Task(description: "Wash the dishes",
+                 color: .cyan,
+                 schedule: Schedule(start: nil, end: .now),
+                 isDone: false),
             
-            Task(name: "Break the dishes",
-                     description: "Lesten to music break the dishes",
-                     color: .accentColor,
-                     schedule: "17:00 - 18:00",
-                     isDone: true),
+            Task(description: "Lesten to music break the dishes",
+                 color: .accentColor,
+                 schedule: Schedule(start: .now, end: .now),
+                 isDone: true),
             
-            Task(name: "Break the dishes",
-                     description: "Lesten to music break the dishes",
-                     color: .accentColor,
-                     schedule: "17:00 - 18:00",
-                     isDone: true),
+            Task(description: "Lesten to music break the dishes",
+                 color: .accentColor,
+                 schedule: Schedule(start: nil, end: .now),
+                 isDone: true),
             
-            Task(name: "First",
-                     description: "Eat food",
-                     color: .blue,
-                     schedule: "17:00 - 18:00",
-                     isDone: true),
+            Task(description: "Eat food",
+                 color: .blue,
+                 schedule: Schedule(start: nil, end: nil),
+                 isDone: true),
             
-            Task(name: "Second",
-                     description: "Go to school",
-                     color: .orange,
-                     schedule: "17:00 - 18:00",
-                     isDone: false),
+            Task(description: "Go to school",
+                 color: .orange,
+                 schedule: Schedule(start: nil, end: .now),
+                 isDone: false),
             
-            Task(name: nil,
-                     description: "Study at school again and again till I die",
-                     color: .purple,
-                     schedule: nil,
-                     isDone: false),
+            Task(description: "Study at school again and again till I die",
+                 color: .purple,
+                 schedule: Schedule(start: nil, end: .now),
+                 isDone: false),
             
-            Task(name: nil,
-                     description: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
-                     color: .green,
-                     schedule: nil,
-                     isDone: false),
+            Task(description: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
+                 color: .green,
+                 schedule: Schedule(start: nil, end: nil),
+                 isDone: false),
             
-            Task(name: "Dishes",
-                     description: "Wash the dishes",
-                     color: .cyan,
-                     schedule: nil,
-                     isDone: false),
+            Task(description: "Wash the dishes",
+                 color: .cyan,
+                 schedule: Schedule(start: .now, end: nil),
+                 isDone: false),
             
-            Task(name: "Break the dishes",
-                     description: "Lesten to music break the dishes",
-                     color: .accentColor,
-                     schedule: "17:00 - 18:00",
-                     isDone: true),
+            Task(description: "Lesten to music break the dishes",
+                 color: .accentColor,
+                 schedule: Schedule(start: .now, end: nil),
+                 isDone: true),
             
-            Task(name: "Break the dishes",
-                     description: "Lesten to music break the dishes",
-                     color: .accentColor,
-                     schedule: "17:00 - 18:00",
-                     isDone: true)
+            Task(description: "Lesten to music break the dishes",
+                 color: .accentColor,
+                 schedule: Schedule(start: .now, end: nil),
+                 isDone: true)
         ]
     }
 }

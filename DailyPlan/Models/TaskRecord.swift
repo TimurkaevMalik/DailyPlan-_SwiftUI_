@@ -9,7 +9,6 @@ import Foundation
 
 
 struct TaskRecord {
-    
     let id: UUID
     let date: Date
 }

@@ -9,7 +9,6 @@ import Foundation
 
 
 struct TaskCategory {
-    
-    let title: String
-    let tasks: [Task]
+    var title: String
+    var tasks: [Task]
 }

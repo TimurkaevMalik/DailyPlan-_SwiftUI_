@@ -9,51 +9,50 @@ import SwiftUI
 
 struct CheckMarkButton: View {
     
-    let color: Color
-    let isDone: Bool
-    let size: CGSize
-    let action: () -> Void
+    @State var color: Color
+    @Binding var isDone: Bool
+    
+    private var size: CGSize
+    
+    init(color: Color, isDone: Binding<Bool>) {
+        self.color = color
+        self._isDone = isDone
+        size = CGSize(width: 26, height: 26)
+    }
     
     var body: some View {
         
         Button {
-            
-            action()
-            
+            isDone.toggle()
         } label: {
-            
-            GeometryReader{geo in
+            ZStack(alignment: .center) {
+                color
                 
-                let width = geo.size.width
-                let height = geo.size.height
-                
-                color.scaledToFill()
-            
                 Capsule()
-                    .size(CGSize(width: width/2.5, height: height/2.5))
-                    .stroke(lineWidth: 2)
-                    .background(Color.clear)
-                    .padding(.vertical, height/3.3)
-                    .padding(.horizontal, width/3.3)
-                    .tint(.black)
-                
-                if isDone == true {
-                    
-                    Image(systemName: "checkmark")
-                        .tint(.white)
-                        .font(Font.system(size: width/2.3, weight: .bold))
-                        .position(CGPoint(x: height/2 + 2 , y: width/2 - 2 ))
-                }
+                    .tint(.clear)
+                    .frame(width: size.width,
+                           height: size.height)
+                    .overlay {
+                        if isDone {
+                            RoundedRectangle(cornerRadius: size.width / 2)
+                                .tint(.iconsSecondary)
+                        } else {
+                            RoundedRectangle(cornerRadius: size.width / 2)
+                                .stroke(lineWidth: 4)
+                                .tint(.iconsSecondary)
+                        }
+                    }
             }
         }
-        .frame(width: size.width, height: size.height)
-        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .frame(width: 60, height: 60)
     }
 }
 
+
 #Preview {
-    CheckMarkButton(color: .blue,
-                    isDone: true,
-                    size: CGSize(width: 100, height: 100),
-                    action: {})
+    @Previewable @State var isDone = true
+
+    CheckMarkButton(color: .ypLightPink,
+                    isDone: $isDone)
 }
