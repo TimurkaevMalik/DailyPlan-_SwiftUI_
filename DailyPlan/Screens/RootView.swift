@@ -9,8 +9,9 @@ import SwiftUI
 
 
 struct RootView: View {
+    @State var text: String = ""
     var body: some View {
-        TabBarView()
+        CustomTextView(text: $text, color: .ypLightPink, placeHolder: "Description")
     }
 }
 

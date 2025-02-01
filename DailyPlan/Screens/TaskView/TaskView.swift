@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TaskView: View {
     
-    @State var isPopoverPresented = false
+    @State private var addTaskTapped = false
+    @State private var isPickerPresented = false
     @State private var selectedDate: Date = Date()
     @State private var tasks: [Task] = {
         let array = Task.getTasksMock()
@@ -34,6 +35,9 @@ struct TaskView: View {
                 .padding(.horizontal, 8)
             }
             .navigationBarTitleDisplayMode(.inline)
+            .popover(isPresented: $addTaskTapped) {
+                TaskConfigurationView()
+            }
             .toolbar {
                 
                 ToolbarItem(placement: .topBarLeading) {
@@ -60,18 +64,14 @@ private extension TaskView {
             .background(.ypMilk)
             .clipShape(.rect(cornerRadius: 10))
             .onTapGesture {
-                isPopoverPresented.toggle()
+                isPickerPresented.toggle()
             }
             .onChange(of: selectedDate) { _, _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    isPopoverPresented.toggle()
+                    isPickerPresented.toggle()
                 }
-                
-                print(selectedDate)
-                print(stringFrom(selectedDate: selectedDate))
-                print()
             }
-            .popover(isPresented: $isPopoverPresented, attachmentAnchor: .point(.bottom),
+            .popover(isPresented: $isPickerPresented, attachmentAnchor: .point(.bottom),
                      arrowEdge: .top) {
                 DatePicker(
                     "",
@@ -85,7 +85,7 @@ private extension TaskView {
     
     func addTaskButton() -> some View {
         Button {
-            
+            addTaskTapped.toggle()
         } label: {
             Image(systemName: "plus")
                 .frame(width: 70, height: 40)

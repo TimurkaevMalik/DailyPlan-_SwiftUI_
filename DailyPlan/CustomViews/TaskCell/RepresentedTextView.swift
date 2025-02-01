@@ -1,0 +1,99 @@
+//
+//  RepresentedTextView.swift
+//  DailyPlan
+//
+//  Created by Malik Timurkaev on 01.02.2025.
+//
+
+import SwiftUI
+
+struct RepresentedTextView: UIViewRepresentable {
+    
+    @Binding private var text: String
+    @State private var state: TextViewState
+
+    private let placeHolder: String
+    
+    init(text: Binding<String>, placeHolder: String) {
+        self._text = text
+        self.placeHolder = placeHolder
+        
+        if text.wrappedValue.isEmpty {
+            state = .empty
+        } else {
+            state = .notEmpty
+        }
+    }
+    
+    func makeUIView(context: Context) -> UITextView { let textView = UITextView()
+        
+        textView.delegate = context.coordinator
+        textView.font = .systemFont(ofSize: 20, weight: .semibold)
+        textView.textContainer.maximumNumberOfLines = 5
+        
+        if text.isEmpty {
+            textView.textColor = .gray
+            textView.text = placeHolder
+        }
+        
+        return textView
+    }
+    
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        if state == .notEmpty {
+            uiView.textColor = .black
+            uiView.text = text
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(text: $text,
+                           state: $state,
+                           placeHolder: placeHolder)
+    }
+    
+    class Coordinator: NSObject, UITextViewDelegate {
+        
+        @Binding private var text: String
+        @Binding private var state: TextViewState
+
+        private let placeHolder: String
+        
+        init(text: Binding<String>, state: Binding<TextViewState>, placeHolder: String) {
+            self._text = text
+            self._state = state
+            self.placeHolder = placeHolder
+        }
+        
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            
+            if state == .empty {
+                state = .notEmpty
+                textView.text = ""
+            }
+        }
+        
+        func textViewDidChange(_ textView: UITextView) {
+            textView.textColor = .black
+            text = textView.text
+        }
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            
+            let finalText = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            if finalText.isEmpty {
+                state = .empty
+                textView.textColor = .gray
+                textView.text = placeHolder
+            } else {
+                text = finalText
+            }
+        }
+    }
+    
+    enum TextViewState {
+        case notEmpty
+        case empty
+    }
+}

@@ -49,8 +49,9 @@ private extension TaskCell {
     }
     
     func customTextEditor() -> some View {
-        CustomTextEditor(text: $task.description,
-                         color: task.color)
+        CustomTextView(text: $task.description,
+                         color: task.color,
+                         placeHolder: "Description")
     }
 }
 
