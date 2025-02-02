@@ -31,7 +31,7 @@ struct CustomTextField: View {
                 .tint(color)
                 .frame(height: 60)
                 .padding(.horizontal, 10)
-                .placeHolder(present: isFocused.wrappedValue) {
+                .placeHolder(present: isFocused.wrappedValue || !text.isEmpty) {
                     Text("Category")
                         .foregroundStyle(.gray)
                         .font(.taskText)
