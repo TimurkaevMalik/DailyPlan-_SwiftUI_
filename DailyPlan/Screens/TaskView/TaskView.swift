@@ -9,13 +9,17 @@ import SwiftUI
 
 struct TaskView: View {
     
-    @State private var addTaskTapped = false
-    @State private var isPickerPresented = false
-    @State private var selectedDate: Date = Date()
-    @State private var tasks: [Task] = {
-        let array = Task.getTasksMock()
-        return array
-    }()
+    @State private var addTaskTapped: Bool
+    @State private var isPickerPresented: Bool
+    @State private var selectedDate: Date
+    @State private var tasks: [TaskInfo]
+    
+    init() {
+        addTaskTapped = false
+        isPickerPresented = false
+        selectedDate = Date()
+        tasks = TaskInfo.getTasksMock()
+    }
     
     var body: some View {
         NavigationStack {
@@ -36,7 +40,7 @@ struct TaskView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $addTaskTapped) {
-                TaskConfigurationView()
+                TaskConfigurationView(tasks: $tasks)
                     .presentationDetents([.medium])
             }
             .toolbar {
@@ -84,6 +88,7 @@ private extension TaskView {
             }
     }
     
+    ///TODO: change image on next view appear
     func addTaskButton() -> some View {
         Button {
             addTaskTapped.toggle()
@@ -114,7 +119,7 @@ private extension TaskView {
     
     func doneTasksFilter() -> some View {
         Button {
-            tasks = Task.getTasksMock().filter({ $0.isDone == true })
+            tasks = TaskInfo.getTasksMock().filter({ $0.isDone == true })
         } label: {
             Image(systemName: "checkmark.square")
             Text("Done tasks")
@@ -123,7 +128,7 @@ private extension TaskView {
     
     func activeTasksFilter() -> some View {
         Button {
-            tasks = Task.getTasksMock().filter({ $0.isDone == false })
+            tasks = TaskInfo.getTasksMock().filter({ $0.isDone == false })
         } label: {
             Image(systemName: "square")
             Text("Active tasks")
@@ -132,7 +137,7 @@ private extension TaskView {
     
     func allTasksFilter() -> some View {
         Button {
-            tasks = Task.getTasksMock()
+            tasks = TaskInfo.getTasksMock()
         } label: {
             Text("All tasks")
             Image(systemName: "list.bullet.rectangle")

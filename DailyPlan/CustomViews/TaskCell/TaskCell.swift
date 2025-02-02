@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskCell: View {
     
-    @State var task: Task
+    @State var task: TaskInfo
     
     var body: some View {
         
@@ -35,7 +35,7 @@ private extension TaskCell {
             if let scheduleString = stringFrom(schedule: task.schedule) {
                 Text(scheduleString)
                     .padding(.horizontal, 12)
-                    .tint(.black)
+                    .tint(.ypBlack)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(task.color))
@@ -80,7 +80,7 @@ private extension TaskCell {
 }
 
 #Preview {
-    TaskCell(task: Task(description: "description",
+    TaskCell(task: TaskInfo(description: "description",
                         color: .red,
                         schedule: .init(start: .distantPast, end: .distantFuture),
                         isDone: false))

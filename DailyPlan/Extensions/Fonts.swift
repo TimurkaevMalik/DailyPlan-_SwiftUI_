@@ -40,6 +40,6 @@ extension Font {
     }
     
     static var taskText: Font {
-        return Font.custom("LexendDeca-SemiBold", size: 20)
+        return Font.system(size: 20, weight: .semibold)
     }
 }

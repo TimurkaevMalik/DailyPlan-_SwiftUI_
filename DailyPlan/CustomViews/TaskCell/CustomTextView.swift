@@ -38,9 +38,10 @@ struct CustomTextView: View {
         RepresentedTextView(text: $text,
                             placeHolder: placeHolder,
                             linesNumber: focusedHeight == .medium ? 1 : 5)
+        .tint(color)
         .focused($isFocused)
         .frame(height: state == .focused ? focusedHeight.rawValue : 60)
-        .padding(.horizontal, 6)
+        .padding(.horizontal, 10)
         .multilineTextAlignment(.leading)
         .overlay {
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -64,6 +65,13 @@ struct CustomTextView: View {
             lastText = text
             switchStateWithAnimation()
         })
+    }
+}
+
+extension CustomTextView {
+    enum FocusedHeight: CGFloat {
+        case medium = 84
+        case large = 184
     }
 }
 
@@ -94,13 +102,6 @@ private extension CustomTextView {
     }
 }
 
-extension CustomTextView {
-    enum FocusedHeight: CGFloat {
-        case medium = 84
-        case large = 184
-    }
-}
-
 private extension CustomTextView {
     enum EditorState {
         case focused
@@ -108,7 +109,6 @@ private extension CustomTextView {
     }
     
     func switchStateWithAnimation() {
-        
         if state == .default {
             
             withAnimation {
@@ -128,11 +128,15 @@ private extension CustomTextView {
             }
         }
     }
+    ///TODO
+    func endEditing() {
+        UIApplication.shared.endEditing()
+    }
 }
 
 #Preview {
     CustomTextView(text: .constant(""),
-                   color: .red,
+                   color: .ypWarmYellow,
                    focusedHeight: .large,
                    placeHolder: "Description")
 }

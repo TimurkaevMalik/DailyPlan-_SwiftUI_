@@ -30,9 +30,11 @@ struct RepresentedTextView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> UITextView { let textView = UITextView()
-        
+    
         textView.delegate = context.coordinator
         textView.font = .systemFont(ofSize: 20, weight: .semibold)
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .init(top: 8, left: 0, bottom: 0, right: 0)
         textView.textContainer.maximumNumberOfLines = linesNumber
         
         if text.isEmpty {
@@ -45,7 +47,7 @@ struct RepresentedTextView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UITextView, context: Context) {
         if state == .notEmpty {
-            uiView.textColor = .black
+            uiView.textColor = .ypBlack
             uiView.text = text
         }
     }
@@ -78,7 +80,7 @@ struct RepresentedTextView: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            textView.textColor = .black
+            textView.textColor = .ypBlack
             text = textView.text
         }
         
@@ -100,4 +102,11 @@ struct RepresentedTextView: UIViewRepresentable {
         case notEmpty
         case empty
     }
+}
+
+#Preview {
+    RepresentedTextView(
+        text: .constant(""),
+        placeHolder: "Placeholder",
+        linesNumber: 5)
 }
