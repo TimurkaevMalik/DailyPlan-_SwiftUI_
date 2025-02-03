@@ -29,28 +29,30 @@ struct CustomTextField: View {
             TextField("", text: $text)
                 .focused(isFocused)
                 .tint(color)
+                .font(.taskText)
                 .frame(height: 60)
-                .padding(.horizontal, 10)
+                .padding(.leading, 10)
                 .placeHolder(present: isFocused.wrappedValue || !text.isEmpty) {
                     Text("Category")
                         .foregroundStyle(.gray)
                         .font(.taskText)
                         .padding(.horizontal, 10)
-                        .padding(.top, 8)
                 }
-            
-            if isFocused.wrappedValue {
-                Button {
+                
+            Button {
+                if isFocused.wrappedValue {
                     text = ""
                     isFocused.wrappedValue.toggle()
-                } label: {
-                    Image(systemName: "x.square")
-                        .font(.system(size: 20, weight: .medium))
-                        .frame(width: 60, height: 60)
-                        .foregroundStyle(.messGrayText)
                 }
+            } label: {
+                Image(systemName: "x.square")
+                    .foregroundStyle(.messGrayText)
+                    .font(.system(size: 20, weight: .medium))
+                    .frame(width: 40, height: 40)
             }
+            .padding(.trailing, isFocused.wrappedValue ? 10 : -30)
         }
+        .clipped()
         .overlay {
             RoundedRectangle(cornerRadius: 16)
                 .stroke(color)

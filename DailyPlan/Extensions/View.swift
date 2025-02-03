@@ -8,9 +8,9 @@
 import SwiftUI
 
 extension View {
-    func placeHolder<Content: View>(present: Bool, @ViewBuilder placeHolder: () -> Content) -> some View {
+    func placeHolder<Content: View>(present: Bool, alignment: Alignment = Alignment(horizontal: .leading, vertical: .center), @ViewBuilder placeHolder: () -> Content) -> some View {
         
-        ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+        ZStack(alignment: alignment) {
             placeHolder().opacity(present ? 0 : 1)
             self
         }
