@@ -50,7 +50,8 @@ private extension CategoryView {
             self.category = category
         } label: {
             HStack {
-                if category == self.category.trimmingCharacters(in: .whitespacesAndNewlines) {
+                if category.lowercased() == self.category.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+                    
                     Circle()
                         .frame(height: 20)
                 } else {

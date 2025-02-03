@@ -55,8 +55,6 @@ struct TaskConfigurationView: View {
                     
                     ///TODO: if categories != nil
                     if true == true {
-                        ///TODO: change color to lightGreen if category exists or chosen
-                        
                         storedCategoriesButton()
                             .padding(.leading, categoriesButtonState == .hidden ? 0 : 10)
                             .onTapGesture {
