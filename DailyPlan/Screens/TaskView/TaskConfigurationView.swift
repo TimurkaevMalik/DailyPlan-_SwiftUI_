@@ -15,6 +15,8 @@ struct TaskConfigurationView: View {
     @State private var task: TaskInfo
     @State private var category: String
     @State private var categoriesButtonState: Visibility
+    
+    private var categories: [String]
     private let colors: [Color]
     
     init(tasks: Binding<[TaskInfo]>) {
@@ -22,9 +24,14 @@ struct TaskConfigurationView: View {
         categoriesButtonState = .visible
         addTaskTapped = false
         category = ""
+        
         colors = [.ypLightPink, .ypCyan,
                   .ypRed, .ypWarmYellow,
                   .ypGreen]
+        
+        categories = ["Education", "Work",
+                      "Housework", "Unnecessary"]
+        
         task = TaskInfo(description: "",
                         color: .ypWarmYellow,
                         schedule: .init(),
@@ -108,11 +115,16 @@ private extension TaskConfigurationView {
                 Image(systemName: "list.bullet")
                     .resizable()
                     .frame(width: 34, height: 36)
-                    .foregroundStyle(task.color)
+                    .foregroundStyle(doesCategoryExist() ? task.color : .grayPlaceholder)
             })
             .clipped()
     }
     
+    func doesCategoryExist() -> Bool {
+        return categories.contains {
+            $0.lowercased() == category.lowercased()
+        }
+    }
     ///TODO: move to file
     func scheduleView() -> some View {
         HStack {

@@ -38,7 +38,7 @@ struct RepresentedTextView: UIViewRepresentable {
         textView.textContainer.maximumNumberOfLines = linesNumber
         
         if text.isEmpty {
-            textView.textColor = .gray
+            textView.textColor = .grayPlaceholder
             textView.text = placeHolder
         }
         
@@ -90,7 +90,7 @@ struct RepresentedTextView: UIViewRepresentable {
             
             if finalText.isEmpty {
                 state = .empty
-                textView.textColor = .gray
+                textView.textColor = .grayPlaceholder
                 textView.text = placeHolder
             } else {
                 text = finalText
