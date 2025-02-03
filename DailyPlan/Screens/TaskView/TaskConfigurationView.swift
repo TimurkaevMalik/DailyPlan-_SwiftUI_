@@ -51,6 +51,7 @@ struct TaskConfigurationView: View {
                         ///TODO: change color to lightGreen if category exists or chosen
                         
                         storedCategoriesButton()
+                            .padding(.leading, categoriesButtonState == .hidden ? 0 : 10)
                             .onTapGesture {
                                 if categoriesButtonState == .visible {
                                     addTaskTapped.toggle()
@@ -109,7 +110,6 @@ private extension TaskConfigurationView {
                     .frame(width: 34, height: 36)
                     .foregroundStyle(task.color)
             })
-            .padding(.leading, categoriesButtonState == .hidden ? 0 : 10)
             .clipped()
     }
     

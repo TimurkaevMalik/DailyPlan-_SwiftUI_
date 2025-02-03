@@ -176,10 +176,18 @@
 			children = (
 				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
 				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
+			);
+			path = TaskCell;
+			sourceTree = "<group>";
+		};
+		BCB1D24C2D50935400315EAE /* TextContainers */ = {
+			isa = PBXGroup;
+			children = (
+				BC64305F2D4FC35000ECA960 /* CustomTextField.swift */,
 				BCA93C192C74F6B70028DE2D /* CustomTextView.swift */,
 				BCE284052D4E68ED00224553 /* RepresentedTextView.swift */,
 			);
-			path = TaskCell;
+			path = TextContainers;
 			sourceTree = "<group>";
 		};
 		BCB295F22D4D34B400B75559 /* Services */ = {
@@ -204,7 +212,7 @@
 		BCEF08B12C74DBAA0014A8AA /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				BC64305F2D4FC35000ECA960 /* CustomTextField.swift */,
+				BCB1D24C2D50935400315EAE /* TextContainers */,
 				BCF0725E2C70D6F800999035 /* TabBar */,
 				BCA93C1B2C7503D30028DE2D /* TaskCell */,
 			);
@@ -225,8 +233,8 @@
 		BCF0725E2C70D6F800999035 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				BCF072642C70F0F300999035 /* TabBarButton.swift */,
 				BCF0725F2C70D72800999035 /* TabBarView.swift */,
+				BCF072642C70F0F300999035 /* TabBarButton.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
