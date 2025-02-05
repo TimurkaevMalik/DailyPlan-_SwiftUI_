@@ -76,7 +76,7 @@ private extension TaskCell {
     }
     
     func timeString(from date: Date) -> String {
-        CustomDateFormatter.timeString(from: date)
+        DateFormatManager.timeString(from: date)
     }
 }
 

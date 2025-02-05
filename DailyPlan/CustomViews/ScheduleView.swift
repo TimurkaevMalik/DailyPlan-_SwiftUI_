@@ -78,11 +78,11 @@ private extension ScheduleView  {
     }
     
     func stringFromDate(_ date: Date) -> String {
-        CustomDateFormatter.string(from: date)
+        DateFormatManager.dateString(from: date)
     }
     
     func timeStringFrom(date: Date) -> String {
-        CustomDateFormatter.timeString(from: date)
+        DateFormatManager.timeString(from: date)
     }
 }
 
