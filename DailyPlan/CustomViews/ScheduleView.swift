@@ -10,9 +10,7 @@ import SwiftUI
 struct ScheduleView: View {
     
     @Binding private var schedule: Schedule
-    @State private var date: Date?
-    @State private var start: Date?
-    @State private var end: Date?
+    @State private var isPickerPresented: Bool
     
     private let color: Color
     
@@ -20,31 +18,25 @@ struct ScheduleView: View {
          schedule: Binding<Schedule>) {
         self._schedule = schedule
         self.color = color
+        isPickerPresented = false
     }
     
     var body: some View {
-        HStack {
-            Text("Schedule")
+        HStack(spacing: 0) {
             
+            Text("Schedule")
+                
             Spacer(minLength: 0)
             
-            Button {
-                
-            } label: {
-                Text("Schedule")
-            }
-
-            Button {
-                
-            } label: {
-                Text("Schedule")
-            }
+            buttonDate(selectedDate())
             
-            Button {
-                
-            } label: {
-                Text("Schedule")
-            }
+            buttonTime(selectedStart())
+                .padding(.leading, 10)
+            
+            Text(":")
+                .padding(.horizontal, 2)
+            
+            buttonTime(selectedEnd())
         }
         .frame(height: 60)
         .font(Font.taskText)
@@ -53,6 +45,31 @@ struct ScheduleView: View {
             RoundedRectangle(cornerRadius: 16)
                 .stroke(color)
         })
+        .onChange(of: schedule.date) { _, _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                isPickerPresented.toggle()
+            }
+        }
+        .onChange(of: schedule.start) { _, _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                isPickerPresented.toggle()
+            }
+        }
+        .onChange(of: schedule.end) { _, _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                isPickerPresented.toggle()
+            }
+        }
+        .popover(isPresented: $isPickerPresented, attachmentAnchor: .point(.topLeading),
+                 arrowEdge: .bottom) {
+            DatePicker(
+                "",
+                selection: .constant(Date()),
+                displayedComponents: .hourAndMinute)
+            .datePickerStyle(.graphical)
+            .presentationCompactAdaptation(.popover)
+            .frame(width: 330)
+        }
     }
 }
 
@@ -65,42 +82,55 @@ struct ScheduleView: View {
 }
 
 private extension ScheduleView  {
-    func dateString() -> String {
-        return timeStringFrom(date: date ?? Date())
+    func buttonDate(_ date: String) -> some View {
+        Button {
+            
+        } label: {
+            Text(date)
+                .frame(width: 120, height: 32)
+                .foregroundStyle(.ypBlack)
+                .background(.ypMilk)
+                .clipShape(.rect(cornerRadius: 10))
+                .onTapGesture {
+                    isPickerPresented.toggle()
+                }
+        }
     }
     
-    func startTimeString() -> String {
-        return timeStringFrom(date: start ?? Date())
-    }
-    
-    func endTimeString() -> String {
-        return timeStringFrom(date: end ?? Date())
-    }
-    
-    func stringFromDate(_ date: Date) -> String {
-        DateFormatManager.dateString(from: date)
-    }
-    
-    func timeStringFrom(date: Date) -> String {
-        DateFormatManager.timeString(from: date)
+    func buttonTime(_ time: String) -> some View {
+        Button {
+            
+        } label: {
+            Text(time)
+                .frame(width: 70, height: 32)
+                .foregroundStyle(.ypBlack)
+                .background(.ypMilk)
+                .clipShape(.rect(cornerRadius: 10))
+                .onTapGesture {
+                    isPickerPresented.toggle()
+                }
+        }
     }
 }
 
-
-//DatePicker(
-//    "",
-//    selection: .constant(.distantFuture),
-//    displayedComponents: .date)
-//.frame(width: 80)
-//
-//DatePicker(
-//    "",
-//    selection: .constant(.distantFuture),
-//    displayedComponents: .hourAndMinute)
-//.frame(width: 80)
-//
-//DatePicker(
-//    "",
-//    selection: .constant(.distantFuture),
-//    displayedComponents: .hourAndMinute)
-//.frame(width: 80)
+private extension ScheduleView  {
+    func selectedDate() -> String {
+        return dateString(from: schedule.date ?? Date())
+    }
+    
+    func selectedStart() -> String {
+        return timeString(from: schedule.start ?? Date())
+    }
+    
+    func selectedEnd() -> String {
+        return timeString(from: schedule.end ?? Date())
+    }
+    
+    func dateString(from date: Date) -> String {
+        DateFormatManager.shared.dateString(from: date)
+    }
+    
+    func timeString(from date: Date) -> String {
+        DateFormatManager.shared.timeString(from: date)
+    }
+}

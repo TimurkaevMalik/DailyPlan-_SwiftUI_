@@ -147,7 +147,7 @@ private extension TaskView {
 
 private extension TaskView {
     func selectedDateString() -> String {
-        DateFormatManager.dateString(from: selectedDate)
+        DateFormatManager.shared.dateString(from: selectedDate)
     }
 }
 
