@@ -64,7 +64,7 @@ struct TaskView: View {
 private extension TaskView {
     
     func customDatePicker() -> some View {
-        Text(stringFrom(selectedDate: selectedDate))
+        Text(selectedDateString())
             .frame(width: 120, height: 32)
             .background(.ypMilk)
             .clipShape(.rect(cornerRadius: 10))
@@ -146,8 +146,8 @@ private extension TaskView {
 }
 
 private extension TaskView {
-    func stringFrom(selectedDate: Date) -> String {
-        CustomDateFormatter.dateStringFrom(date: selectedDate)
+    func selectedDateString() -> String {
+        CustomDateFormatter.string(from: selectedDate)
     }
 }
 

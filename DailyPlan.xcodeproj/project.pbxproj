@@ -26,6 +26,7 @@
 		BCB295F42D4D34D100B75559 /* CustomDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F32D4D34CD00B75559 /* CustomDateFormatter.swift */; };
 		BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F52D4D39C900B75559 /* Schedule.swift */; };
 		BCC288FA2C7304A3008E7176 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC288F92C7304A3008E7176 /* TaskInfo.swift */; };
+		BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */; };
 		BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */; };
 		BCE284062D4E68ED00224553 /* RepresentedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE284052D4E68ED00224553 /* RepresentedTextView.swift */; };
 		BCF072602C70D72800999035 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarView.swift */; };
@@ -76,6 +77,7 @@
 		BCB295F32D4D34CD00B75559 /* CustomDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDateFormatter.swift; sourceTree = "<group>"; };
 		BCB295F52D4D39C900B75559 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		BCC288F92C7304A3008E7176 /* TaskInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
+		BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskConfigurationView.swift; sourceTree = "<group>"; };
 		BCE284052D4E68ED00224553 /* RepresentedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepresentedTextView.swift; sourceTree = "<group>"; };
 		BCF0725F2C70D72800999035 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		BCEF08B12C74DBAA0014A8AA /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */,
 				BCB1D24C2D50935400315EAE /* TextContainers */,
 				BCF0725E2C70D6F800999035 /* TabBar */,
 				BCA93C1B2C7503D30028DE2D /* TaskCell */,
@@ -411,6 +414,7 @@
 				BCF072602C70D72800999035 /* TabBarView.swift in Sources */,
 				BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */,
 				BCC288FA2C7304A3008E7176 /* TaskInfo.swift in Sources */,
+				BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
 				BCE284062D4E68ED00224553 /* RepresentedTextView.swift in Sources */,
 				BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */,

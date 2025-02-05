@@ -32,7 +32,7 @@ private extension TaskCell {
         Button {
             
         } label: {
-            if let scheduleString = stringFrom(schedule: task.schedule) {
+            if let scheduleString = stringFromSchedule() {
                 Text(scheduleString)
                     .padding(.horizontal, 12)
                     .tint(.ypBlack)
@@ -57,25 +57,26 @@ private extension TaskCell {
 }
 
 private extension TaskCell {
-    func stringFrom(schedule: Schedule) -> String? {
+    func stringFromSchedule() -> String? {
+        let schedule = task.schedule
         
         if let start = schedule.start,
            let end = schedule.end {
             
-            let endString = timeStringFrom(date: end)
-            let startString = timeStringFrom(date: start)
+            let startString = timeString(from: start)
+            let endString = timeString(from: end)
             
             return "\(startString) - \(endString)"
             
         } else if let start = schedule.start {
-            return timeStringFrom(date: start)
+            return timeString(from: start)
         } else {
             return nil
         }
     }
     
-    func timeStringFrom(date: Date) -> String {
-        CustomDateFormatter.timeStringFrom(date: date)
+    func timeString(from date: Date) -> String {
+        CustomDateFormatter.timeString(from: date)
     }
 }
 

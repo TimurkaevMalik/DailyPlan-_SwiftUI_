@@ -17,12 +17,12 @@ class CustomDateFormatter {
         return formatter
     }()
     
-    static func timeStringFrom(date: Date) -> String {
+    static func timeString(from date: Date) -> String {
         formatter.dateFormat = "HH:MM"
         return formatter.string(from: date)
     }
     
-    static func dateStringFrom(date: Date) -> String {
+    static func string(from date: Date) -> String {
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)
     }
