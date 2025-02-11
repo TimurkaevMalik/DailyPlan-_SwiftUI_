@@ -115,10 +115,7 @@ private extension ScheduleView  {
                 .onTapGesture {
                     shouldPresent.wrappedValue.toggle()
                 }
-                .popover(isPresented: shouldPresent) {
-                    TimePicker()
-                        .presentationCompactAdaptation(.popover)
-        }
+                .popover(isPresented: shouldPresent) {}
     }
 }
 

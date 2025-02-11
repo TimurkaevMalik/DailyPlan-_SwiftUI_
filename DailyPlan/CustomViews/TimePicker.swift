@@ -9,33 +9,40 @@ import SwiftUI
 
 struct TimePicker: View {
     
-    @State private var hoursSelection = 300
-    var hours: Int { hoursSelection % 24 }
+    @Binding private var time: Date
+    @State private var hoursSelection: Int
+    @State private var minutesSelection: Int
     
-    @State private var minutesSelection: Int = 300
-    private var minutes: Int { minutesSelection % 60 }
-    @Binding var time: Date
+    var hours: Int {
+        hoursSelection % 24
+    }
+    private var minutes: Int {
+        minutesSelection % 60
+    }
     
-    init() {
-        _time = .constant(Date())
+    init(time: Binding<Date>) {
+        hoursSelection = 300
+        minutesSelection = 300
+        _time = time
     }
     
     var body: some View {
         HStack(spacing: 0) {
             Picker("", selection: $hoursSelection) {
                 ForEach(0..<600) {
-                    Text(String(format: "%02d", $0 % 24))
+                    Text(String(format: "%02d",
+                                $0 % 24))
                 }
             }
             .frame(width: 100)
-            .clipped()
+            
             Picker("", selection: $minutesSelection) {
                 ForEach(0..<600) {
-                    Text(String(format: "%02d", $0 % 60))
+                    Text(String(format: "%02d",
+                                $0 % 60))
                 }
             }
             .frame(width: 100)
-            .clipped()
         }
         .pickerStyle(.wheel)
         .frame(width: 230)
@@ -49,13 +56,21 @@ struct TimePicker: View {
     
     private func minutesValueChanged() {
         minutesSelection = 300 + minutesSelection % 60
+        setTime()
     }
     
     private func hoursValueChanged() {
-        hoursSelection = 300 + hoursSelection % 24
+        hoursSelection = 288 + hoursSelection % 24
+        setTime()
+    }
+    
+    private func setTime() {
+        time = Calendar.current.date(bySettingHour: hours, minute: minutes, second: 0, of: Date()) ?? Date()
+        
+        print(DateFormatManager.shared.timeString(from: time))
     }
 }
 
 #Preview {
-    TimePicker()
+    TimePicker(time: .constant(.now))
 }

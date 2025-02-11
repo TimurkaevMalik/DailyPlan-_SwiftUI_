@@ -22,7 +22,7 @@ class DateFormatManager {
     private init() {}
     
     func timeString(from date: Date) -> String {
-        formatter.dateFormat = "HH:MM"
+        formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
     
