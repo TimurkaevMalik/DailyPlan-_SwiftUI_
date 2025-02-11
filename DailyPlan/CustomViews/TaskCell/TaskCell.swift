@@ -18,10 +18,9 @@ struct TaskCell: View {
             scheduleButton()
                 .padding(.trailing, 12)
             
-            HStack(alignment: .top, spacing: 0) {
+            HStack(alignment: .top, spacing: 6) {
                 checkMarkButton()
                 customTextEditor()
-                    .padding(.leading, 6)
             }
         }
     }

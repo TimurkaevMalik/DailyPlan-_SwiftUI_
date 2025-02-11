@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546132C74C01300E6AD68 /* TaskCell.swift */; };
 		BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */; };
+		BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC083C812D5B869D00C6C354 /* TimePicker.swift */; };
 		BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2084BE2D4A5AA4008C1118 /* RootView.swift */; };
 		BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305B2D4F8C1900ECA960 /* UIAplication.swift */; };
 		BC64305E2D4F8D1100ECA960 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305D2D4F8D0900ECA960 /* CategoryView.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		BC0546132C74C01300E6AD68 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkButton.swift; sourceTree = "<group>"; };
+		BC083C812D5B869D00C6C354 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		BC2084BE2D4A5AA4008C1118 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BC64305B2D4F8C1900ECA960 /* UIAplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAplication.swift; sourceTree = "<group>"; };
 		BC64305D2D4F8D0900ECA960 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 		BCEF08B12C74DBAA0014A8AA /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				BC083C812D5B869D00C6C354 /* TimePicker.swift */,
 				BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */,
 				BCB1D24C2D50935400315EAE /* TextContainers */,
 				BCF0725E2C70D6F800999035 /* TabBar */,
@@ -408,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */,
 				BCF072682C71AD4800999035 /* TaskView.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
 				BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */,

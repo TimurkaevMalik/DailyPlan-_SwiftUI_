@@ -65,7 +65,8 @@ struct TaskConfigurationView: View {
                     }
                 }
                 
-                scheduleView()
+                ScheduleView(color: task.color,
+                             schedule: $task.schedule)
                 
                 Spacer(minLength: 0)
                 
@@ -123,38 +124,18 @@ private extension TaskConfigurationView {
             $0.lowercased() == category.lowercased()
         }
     }
-    ///TODO: move to file
-    func scheduleView() -> some View {
-        HStack {
-            Text("Schedule")
-            
-            Spacer()
-            DatePicker(
-                "",
-                selection: .constant(.distantFuture),
-                displayedComponents: .date)
-            .frame(width: 80)
-            
-            DatePicker(
-                "",
-                selection: .constant(.distantFuture),
-                displayedComponents: .hourAndMinute)
-            .frame(width: 80)
-            
-            DatePicker(
-                "",
-                selection: .constant(.distantFuture),
-                displayedComponents: .hourAndMinute)
-            .frame(width: 80)
-        }
-        .frame(height: 60)
-        .font(Font.taskText)
-        .padding(.horizontal, 8)
-        .overlay(content: {
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(task.color)
-        })
-    }
+//    
+//    func isScheduleEmpty() -> Bool {
+//        let schedule = task.schedule
+//        
+//        if schedule.start == nil ||
+//            schedule.end == nil ||
+//            schedule.date == nil {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
 }
 
 private extension TaskConfigurationView {

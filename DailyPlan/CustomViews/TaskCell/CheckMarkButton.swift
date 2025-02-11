@@ -10,20 +10,20 @@ import SwiftUI
 struct CheckMarkButton: View {
     
     @State var color: Color
-    @Binding var isDone: Bool
+    @Binding var isMarked: Bool
     
     private var size: CGSize
     
     init(color: Color, isDone: Binding<Bool>) {
         self.color = color
-        self._isDone = isDone
+        self._isMarked = isDone
         size = CGSize(width: 26, height: 26)
     }
     
     var body: some View {
         
         Button {
-            isDone.toggle()
+            isMarked.toggle()
         } label: {
             ZStack(alignment: .center) {
                 
@@ -33,7 +33,7 @@ struct CheckMarkButton: View {
                     .frame(width: size.width,
                            height: size.height)
                     .overlay {
-                        if isDone {
+                        if isMarked {
                             RoundedRectangle(cornerRadius: size.width / 2)
                                 .tint(.iconsSecondary)
                         } else {
