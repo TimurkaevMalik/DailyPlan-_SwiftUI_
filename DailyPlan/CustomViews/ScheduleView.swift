@@ -10,6 +10,9 @@ import SwiftUI
 struct ScheduleView: View {
     
     @Binding private var schedule: Schedule
+    @State private var date: Date
+    @State private var startTime: Date
+    @State private var endTime: Date
     @State private var isDatePickerPresented: Bool
     @State private var isStartTimePresented: Bool
     @State private var isEndTimePresented: Bool
@@ -25,6 +28,12 @@ struct ScheduleView: View {
         isStartTimePresented = false
         isEndTimePresented = false
         isMarked = false
+        
+        let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
+        
+        date = defaultDate
+        startTime = defaultDate
+        endTime = defaultDate
     }
     
     var body: some View {
@@ -33,18 +42,18 @@ struct ScheduleView: View {
                 
                 Spacer(minLength: 0)
                 
-                buttonDate(selectedDate())
+                buttonDate($date)
                 
                 Spacer(minLength: 0)
                 
-                buttonTime(selectedStart(),
+                buttonTime($startTime,
                            shouldPresent: $isStartTimePresented)
                 .padding(.leading, 8)
                 
                 Text(":")
                     .padding(.horizontal, 2)
                 
-                buttonTime(selectedEnd(),
+                buttonTime($endTime,
                            shouldPresent: $isEndTimePresented)
                 .padding(.trailing, 10)
             }
@@ -58,17 +67,22 @@ struct ScheduleView: View {
             CheckMarkButton(color: .ypWarmYellow,
                             isDone: $isMarked)
         }
-        .onChange(of: schedule.date) { _, _ in
+        .onChange(of: isMarked) {
+            if isMarked == false {
+                setDefaultValuesForDates()
+            }
+        }
+        .onChange(of: schedule.date) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 isDatePickerPresented.toggle()
             }
         }
-        .onChange(of: schedule.start) { _, _ in
+        .onChange(of: schedule.start) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 isDatePickerPresented.toggle()
             }
         }
-        .onChange(of: schedule.end) { _, _ in
+        .onChange(of: schedule.end) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 isDatePickerPresented.toggle()
             }
@@ -86,57 +100,60 @@ struct ScheduleView: View {
 }
 
 private extension ScheduleView  {
-    func buttonDate(_ date: String) -> some View {
-        Text(date)
+    func buttonDate(_ date: Binding<Date>) -> some View {
+        Text(dateString(from: date.wrappedValue))
             .frame(width: 120, height: 32)
             .foregroundStyle(isMarked ? .ypBlack : .messGrayUltraDark)
             .background(.ypMilk)
             .clipShape(.rect(cornerRadius: 10))
             .onTapGesture {
-                isDatePickerPresented.toggle()
+                if isMarked {
+                    isDatePickerPresented.toggle()
+                }
             }
             .popover(isPresented: $isDatePickerPresented) {
-                DatePicker(
-                    "",
-                    selection: .constant(Date()),
-                    displayedComponents: .date)
-                .datePickerStyle(.graphical)
-                .presentationCompactAdaptation(.popover)
-                .frame(width: 330)
+                    DatePicker(
+                        "",
+                        selection: $date,
+                        displayedComponents: .date)
+                    .datePickerStyle(.graphical)
+                    .presentationCompactAdaptation(.popover)
+                    .frame(width: 330)
             }
     }
     
-    func buttonTime(_ time: String, shouldPresent: Binding<Bool>) -> some View {
-            Text(time)
+    func buttonTime(_ time: Binding<Date>, shouldPresent: Binding<Bool>) -> some View {
+        Text(timeString(from: time.wrappedValue))
                 .frame(width: 70, height: 32)
                 .foregroundStyle(isMarked ? .ypBlack : .messGrayUltraDark)
                 .background(.ypMilk)
                 .clipShape(.rect(cornerRadius: 10))
                 .onTapGesture {
-                    shouldPresent.wrappedValue.toggle()
+                    if isMarked {
+                        shouldPresent.wrappedValue.toggle()
+                    }
                 }
-                .popover(isPresented: shouldPresent) {}
+                .popover(isPresented: shouldPresent) {
+                        TimePicker(time: time)
+                            .presentationCompactAdaptation(.popover)
+                }
     }
 }
 
 private extension ScheduleView  {
-    func selectedDate() -> String {
-        return dateString(from: schedule.date ?? Date())
-    }
-    
-    func selectedStart() -> String {
-        return timeString(from: schedule.start ?? Date())
-    }
-    
-    func selectedEnd() -> String {
-        return timeString(from: schedule.end ?? Date())
-    }
-    
     func dateString(from date: Date) -> String {
         DateFormatManager.shared.dateString(from: date)
     }
     
     func timeString(from date: Date) -> String {
         DateFormatManager.shared.timeString(from: date)
+    }
+    
+    func setDefaultValuesForDates() {
+        let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
+        
+        date = defaultDate
+        startTime = defaultDate
+        endTime = defaultDate
     }
 }
