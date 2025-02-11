@@ -9,28 +9,29 @@ import SwiftUI
 
 struct TimePicker: View {
     
-    @State var hours: Int
-    @State var minutes: Int
+    @State private var hoursSelection = 300
+    var hours: Int { hoursSelection % 24 }
+    
+    @State private var minutesSelection: Int = 300
+    private var minutes: Int { minutesSelection % 60 }
+    @Binding var time: Date
     
     init() {
-        self.hours = 0
-        self.minutes = 0
+        _time = .constant(Date())
     }
     
     var body: some View {
         HStack(spacing: 0) {
-            Picker("", selection: $hours) {
-                ForEach(0..<24, id: \.self) { hour in
-                    Text("\(hour)")
-                        .tag(hour)
+            Picker("", selection: $hoursSelection) {
+                ForEach(0..<600) {
+                    Text(String(format: "%02d", $0 % 24))
                 }
             }
             .frame(width: 100)
             .clipped()
-            Picker("", selection: $minutes) {
-                ForEach(0..<60, id: \.self) { mins in
-                    Text("\(mins)")
-                        .tag(mins)
+            Picker("", selection: $minutesSelection) {
+                ForEach(0..<600) {
+                    Text(String(format: "%02d", $0 % 60))
                 }
             }
             .frame(width: 100)
@@ -38,6 +39,20 @@ struct TimePicker: View {
         }
         .pickerStyle(.wheel)
         .frame(width: 230)
+        .onChange(of: hoursSelection) {
+            hoursValueChanged()
+        }
+        .onChange(of: minutesSelection) {
+            minutesValueChanged()
+        }
+    }
+    
+    private func minutesValueChanged() {
+        minutesSelection = 300 + minutesSelection % 60
+    }
+    
+    private func hoursValueChanged() {
+        hoursSelection = 300 + hoursSelection % 24
     }
 }
 
