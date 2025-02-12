@@ -70,8 +70,6 @@ struct TimePicker: View {
     
     private func setTime() {
         time = Calendar.current.date(bySettingHour: hours, minute: minutes, second: 0, of: Date()) ?? Date()
-        
-        print(DateFormatManager.shared.timeString(from: time))
     }
 }
 

@@ -72,31 +72,26 @@ struct ScheduleView: View {
                 setDefaultValuesForDates()
             }
         }
-        .onChange(of: schedule.date) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                isDatePickerPresented.toggle()
-            }
+        .onChange(of: date) {
+            setSchedule()
+            isDatePickerPresented.toggle()
         }
-        .onChange(of: schedule.start) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                isDatePickerPresented.toggle()
-            }
+        .onChange(of: startTime) {
+            setSchedule()
         }
-        .onChange(of: schedule.end) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                isDatePickerPresented.toggle()
-            }
+        .onChange(of: endTime) {
+            setSchedule()
         }
-        
     }
 }
 
-#Preview {
-    ScheduleView(color: .ypWarmYellow,
-                 schedule: .constant(Schedule(
-                    date: nil,
-                    start: nil,
-                    end: nil)))
+struct ScheduleView_Preview: PreviewProvider {
+    @State static var schedule: Schedule = Schedule()
+    
+    static var previews: some View {
+        ScheduleView(color: .ypWarmYellow,
+                     schedule: $schedule)
+    }
 }
 
 private extension ScheduleView  {
@@ -112,31 +107,31 @@ private extension ScheduleView  {
                 }
             }
             .popover(isPresented: $isDatePickerPresented) {
-                    DatePicker(
-                        "",
-                        selection: $date,
-                        displayedComponents: .date)
-                    .datePickerStyle(.graphical)
-                    .presentationCompactAdaptation(.popover)
-                    .frame(width: 330)
+                DatePicker(
+                    "",
+                    selection: $date,
+                    displayedComponents: .date)
+                .datePickerStyle(.graphical)
+                .presentationCompactAdaptation(.popover)
+                .frame(width: 330)
             }
     }
     
     func buttonTime(_ time: Binding<Date>, shouldPresent: Binding<Bool>) -> some View {
         Text(timeString(from: time.wrappedValue))
-                .frame(width: 70, height: 32)
-                .foregroundStyle(isMarked ? .ypBlack : .messGrayUltraDark)
-                .background(.ypMilk)
-                .clipShape(.rect(cornerRadius: 10))
-                .onTapGesture {
-                    if isMarked {
-                        shouldPresent.wrappedValue.toggle()
-                    }
+            .frame(width: 70, height: 32)
+            .foregroundStyle(isMarked ? .ypBlack : .messGrayUltraDark)
+            .background(.ypMilk)
+            .clipShape(.rect(cornerRadius: 10))
+            .onTapGesture {
+                if isMarked {
+                    shouldPresent.wrappedValue.toggle()
                 }
-                .popover(isPresented: shouldPresent) {
-                        TimePicker(time: time)
-                            .presentationCompactAdaptation(.popover)
-                }
+            }
+            .popover(isPresented: shouldPresent) {
+                TimePicker(time: time)
+                    .presentationCompactAdaptation(.popover)
+            }
     }
 }
 
@@ -155,5 +150,9 @@ private extension ScheduleView  {
         date = defaultDate
         startTime = defaultDate
         endTime = defaultDate
+    }
+    
+    func setSchedule() {
+        schedule = Schedule(date: date, start: startTime, end: endTime)
     }
 }
