@@ -24,8 +24,9 @@
 		BC7EFA4D2C6C6A8200FB24EA /* DailyPlanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */; };
 		BC7EFA4F2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */; };
 		BC848A182D5C629500776E8C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A172D5C629500776E8C /* Date.swift */; };
-		BC848A1A2D5C7D1C00776E8C /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A192D5C7CEF00776E8C /* CGFloat.swift */; };
+		BC848A1A2D5C7D1C00776E8C /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A192D5C7CEF00776E8C /* CGSize.swift */; };
 		BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A1E2D5C836200776E8C /* ViewSize.swift */; };
+		BC848A212D5C867000776E8C /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A202D5C866900776E8C /* CGFloat.swift */; };
 		BCA93C1A2C74F6B70028DE2D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* CustomTextView.swift */; };
 		BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */; };
 		BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F52D4D39C900B75559 /* Schedule.swift */; };
@@ -79,8 +80,9 @@
 		BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITests.swift; sourceTree = "<group>"; };
 		BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BC848A172D5C629500776E8C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		BC848A192D5C7CEF00776E8C /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
+		BC848A192D5C7CEF00776E8C /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		BC848A1E2D5C836200776E8C /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
+		BC848A202D5C866900776E8C /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		BCA93C192C74F6B70028DE2D /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		BCB295F52D4D39C900B75559 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -263,7 +265,8 @@
 		BCF072612C70DC8300999035 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				BC848A192D5C7CEF00776E8C /* CGFloat.swift */,
+				BC848A202D5C866900776E8C /* CGFloat.swift */,
+				BC848A192D5C7CEF00776E8C /* CGSize.swift */,
 				BC848A172D5C629500776E8C /* Date.swift */,
 				BC6430612D4FC49700ECA960 /* View.swift */,
 				BC64305B2D4F8C1900ECA960 /* UIAplication.swift */,
@@ -443,7 +446,8 @@
 				BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */,
 				BC6430622D4FC49700ECA960 /* View.swift in Sources */,
 				BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */,
-				BC848A1A2D5C7D1C00776E8C /* CGFloat.swift in Sources */,
+				BC848A1A2D5C7D1C00776E8C /* CGSize.swift in Sources */,
+				BC848A212D5C867000776E8C /* CGFloat.swift in Sources */,
 				BCA93C1A2C74F6B70028DE2D /* CustomTextView.swift in Sources */,
 				BCF0726B2C71B55800999035 /* FoldersView.swift in Sources */,
 				BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */,

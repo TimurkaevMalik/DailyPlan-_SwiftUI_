@@ -84,7 +84,7 @@ private extension TaskView {
                     displayedComponents: .date)
                 .datePickerStyle(.graphical)
                 .presentationCompactAdaptation(.popover)
-                .frame(width: 330)
+                .frame(width: .graphicalPickerWidth)
             }
     }
     

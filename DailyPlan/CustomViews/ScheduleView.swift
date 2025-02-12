@@ -134,14 +134,17 @@ private extension ScheduleView  {
                     isDatePickerPresented.toggle()
                 }
             }
-            .popover(isPresented: $isDatePickerPresented) {
-                DatePicker(
-                    "",
-                    selection: $date,
-                    displayedComponents: .date)
-                .datePickerStyle(.graphical)
+            .popover(isPresented: $isDatePickerPresented,
+                     arrowEdge: .bottom) {
+                HStack {
+                    DatePicker(
+                        "",
+                        selection: $date,
+                        displayedComponents: .date)
+                    .datePickerStyle(.graphical)
+                }
                 .presentationCompactAdaptation(.popover)
-                .frame(width: 330, height: 450)
+                .frame(width: .graphicalPickerWidth)
             }
     }
     
@@ -155,7 +158,8 @@ private extension ScheduleView  {
                     shouldPresent.wrappedValue.toggle()
                 }
             }
-            .popover(isPresented: shouldPresent) {
+            .popover(isPresented: shouldPresent,
+                     arrowEdge: .bottom) {
                 TimePicker(time: time)
                     .presentationCompactAdaptation(.popover)
             }

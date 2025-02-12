@@ -1,5 +1,5 @@
 //
-//  CGFo.swift
+//  CGFloat.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 12.02.2025.
@@ -7,6 +7,8 @@
 
 import Foundation
 
-extension CGSize {
-    static var checkMarkButton = CGSize(width: 56, height: 60)
+extension CGFloat {
+    static var graphicalPickerWidth: CGFloat {
+        return 330
+    }
 }
