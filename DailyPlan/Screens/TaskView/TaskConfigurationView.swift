@@ -108,15 +108,16 @@ struct TaskConfigurationView: View {
 
 private extension TaskConfigurationView {
     func storedCategoriesButton() -> some View {
-        RoundedRectangle(cornerRadius: 16)
-            .stroke(task.color)
-            .frame(width: categoriesButtonState == .hidden ? 0 : 56, height: 60)            .overlay(content: {
-                Image(systemName: "list.bullet")
-                    .resizable()
-                    .frame(width: 34, height: 36)
-                    .foregroundStyle(doesCategoryExist() ? task.color : .grayPlaceholder)
-            })
+        Image(systemName: "list.bullet")
+            .resizable()
+            .frame(width: 34, height: 36)
+            .foregroundStyle(doesCategoryExist() ? task.color : .grayPlaceholder)
+            .frame(width: categoriesButtonState == .hidden ? 0 : 56, height: 60)
             .clipped()
+            .overlay(content: {
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(task.color)
+            })
     }
     
     func doesCategoryExist() -> Bool {

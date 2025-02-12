@@ -71,32 +71,26 @@ struct ScheduleView: View {
             .setSize(.checkMarkButton)
         }
         .onChange(of: isMarked) {
-            if isMarked == false {
-                setDefaultValuesForDates()
-            } else {
+            if isMarked {
                 schedule.start = startTime
+            } else {
+                setDefaultValuesForDates()
             }
         }
         .onChange(of: date) {
             isDatePickerPresented.toggle()
             if isMarked {
                 schedule.date = date
-            } else {
-                setScheduleToNil()
             }
         }
         .onChange(of: startTime) {
             if isMarked {
                 schedule.start = startTime
-            } else {
-                setScheduleToNil()
             }
         }
         .onChange(of: endTime) {
             if isMarked {
                 schedule.end = endTime
-            } else {
-                setScheduleToNil()
             }
         }
     }
@@ -181,6 +175,10 @@ private extension ScheduleView  {
         date = defaultDate
         startTime = defaultDate
         endTime = defaultDate
+        
+        schedule.date = nil
+        schedule.start = nil
+        schedule.end = nil
     }
     
     func setScheduleToNil() {
