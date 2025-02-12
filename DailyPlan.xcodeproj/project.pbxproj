@@ -23,6 +23,7 @@
 		BC7EFA432C6C6A8200FB24EA /* DailyPlanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA422C6C6A8200FB24EA /* DailyPlanTests.swift */; };
 		BC7EFA4D2C6C6A8200FB24EA /* DailyPlanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */; };
 		BC7EFA4F2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */; };
+		BC848A182D5C629500776E8C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A172D5C629500776E8C /* Date.swift */; };
 		BCA93C1A2C74F6B70028DE2D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* CustomTextView.swift */; };
 		BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */; };
 		BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F52D4D39C900B75559 /* Schedule.swift */; };
@@ -75,6 +76,7 @@
 		BC7EFA482C6C6A8200FB24EA /* DailyPlanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyPlanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITests.swift; sourceTree = "<group>"; };
 		BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BC848A172D5C629500776E8C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		BCA93C192C74F6B70028DE2D /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		BCB295F52D4D39C900B75559 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		BCF072612C70DC8300999035 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BC848A172D5C629500776E8C /* Date.swift */,
 				BC6430612D4FC49700ECA960 /* View.swift */,
 				BC64305B2D4F8C1900ECA960 /* UIAplication.swift */,
 				BCF072622C70DC9F00999035 /* Fonts.swift */,
@@ -411,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC848A182D5C629500776E8C /* Date.swift in Sources */,
 				BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */,
 				BCF072682C71AD4800999035 /* TaskView.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,

@@ -13,7 +13,7 @@ struct TimePicker: View {
     @State private var hoursSelection: Int
     @State private var minutesSelection: Int
     
-    var hours: Int {
+    private var hours: Int {
         hoursSelection % 24
     }
     private var minutes: Int {
@@ -21,9 +21,13 @@ struct TimePicker: View {
     }
     
     init(time: Binding<Date>) {
-        hoursSelection = 300
-        minutesSelection = 300
         _time = time
+        
+        let hour = time.wrappedValue.get(.hour)
+        let minute = time.wrappedValue.get(.minute)
+
+        hoursSelection = 288 + hour
+        minutesSelection = 300 + minute
     }
     
     var body: some View {
@@ -72,5 +76,7 @@ struct TimePicker: View {
 }
 
 #Preview {
-    TimePicker(time: .constant(.now))
+    let date = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
+    
+    TimePicker(time: .constant(date))
 }
