@@ -124,18 +124,6 @@ private extension TaskConfigurationView {
             $0.lowercased() == category.lowercased()
         }
     }
-//    
-//    func isScheduleEmpty() -> Bool {
-//        let schedule = task.schedule
-//        
-//        if schedule.start == nil ||
-//            schedule.end == nil ||
-//            schedule.date == nil {
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
 }
 
 private extension TaskConfigurationView {

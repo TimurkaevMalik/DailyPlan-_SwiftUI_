@@ -24,6 +24,8 @@
 		BC7EFA4D2C6C6A8200FB24EA /* DailyPlanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */; };
 		BC7EFA4F2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */; };
 		BC848A182D5C629500776E8C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A172D5C629500776E8C /* Date.swift */; };
+		BC848A1A2D5C7D1C00776E8C /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A192D5C7CEF00776E8C /* CGFloat.swift */; };
+		BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A1E2D5C836200776E8C /* ViewSize.swift */; };
 		BCA93C1A2C74F6B70028DE2D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* CustomTextView.swift */; };
 		BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */; };
 		BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F52D4D39C900B75559 /* Schedule.swift */; };
@@ -77,6 +79,8 @@
 		BC7EFA4C2C6C6A8200FB24EA /* DailyPlanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITests.swift; sourceTree = "<group>"; };
 		BC7EFA4E2C6C6A8200FB24EA /* DailyPlanUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BC848A172D5C629500776E8C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		BC848A192D5C7CEF00776E8C /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
+		BC848A1E2D5C836200776E8C /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
 		BCA93C192C74F6B70028DE2D /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		BCB295F52D4D39C900B75559 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -140,10 +144,10 @@
 		BC7EFA2E2C6C6A8000FB24EA /* DailyPlan */ = {
 			isa = PBXGroup;
 			children = (
+				BC848A1C2D5C831A00776E8C /* Helpers */,
 				BCB295F22D4D34B400B75559 /* Services */,
 				BCEF08B12C74DBAA0014A8AA /* CustomViews */,
 				BCC288FB2C730740008E7176 /* Models */,
-				BCF072612C70DC8300999035 /* Extensions */,
 				BCF0725D2C70D6EB00999035 /* Screens */,
 				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
 				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
@@ -177,13 +181,21 @@
 			path = DailyPlanUITests;
 			sourceTree = "<group>";
 		};
-		BCA93C1B2C7503D30028DE2D /* TaskCell */ = {
+		BC848A1C2D5C831A00776E8C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
-				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
+				BC848A1D2D5C833700776E8C /* ViewModifiers */,
+				BCF072612C70DC8300999035 /* Extensions */,
 			);
-			path = TaskCell;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		BC848A1D2D5C833700776E8C /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				BC848A1E2D5C836200776E8C /* ViewSize.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		BCB1D24C2D50935400315EAE /* TextContainers */ = {
@@ -218,11 +230,12 @@
 		BCEF08B12C74DBAA0014A8AA /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
+				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
 				BC083C812D5B869D00C6C354 /* TimePicker.swift */,
 				BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */,
 				BCB1D24C2D50935400315EAE /* TextContainers */,
 				BCF0725E2C70D6F800999035 /* TabBar */,
-				BCA93C1B2C7503D30028DE2D /* TaskCell */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -250,6 +263,7 @@
 		BCF072612C70DC8300999035 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BC848A192D5C7CEF00776E8C /* CGFloat.swift */,
 				BC848A172D5C629500776E8C /* Date.swift */,
 				BC6430612D4FC49700ECA960 /* View.swift */,
 				BC64305B2D4F8C1900ECA960 /* UIAplication.swift */,
@@ -418,6 +432,7 @@
 				BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */,
 				BCF072682C71AD4800999035 /* TaskView.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
+				BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */,
 				BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */,
 				BCF072602C70D72800999035 /* TabBarView.swift in Sources */,
 				BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */,
@@ -428,6 +443,7 @@
 				BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */,
 				BC6430622D4FC49700ECA960 /* View.swift in Sources */,
 				BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */,
+				BC848A1A2D5C7D1C00776E8C /* CGFloat.swift in Sources */,
 				BCA93C1A2C74F6B70028DE2D /* CustomTextView.swift in Sources */,
 				BCF0726B2C71B55800999035 /* FoldersView.swift in Sources */,
 				BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */,
