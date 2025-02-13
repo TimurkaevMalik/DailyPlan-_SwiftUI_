@@ -19,4 +19,8 @@ extension View {
     func setSize(_ size: CGSize) -> some View {
         modifier(ViewSize(size))
     }
+    
+    func setCornerRadius(_ cornerRadius: CGFloat, basedOn position: ListItemPosition) -> some View {
+        modifier(ListItemCorner(position: position, cornerRadius: cornerRadius))
+    }
 }

@@ -34,10 +34,14 @@ extension Font {
     }
     
     static var title: Font {
-        return Font.system(size: 23, weight: .bold)
+        return Font.system(size: 24, weight: .bold)
+    }
+    
+    static var category: Font {
+        return Font.system(size: 24, weight: .regular)
     }
     
     static var pageTitle: Font {
-        return Font.system(size: 33, weight: .semibold)
+        return Font.system(size: 34, weight: .semibold)
     }
 }
