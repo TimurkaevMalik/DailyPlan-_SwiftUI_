@@ -6,43 +6,44 @@
 //
 
 import SwiftUI
-///TODO: add crud
+///TODO: add methods: deleting and creating category
+///TODO: solve bug - doesn't set written category in the rootView when you navigate
+///TODO: set top padding for the list, so it wont too close to navigationBar
 struct CategoryView: View {
     
     @Binding private var category: String
     @State private var color: Color
-    @State private var categories: [String]
-    @State private var isToggled: Bool
+    @State private var categories: [CategoryItem]
     
-    init(category: Binding<String>, color: Color) {
+    init(category: Binding<String>,
+         color: Color) {
         
         self.color = color
         _category = category
-        isToggled = false
-        categories = ["Education", "Work",
-                      "Housework", "Unnecessary"]
+        categories = [.init(title: "Education"),
+                      .init(title: "Work"),
+                      .init(title: "Housework"),
+                      .init(title: "Unnecessary")]
     }
     
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                    ForEach(categories, id: \.self) { category in
-                        
-                        categoryView(category,
-                               isToggled: $isToggled)
-                            .background(.ypMediumLightGray)
-                            .setCornerRadius(14, basedOn: positionOf(category))
-                    }
-                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    .listSectionSeparator(.hidden)
-                }
+            
+            List($categories.indices,
+                 id: \.self) { index in
+                categoryView(
+                    categories[index],
+                    isToggled: $categories[index].isDone)
+                .background(.ypMediumLightGray)
+                .setCornerRadius(14, basedOn: positionOf(categories[index]))
+                .listSectionSeparator(.hidden)
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             }
-            .padding(.horizontal, 14)
-            .listStyle(.inset)
-            .scrollContentBackground(.hidden)
-            .navigationTitle("Choose Category")
-            .navigationBarTitleDisplayMode(.inline)
+                 .padding(.horizontal, 14)
+                 .listStyle(.inset)
+                 .scrollContentBackground(.hidden)
+                 .navigationTitle("Choose Category")
+                 .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -53,7 +54,24 @@ struct CategoryView: View {
 }
 
 private extension CategoryView {
-    func positionOf(_ category: String) -> ListItemPosition {
+    struct CategoryItem: Equatable {
+        let id = UUID()
+        let title: String
+        var isDone: Bool
+        
+        init(title: String, isDone: Bool = false) {
+            self.title = title
+            self.isDone = isDone
+        }
+        
+        mutating func setDoneTo(_ bool: Bool) {
+            isDone = bool
+        }
+    }
+}
+
+private extension CategoryView {
+    func positionOf(_ category: CategoryItem) -> ListItemPosition {
         
         if category == categories.first {
             return .first
@@ -63,24 +81,34 @@ private extension CategoryView {
             return ._default
         }
     }
+    
+    func toggleWasTapped() {
+        categories.indices.forEach({
+            categories[$0].setDoneTo(
+                category == categories[$0].title)
+        })
+    }
 }
 
 private extension CategoryView {
-    func categoryView(_ category: String,
-                  isToggled: Binding<Bool>) -> some View {
-        
-        HStack {
-            Text(category)
+    func categoryView(_ category: CategoryItem,
+                      isToggled: Binding<Bool>) -> some View {
+        Toggle(isOn: isToggled){
+            Text(category.title)
                 .font(.category)
                 .foregroundStyle(.ypBlack)
-            
-            Spacer(minLength: 0)
-            
-            Toggle("", isOn: $isToggled)
-                .tint(color)
         }
+        .tint(color)
         .frame(height: 66)
         .padding(.leading, 18)
         .padding(.trailing, 28)
+        .onChange(of: isToggled.wrappedValue) {
+            if self.category == category.title {
+                self.category = ""
+            } else if isToggled.wrappedValue {
+                self.category = category.title
+            }
+            toggleWasTapped()
+        }
     }
 }

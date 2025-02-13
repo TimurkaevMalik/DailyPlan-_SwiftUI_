@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+///TODO: set regular text Font
 ///TODO: add method - (isFocused = false on screen tap)
 struct CustomTextField: View {
     
