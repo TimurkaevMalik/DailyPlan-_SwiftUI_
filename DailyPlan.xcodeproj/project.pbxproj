@@ -224,15 +224,23 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		BCBE35362D5DE14100796ABB /* TaskModels */ = {
+			isa = PBXGroup;
+			children = (
+				BCC288F92C7304A3008E7176 /* TaskInfo.swift */,
+				BC6EBB332C730AC900F86B52 /* TaskCategory.swift */,
+				BC6EBB352C730B3900F86B52 /* TaskRecord.swift */,
+				BCB295F52D4D39C900B75559 /* Schedule.swift */,
+			);
+			path = TaskModels;
+			sourceTree = "<group>";
+		};
 		BCC288FB2C730740008E7176 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				BCBE35322D5DD89700796ABB /* PopoverDirection.swift */,
 				BCBE35342D5DDACF00796ABB /* Tabs.swift */,
-				BCC288F92C7304A3008E7176 /* TaskInfo.swift */,
-				BC6EBB332C730AC900F86B52 /* TaskCategory.swift */,
-				BC6EBB352C730B3900F86B52 /* TaskRecord.swift */,
-				BCB295F52D4D39C900B75559 /* Schedule.swift */,
+				BCBE35362D5DE14100796ABB /* TaskModels */,
 			);
 			path = Models;
 			sourceTree = "<group>";

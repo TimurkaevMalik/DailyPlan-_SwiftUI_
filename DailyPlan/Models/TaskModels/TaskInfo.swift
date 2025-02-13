@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-///TODO create group for task models
+
 struct TaskInfo: Identifiable {
     let id = UUID()
     var description: String
