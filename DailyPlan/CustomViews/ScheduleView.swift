@@ -14,7 +14,6 @@ struct ScheduleView: View {
     @State private var startTime: Date
     @State private var endTime: Date
     @State private var isDatePickerPresented: Bool
-    @State private var isStartTimePresented: Bool
     @State private var isEndTimePresented: Bool
     @State private var isMarked: Bool
     private let color: Color
@@ -25,7 +24,6 @@ struct ScheduleView: View {
         self._schedule = schedule
         self.color = color
         isDatePickerPresented = false
-        isStartTimePresented = false
         isEndTimePresented = false
         isMarked = false
         
@@ -39,32 +37,39 @@ struct ScheduleView: View {
     var body: some View {
         HStack(spacing: 6) {
             HStack(spacing: 0) {
-                
-                Spacer(minLength: 0)
-                
                 PopoverDatePicker(selection: $date,
                                   direction: .up,
                                   isPresented: $isDatePickerPresented)
-                .foregroundStyle(schedule.date != nil ? .ypBlack : .messGrayUltraDark)
-                .allowsHitTesting(isMarked ? true : false)
+                .padding(.leading, 10)
+                .foregroundStyle(
+                    setColorBy(schedule.date))
+                .allowsHitTesting(isMarked ?
+                                  true : false)
                 
                 Spacer(minLength: 0)
                 
-                buttonTime($startTime,
-                           shouldPresent: $isStartTimePresented)
-                .foregroundStyle(schedule.start != nil ? .ypBlack : .messGrayUltraDark)
-                .padding(.leading, 8)
+                PopoverTimePicker(
+                    time: $startTime,
+                    direction: .up)
+                .foregroundStyle(
+                    setColorBy(schedule.start))
+                .allowsHitTesting(isMarked ?
+                                  true : false)
                 
                 Text(":")
                     .padding(.horizontal, 2)
                 
-                buttonTime($endTime,
-                           shouldPresent: $isEndTimePresented)
-                .foregroundStyle(schedule.end != nil ? .ypBlack : .messGrayUltraDark)
-                .padding(.trailing, 10)
+                PopoverTimePicker(
+                    time: $startTime,
+                    direction: .up,
+                    isPresented: $isEndTimePresented)
+                .foregroundStyle(
+                    setColorBy(schedule.end))
+                .allowsHitTesting(isMarked ?
+                                  true : false)
             }
             .frame(height: 60)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 18)
             .overlay(content: {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(color)
@@ -92,7 +97,6 @@ struct ScheduleView: View {
             }
         }
         .onChange(of: date) {
-//            isDatePickerPresented.toggle()
             if isMarked {
                 schedule.date = date
             }
@@ -108,7 +112,17 @@ struct ScheduleView: View {
             }
         }
     }
-    ///TODO: move to extension
+}
+
+#Preview {
+    @Previewable
+    @State var schedule: Schedule = Schedule()
+    
+    ScheduleView(color: .ypWarmYellow,
+                 schedule: $schedule)
+}
+
+private extension ScheduleView {
     struct DefaultValues {
         let date: Date
         let color: Color
@@ -118,46 +132,9 @@ struct ScheduleView: View {
             date = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
         }
     }
-    
-}
-
-struct ScheduleView_Preview: PreviewProvider {
-    @State static var schedule: Schedule = Schedule()
-    
-    static var previews: some View {
-        ScheduleView(color: .ypWarmYellow,
-                     schedule: $schedule)
-    }
 }
 
 private extension ScheduleView  {
-    func buttonTime(_ time: Binding<Date>, shouldPresent: Binding<Bool>) -> some View {
-        Text(timeString(from: time.wrappedValue))
-            .frame(width: 70, height: 32)
-            .background(.ypMilk)
-            .clipShape(.rect(cornerRadius: 10))
-            .onTapGesture {
-                if isMarked {
-                    shouldPresent.wrappedValue.toggle()
-                }
-            }
-            .popover(isPresented: shouldPresent,
-                     arrowEdge: .bottom) {
-                TimePicker(time: time)
-                    .presentationCompactAdaptation(.popover)
-            }
-    }
-}
-
-private extension ScheduleView  {
-    func dateString(from date: Date) -> String {
-        DateFormatManager.shared.dateString(from: date)
-    }
-    
-    func timeString(from date: Date) -> String {
-        DateFormatManager.shared.timeString(from: date)
-    }
-    
     func setDefaultValuesForDates() {
         let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
         
@@ -172,5 +149,13 @@ private extension ScheduleView  {
     
     func setScheduleToNil() {
         schedule = Schedule(date: nil, start: nil, end: nil)
+    }
+    
+    func setColorBy(_ dateValue: Date?) -> Color {
+        if dateValue != nil {
+            return .ypBlack
+        } else {
+            return .messGrayUltraDark
+        }
     }
 }

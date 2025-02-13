@@ -62,13 +62,6 @@ struct PopoverDatePicker_Preview: PreviewProvider {
     }
 }
 
-extension PopoverDatePicker {
-    enum PopoverDirection {
-        case up
-        case down
-    }
-}
-
 private extension PopoverDatePicker {
     func togglePresentation() {
         if shouldPresent == false,

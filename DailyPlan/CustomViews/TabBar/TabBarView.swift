@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-enum Tabs: Int {
-    case tasks
-    case files
-    case settings
-}
-
 struct TabBarView: View {
     
     @Binding private var selectedTab: Tabs
@@ -57,7 +51,8 @@ struct TabBarView: View {
 }
 
 #Preview {
-    @Previewable @State var selectedTab: Tabs = .tasks
+    @Previewable
+    @State var selectedTab: Tabs = .tasks
     
     TabBarView(selectedTab: $selectedTab)
 }

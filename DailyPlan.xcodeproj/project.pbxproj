@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546132C74C01300E6AD68 /* TaskCell.swift */; };
 		BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */; };
-		BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC083C812D5B869D00C6C354 /* TimePicker.swift */; };
+		BC083C822D5B86A500C6C354 /* PopoverTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */; };
 		BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2084BE2D4A5AA4008C1118 /* RootView.swift */; };
 		BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305B2D4F8C1900ECA960 /* UIAplication.swift */; };
 		BC64305E2D4F8D1100ECA960 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305D2D4F8D0900ECA960 /* CategoryView.swift */; };
@@ -31,6 +31,8 @@
 		BCA93C1A2C74F6B70028DE2D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* CustomTextView.swift */; };
 		BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */; };
 		BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F52D4D39C900B75559 /* Schedule.swift */; };
+		BCBE35332D5DD89700796ABB /* PopoverDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBE35322D5DD89700796ABB /* PopoverDirection.swift */; };
+		BCBE35352D5DDACF00796ABB /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBE35342D5DDACF00796ABB /* Tabs.swift */; };
 		BCC288FA2C7304A3008E7176 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC288F92C7304A3008E7176 /* TaskInfo.swift */; };
 		BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */; };
 		BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */; };
@@ -63,7 +65,7 @@
 /* Begin PBXFileReference section */
 		BC0546132C74C01300E6AD68 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkButton.swift; sourceTree = "<group>"; };
-		BC083C812D5B869D00C6C354 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
+		BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTimePicker.swift; sourceTree = "<group>"; };
 		BC2084BE2D4A5AA4008C1118 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BC64305B2D4F8C1900ECA960 /* UIAplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAplication.swift; sourceTree = "<group>"; };
 		BC64305D2D4F8D0900ECA960 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -88,6 +90,8 @@
 		BCA93C192C74F6B70028DE2D /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		BCB295F52D4D39C900B75559 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		BCBE35322D5DD89700796ABB /* PopoverDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDirection.swift; sourceTree = "<group>"; };
+		BCBE35342D5DDACF00796ABB /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		BCC288F92C7304A3008E7176 /* TaskInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
 		BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskConfigurationView.swift; sourceTree = "<group>"; };
@@ -223,6 +227,8 @@
 		BCC288FB2C730740008E7176 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BCBE35322D5DD89700796ABB /* PopoverDirection.swift */,
+				BCBE35342D5DDACF00796ABB /* Tabs.swift */,
 				BCC288F92C7304A3008E7176 /* TaskInfo.swift */,
 				BC6EBB332C730AC900F86B52 /* TaskCategory.swift */,
 				BC6EBB352C730B3900F86B52 /* TaskRecord.swift */,
@@ -235,9 +241,9 @@
 			isa = PBXGroup;
 			children = (
 				BC848A222D5C922300776E8C /* PopoverDatePicker.swift */,
+				BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */,
 				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
 				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
-				BC083C812D5B869D00C6C354 /* TimePicker.swift */,
 				BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */,
 				BCB1D24C2D50935400315EAE /* TextContainers */,
 				BCF0725E2C70D6F800999035 /* TabBar */,
@@ -435,8 +441,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC848A182D5C629500776E8C /* Date.swift in Sources */,
-				BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */,
+				BC083C822D5B86A500C6C354 /* PopoverTimePicker.swift in Sources */,
 				BCF072682C71AD4800999035 /* TaskView.swift in Sources */,
+				BCBE35332D5DD89700796ABB /* PopoverDirection.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
 				BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */,
 				BC848A232D5C922300776E8C /* PopoverDatePicker.swift in Sources */,
@@ -444,6 +451,7 @@
 				BCF072602C70D72800999035 /* TabBarView.swift in Sources */,
 				BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */,
 				BCC288FA2C7304A3008E7176 /* TaskInfo.swift in Sources */,
+				BCBE35352D5DDACF00796ABB /* Tabs.swift in Sources */,
 				BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
 				BCE284062D4E68ED00224553 /* RepresentedTextView.swift in Sources */,

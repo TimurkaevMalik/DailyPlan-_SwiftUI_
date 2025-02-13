@@ -7,7 +7,7 @@
 
 
 import SwiftUI
-///TODO: change from custom to system
+
 extension Font {
     static var caption: Font {
         return Font.system(size: 10, weight: .regular)

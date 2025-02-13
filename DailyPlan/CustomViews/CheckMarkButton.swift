@@ -50,7 +50,8 @@ struct CheckMarkButton: View {
 
 
 #Preview {
-    @Previewable @State var isDone = true
+    @Previewable
+    @State var isDone = true
     
     CheckMarkButton(color: .ypLightPink,
                     isDone: $isDone)
