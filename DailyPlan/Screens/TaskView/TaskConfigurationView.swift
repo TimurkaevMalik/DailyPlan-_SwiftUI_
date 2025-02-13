@@ -65,9 +65,9 @@ struct TaskConfigurationView: View {
                     }
                 }
                 
-                ScheduleView(color: task.color,
-                             schedule: $task.schedule)
-                
+                ScheduleView(
+                    color: task.color,
+                    schedule: $task.schedule)
                 Spacer(minLength: 0)
                 
                 HStack {

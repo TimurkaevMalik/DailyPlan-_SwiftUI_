@@ -10,14 +10,12 @@ import SwiftUI
 struct TaskView: View {
     
     @State private var addTaskTapped: Bool
-    @State private var isPickerPresented: Bool
-    @State private var selectedDate: Date
+    @State private var selection: Date
     @State private var tasks: [TaskInfo]
     
     init() {
         addTaskTapped = false
-        isPickerPresented = false
-        selectedDate = Date()
+        selection = Date()
         tasks = TaskInfo.getTasksMock()
     }
     
@@ -50,7 +48,9 @@ struct TaskView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    customDatePicker()
+                    PopoverDatePicker(
+                        selection: $selection,
+                        direction: .down)
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
@@ -62,32 +62,6 @@ struct TaskView: View {
 }
 
 private extension TaskView {
-    
-    func customDatePicker() -> some View {
-        Text(selectedDateString())
-            .frame(width: 120, height: 32)
-            .background(.ypMilk)
-            .clipShape(.rect(cornerRadius: 10))
-            .onTapGesture {
-                isPickerPresented.toggle()
-            }
-            .onChange(of: selectedDate) { _, _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    isPickerPresented.toggle()
-                }
-            }
-            .popover(isPresented: $isPickerPresented, attachmentAnchor: .point(.bottom),
-                     arrowEdge: .top) {
-                DatePicker(
-                    "",
-                    selection: $selectedDate,
-                    displayedComponents: .date)
-                .datePickerStyle(.graphical)
-                .presentationCompactAdaptation(.popover)
-                .frame(width: .graphicalPickerWidth)
-            }
-    }
-    
     ///TODO: change image on next view appear
     func addTaskButton() -> some View {
         Button {
@@ -142,12 +116,6 @@ private extension TaskView {
             Text("All tasks")
             Image(systemName: "list.bullet.rectangle")
         }
-    }
-}
-
-private extension TaskView {
-    func selectedDateString() -> String {
-        DateFormatManager.shared.dateString(from: selectedDate)
     }
 }
 

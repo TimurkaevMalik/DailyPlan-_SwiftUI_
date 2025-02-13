@@ -27,6 +27,7 @@
 		BC848A1A2D5C7D1C00776E8C /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A192D5C7CEF00776E8C /* CGSize.swift */; };
 		BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A1E2D5C836200776E8C /* ViewSize.swift */; };
 		BC848A212D5C867000776E8C /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A202D5C866900776E8C /* CGFloat.swift */; };
+		BC848A232D5C922300776E8C /* PopoverDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A222D5C922300776E8C /* PopoverDatePicker.swift */; };
 		BCA93C1A2C74F6B70028DE2D /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* CustomTextView.swift */; };
 		BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */; };
 		BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB295F52D4D39C900B75559 /* Schedule.swift */; };
@@ -83,6 +84,7 @@
 		BC848A192D5C7CEF00776E8C /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		BC848A1E2D5C836200776E8C /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
 		BC848A202D5C866900776E8C /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
+		BC848A222D5C922300776E8C /* PopoverDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDatePicker.swift; sourceTree = "<group>"; };
 		BCA93C192C74F6B70028DE2D /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		BCB295F32D4D34CD00B75559 /* DateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatManager.swift; sourceTree = "<group>"; };
 		BCB295F52D4D39C900B75559 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 		BCEF08B12C74DBAA0014A8AA /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				BC848A222D5C922300776E8C /* PopoverDatePicker.swift */,
 				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
 				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
 				BC083C812D5B869D00C6C354 /* TimePicker.swift */,
@@ -436,6 +439,7 @@
 				BCF072682C71AD4800999035 /* TaskView.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Fonts.swift in Sources */,
 				BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */,
+				BC848A232D5C922300776E8C /* PopoverDatePicker.swift in Sources */,
 				BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */,
 				BCF072602C70D72800999035 /* TabBarView.swift in Sources */,
 				BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */,

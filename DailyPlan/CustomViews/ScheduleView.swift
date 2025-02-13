@@ -42,7 +42,11 @@ struct ScheduleView: View {
                 
                 Spacer(minLength: 0)
                 
-                buttonDate($date)
+                PopoverDatePicker(selection: $date,
+                                  direction: .up,
+                                  isPresented: $isDatePickerPresented)
+                .foregroundStyle(schedule.date != nil ? .ypBlack : .messGrayUltraDark)
+                .allowsHitTesting(isMarked ? true : false)
                 
                 Spacer(minLength: 0)
                 
@@ -77,8 +81,18 @@ struct ScheduleView: View {
                 setDefaultValuesForDates()
             }
         }
+        .onChange(of: isEndTimePresented) {
+            if isEndTimePresented {
+                schedule.end = endTime
+            }
+        }
+        .onChange(of: isDatePickerPresented) {
+            if isDatePickerPresented {
+                schedule.date = date
+            }
+        }
         .onChange(of: date) {
-            isDatePickerPresented.toggle()
+//            isDatePickerPresented.toggle()
             if isMarked {
                 schedule.date = date
             }
@@ -117,31 +131,6 @@ struct ScheduleView_Preview: PreviewProvider {
 }
 
 private extension ScheduleView  {
-    func buttonDate(_ date: Binding<Date>) -> some View {
-        Text(dateString(from: date.wrappedValue))
-            .frame(width: 120, height: 32)
-            .foregroundStyle(schedule.date != nil ? .ypBlack : .messGrayUltraDark)
-            .background(.ypMilk)
-            .clipShape(.rect(cornerRadius: 10))
-            .onTapGesture {
-                if isMarked {
-                    isDatePickerPresented.toggle()
-                }
-            }
-            .popover(isPresented: $isDatePickerPresented,
-                     arrowEdge: .bottom) {
-                HStack {
-                    DatePicker(
-                        "",
-                        selection: $date,
-                        displayedComponents: .date)
-                    .datePickerStyle(.graphical)
-                }
-                .presentationCompactAdaptation(.popover)
-                .frame(width: .graphicalPickerWidth)
-            }
-    }
-    
     func buttonTime(_ time: Binding<Date>, shouldPresent: Binding<Bool>) -> some View {
         Text(timeString(from: time.wrappedValue))
             .frame(width: 70, height: 32)
