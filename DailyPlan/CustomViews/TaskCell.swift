@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-
+///TODO: make the joint of task cell and time straight
 struct TaskCell: View {
     
-    @State var task: Task
+    @State var task: TaskInfo
     
     var body: some View {
         
@@ -18,10 +18,9 @@ struct TaskCell: View {
             scheduleButton()
                 .padding(.trailing, 12)
             
-            HStack(alignment: .top, spacing: 0) {
+            HStack(alignment: .top, spacing: 6) {
                 checkMarkButton()
                 customTextEditor()
-                    .padding(.leading, 6)
             }
         }
     }
@@ -32,10 +31,10 @@ private extension TaskCell {
         Button {
             
         } label: {
-            if let scheduleString = stringFrom(schedule: task.schedule) {
+            if let scheduleString = stringFromSchedule() {
                 Text(scheduleString)
                     .padding(.horizontal, 12)
-                    .tint(.black)
+                    .tint(.ypBlack)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(task.color))
@@ -46,41 +45,44 @@ private extension TaskCell {
     func checkMarkButton() -> some View {
         CheckMarkButton(color: task.color,
                         isDone: $task.isDone)
+        .setSize(.checkMarkButton)
     }
     
     func customTextEditor() -> some View {
         CustomTextView(text: $task.description,
-                         color: task.color,
-                         placeHolder: "Description")
+                       color: task.color,
+                       focusedHeight: .large,
+                       placeHolder: "Description")
     }
 }
 
 private extension TaskCell {
-    func stringFrom(schedule: Schedule) -> String? {
+    func stringFromSchedule() -> String? {
+        let schedule = task.schedule
         
         if let start = schedule.start,
            let end = schedule.end {
             
-            let endString = timeStringFrom(date: end)
-            let startString = timeStringFrom(date: start)
+            let startString = timeString(from: start)
+            let endString = timeString(from: end)
             
             return "\(startString) - \(endString)"
             
         } else if let start = schedule.start {
-            return timeStringFrom(date: start)
+            return timeString(from: start)
         } else {
             return nil
         }
     }
     
-    func timeStringFrom(date: Date) -> String {
-        CustomDateFormatter.timeStringFrom(date: date)
+    func timeString(from date: Date) -> String {
+        DateFormatManager.shared.timeString(from: date)
     }
 }
 
 #Preview {
-    TaskCell(task: Task(description: "description",
-                        color: .red,
-                        schedule: .init(start: .distantPast, end: .distantFuture),
-                        isDone: false))
+    TaskCell(task: TaskInfo(description: "description",
+                            color: .red,
+                            schedule: .init(start: .distantPast, end: .distantFuture),
+                            isDone: false))
 }

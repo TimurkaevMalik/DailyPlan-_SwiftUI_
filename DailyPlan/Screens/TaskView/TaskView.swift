@@ -9,13 +9,15 @@ import SwiftUI
 
 struct TaskView: View {
     
-    @State private var addTaskTapped = false
-    @State private var isPickerPresented = false
-    @State private var selectedDate: Date = Date()
-    @State private var tasks: [Task] = {
-        let array = Task.getTasksMock()
-        return array
-    }()
+    @State private var addTaskTapped: Bool
+    @State private var selection: Date
+    @State private var tasks: [TaskInfo]
+    
+    init() {
+        addTaskTapped = false
+        selection = Date()
+        tasks = TaskInfo.getTasksMock()
+    }
     
     var body: some View {
         NavigationStack {
@@ -35,8 +37,9 @@ struct TaskView: View {
                 .padding(.horizontal, 8)
             }
             .navigationBarTitleDisplayMode(.inline)
-            .popover(isPresented: $addTaskTapped) {
-                TaskConfigurationView()
+            .sheet(isPresented: $addTaskTapped) {
+                TaskConfigurationView(tasks: $tasks)
+                    .presentationDetents([.medium])
             }
             .toolbar {
                 
@@ -45,7 +48,9 @@ struct TaskView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    customDatePicker()
+                    PopoverDatePicker(
+                        selection: $selection,
+                        direction: .down)
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
@@ -57,32 +62,7 @@ struct TaskView: View {
 }
 
 private extension TaskView {
-    
-    func customDatePicker() -> some View {
-        Text(stringFrom(selectedDate: selectedDate))
-            .frame(width: 120, height: 32)
-            .background(.ypMilk)
-            .clipShape(.rect(cornerRadius: 10))
-            .onTapGesture {
-                isPickerPresented.toggle()
-            }
-            .onChange(of: selectedDate) { _, _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    isPickerPresented.toggle()
-                }
-            }
-            .popover(isPresented: $isPickerPresented, attachmentAnchor: .point(.bottom),
-                     arrowEdge: .top) {
-                DatePicker(
-                    "",
-                    selection: $selectedDate,
-                    displayedComponents: .date)
-                .datePickerStyle(.graphical)
-                .presentationCompactAdaptation(.popover)
-                .frame(width: 330)
-            }
-    }
-    
+    ///TODO: change image on next view appear
     func addTaskButton() -> some View {
         Button {
             addTaskTapped.toggle()
@@ -113,7 +93,7 @@ private extension TaskView {
     
     func doneTasksFilter() -> some View {
         Button {
-            tasks = Task.getTasksMock().filter({ $0.isDone == true })
+            tasks = TaskInfo.getTasksMock().filter({ $0.isDone == true })
         } label: {
             Image(systemName: "checkmark.square")
             Text("Done tasks")
@@ -122,7 +102,7 @@ private extension TaskView {
     
     func activeTasksFilter() -> some View {
         Button {
-            tasks = Task.getTasksMock().filter({ $0.isDone == false })
+            tasks = TaskInfo.getTasksMock().filter({ $0.isDone == false })
         } label: {
             Image(systemName: "square")
             Text("Active tasks")
@@ -131,17 +111,11 @@ private extension TaskView {
     
     func allTasksFilter() -> some View {
         Button {
-            tasks = Task.getTasksMock()
+            tasks = TaskInfo.getTasksMock()
         } label: {
             Text("All tasks")
             Image(systemName: "list.bullet.rectangle")
         }
-    }
-}
-
-private extension TaskView {
-    func stringFrom(selectedDate: Date) -> String {
-        CustomDateFormatter.dateStringFrom(date: selectedDate)
     }
 }
 

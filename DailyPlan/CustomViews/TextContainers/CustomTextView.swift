@@ -6,39 +6,44 @@
 //
 
 import SwiftUI
-
+///TODO: set regular text Font
 struct CustomTextView: View {
     
     @FocusState private var isFocused: Bool
-    @State private var editorState: EditorState
-    @State private var buttonsPadding: CGFloat
-    @State private var lastText: String
-    @Binding private var text: String
     
+    @Binding private var text: String
+    @State private var lastText: String
+    
+    @State private var state: EditorState
+    @State private var stateValues: StateValues
+    
+    private let focusedHeight: FocusedHeight
     private let color: Color
     private let placeHolder: String
     
-    init(text: Binding<String>, color: Color, placeHolder: String) {
+    init(text: Binding<String>,
+         color: Color,
+         focusedHeight: FocusedHeight,
+         placeHolder: String) {
         self._text = text
         self.color = color
         self.placeHolder = placeHolder
+        self.focusedHeight = focusedHeight
         
-        editorState = .default
-        buttonsPadding = -30
+        state = .default
         lastText = ""
+        stateValues = StateValues(state: .default)
     }
     
     var body: some View {
         
         RepresentedTextView(text: $text,
-                            placeHolder: placeHolder)
-            .scrollContentBackground(.hidden)
+                            placeHolder: placeHolder,
+                            linesNumber: focusedHeight == .medium ? 1 : 5)
+        .tint(color)
         .focused($isFocused)
-        .frame(height: editorState.rawValue)
-        .padding(.horizontal, 6)
-        .lineSpacing(2)
-        .lineLimit(2)
-        .font(Font.taskText)
+        .frame(height: state == .focused ? focusedHeight.rawValue : 60)
+        .padding(.horizontal, 10)
         .multilineTextAlignment(.leading)
         .overlay {
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -50,7 +55,7 @@ struct CustomTextView: View {
                     confirmButton()
                 }
                 .padding(.trailing, 12)
-                .padding(.bottom, buttonsPadding)
+                .padding(.bottom, stateValues.padding)
             }
             .clipped()
             .overlay(content: {
@@ -65,14 +70,42 @@ struct CustomTextView: View {
     }
 }
 
+extension CustomTextView {
+    enum FocusedHeight: CGFloat {
+        case medium = 84
+        case large = 184
+    }
+}
+
 private extension CustomTextView {
+    enum EditorState {
+        case focused
+        case `default`
+    }
+    
+    struct StateValues {
+        let padding: CGFloat
+        let height: CGFloat
+        
+        init(state: EditorState) {
+            switch state {
+            case .focused:
+                padding = 6
+                height = 30
+            case .default:
+                padding = 0
+                height = 0
+            }
+        }
+    }
+    
     func cancelButton() -> some View {
         Button {
             text = lastText
             isFocused = false
         } label: {
             Image(systemName: "multiply")
-                .frame(width: 50, height: 30)
+                .frame(width: 50, height: stateValues.height)
                 .foregroundStyle(.ypRed)
                 .background(.messGradientFirst)
                 .clipShape(.buttonBorder)
@@ -84,7 +117,7 @@ private extension CustomTextView {
             isFocused = false
         } label: {
             Image(systemName: "checkmark")
-                .frame(width: 50, height: 30)
+                .frame(width: 50, height: stateValues.height)
                 .foregroundStyle(.ypLightGreen)
                 .background(.messGradientBottom)
                 .clipShape(.buttonBorder)
@@ -93,27 +126,27 @@ private extension CustomTextView {
 }
 
 private extension CustomTextView {
-    enum EditorState: CGFloat {
-        case focused = 184
-        case `default` = 60
-    }
-    
     func switchStateWithAnimation() {
-        if editorState == .default {
+        if state == .default {
             
             withAnimation {
-                editorState = .focused
+                state = .focused
             } completion: {
                 withAnimation {
-                    buttonsPadding = 6
+                    stateValues = StateValues(state: state)
                 }
             }
         } else {
+            
+            let defaultState = EditorState.default
+            
             withAnimation(.linear(duration: 0.2)) {
-                buttonsPadding = -30
+                
+                stateValues = StateValues(state: defaultState)
+                
             } completion: {
                 withAnimation {
-                    editorState = .default
+                    state = defaultState
                 }
             }
         }
@@ -121,7 +154,9 @@ private extension CustomTextView {
 }
 
 #Preview {
-    CustomTextView(text: .constant(""),
-                     color: .red,
-                     placeHolder: "Description")
+    @Previewable @State var text: String = ""
+    CustomTextView(text: $text,
+                   color: .ypWarmYellow,
+                   focusedHeight: .large,
+                   placeHolder: "Description")
 }

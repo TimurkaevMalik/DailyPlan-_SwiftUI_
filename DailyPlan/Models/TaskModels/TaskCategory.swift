@@ -10,5 +10,5 @@ import Foundation
 
 struct TaskCategory {
     var title: String
-    var tasks: [Task]
+    var tasks: [TaskInfo]
 }
