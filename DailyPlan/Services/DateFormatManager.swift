@@ -1,5 +1,5 @@
 //
-//  CustomDateFormatter.swift
+//  DateFormatManager.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 31.01.2025.
@@ -7,9 +7,11 @@
 
 import Foundation
 
-class CustomDateFormatter {
+class DateFormatManager {
     
-    static let formatter: DateFormatter = {
+    static let shared = DateFormatManager()
+    
+    private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = .current
         formatter.dateStyle = .short
@@ -17,12 +19,14 @@ class CustomDateFormatter {
         return formatter
     }()
     
-    static func timeStringFrom(date: Date) -> String {
-        formatter.dateFormat = "HH:MM"
+    private init() {}
+    
+    func timeString(from date: Date) -> String {
+        formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
     
-    static func dateStringFrom(date: Date) -> String {
+    func dateString(from date: Date) -> String {
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)
     }

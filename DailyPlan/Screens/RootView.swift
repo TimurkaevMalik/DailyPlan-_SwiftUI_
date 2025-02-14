@@ -9,9 +9,23 @@ import SwiftUI
 
 
 struct RootView: View {
-    @State var text: String = ""
+    @State private var selectedTab: Tabs
+    
+    init() {
+        selectedTab = .tasks
+    }
     var body: some View {
-        TabBarView()
+        if selectedTab == .tasks {
+            TaskView()
+        } else if selectedTab == .files {
+            FoldersView()
+        } else if selectedTab == .settings {
+            SettingsView()
+        }
+        
+        Spacer(minLength: 0)
+        
+        TabBarView(selectedTab: $selectedTab)
     }
 }
 

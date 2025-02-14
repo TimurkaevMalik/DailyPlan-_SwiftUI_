@@ -7,23 +7,15 @@
 
 import SwiftUI
 
-
 struct TabBarView: View {
     
-    @State private var selectedTab: Tabs = .tasks
+    @Binding private var selectedTab: Tabs
+    
+    init(selectedTab: Binding<Tabs>) {
+        _selectedTab = selectedTab
+    }
     
     var body: some View {
-        
-        if selectedTab == .tasks {
-            TaskView()
-        } else if selectedTab == .files {
-            FoldersView()
-        } else if selectedTab == .settings {
-            SettingsView()
-        }
-        
-        Spacer(minLength: 0)
-        
         VStack(spacing: 0) {
             
             Divider()
@@ -58,14 +50,9 @@ struct TabBarView: View {
     }
 }
 
-private extension TabBarView {
-    enum Tabs: Int {
-        case tasks
-        case files
-        case settings
-    }
-}
-
 #Preview {
-    TabBarView()
+    @Previewable
+    @State var selectedTab: Tabs = .tasks
+    
+    TabBarView(selectedTab: $selectedTab)
 }

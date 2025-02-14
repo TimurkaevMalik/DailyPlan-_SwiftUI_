@@ -13,10 +13,14 @@ struct RepresentedTextView: UIViewRepresentable {
     @State private var state: TextViewState
 
     private let placeHolder: String
+    private let linesNumber: Int
     
-    init(text: Binding<String>, placeHolder: String) {
+    init(text: Binding<String>,
+         placeHolder: String,
+         linesNumber: Int) {
         self._text = text
         self.placeHolder = placeHolder
+        self.linesNumber = linesNumber
         
         if text.wrappedValue.isEmpty {
             state = .empty
@@ -26,13 +30,15 @@ struct RepresentedTextView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> UITextView { let textView = UITextView()
-        
+    
         textView.delegate = context.coordinator
-        textView.font = .systemFont(ofSize: 20, weight: .semibold)
-        textView.textContainer.maximumNumberOfLines = 5
+        textView.font = .systemFont(ofSize: 20, weight: .regular)
+        textView.textContainer.lineFragmentPadding = 0
+        textView.textContainerInset = .init(top: 8, left: 0, bottom: 0, right: 0)
+        textView.textContainer.maximumNumberOfLines = linesNumber
         
         if text.isEmpty {
-            textView.textColor = .gray
+            textView.textColor = .grayPlaceholder
             textView.text = placeHolder
         }
         
@@ -41,7 +47,7 @@ struct RepresentedTextView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UITextView, context: Context) {
         if state == .notEmpty {
-            uiView.textColor = .black
+            uiView.textColor = .ypBlack
             uiView.text = text
         }
     }
@@ -74,7 +80,7 @@ struct RepresentedTextView: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            textView.textColor = .black
+            textView.textColor = .ypBlack
             text = textView.text
         }
         
@@ -84,7 +90,7 @@ struct RepresentedTextView: UIViewRepresentable {
             
             if finalText.isEmpty {
                 state = .empty
-                textView.textColor = .gray
+                textView.textColor = .grayPlaceholder
                 textView.text = placeHolder
             } else {
                 text = finalText
@@ -96,4 +102,11 @@ struct RepresentedTextView: UIViewRepresentable {
         case notEmpty
         case empty
     }
+}
+
+#Preview {
+    RepresentedTextView(
+        text: .constant(""),
+        placeHolder: "Placeholder",
+        linesNumber: 5)
 }
