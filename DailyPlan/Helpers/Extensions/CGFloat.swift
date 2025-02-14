@@ -9,6 +9,6 @@ import Foundation
 
 extension CGFloat {
     static var graphicalPickerWidth: CGFloat {
-        return 330jknkjn
+        return 330
     }
 }
