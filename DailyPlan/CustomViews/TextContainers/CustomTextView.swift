@@ -154,7 +154,8 @@ private extension CustomTextView {
 }
 
 #Preview {
-    CustomTextView(text: .constant(""),
+    @Previewable @State var text: String = ""
+    CustomTextView(text: $text,
                    color: .ypWarmYellow,
                    focusedHeight: .large,
                    placeHolder: "Description")

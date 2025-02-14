@@ -30,7 +30,7 @@ extension Font {
     }
     
     static var taskText: Font {
-        return Font.system(size: 20, weight: .semibold)
+        return Font.system(size: 20, weight: .regular)
     }
     
     static var title: Font {

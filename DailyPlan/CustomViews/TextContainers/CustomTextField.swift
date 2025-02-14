@@ -76,8 +76,11 @@ private extension CustomTextField {
 }
 
 #Preview {
-    @FocusState var isFocused: Bool
-    return CustomTextField(text: .constant(""),
-                           isFocused: $isFocused,
-                           color: .ypWarmYellow)
+    @Previewable@FocusState var isFocused: Bool
+    @Previewable @State var text: String = ""
+    
+    CustomTextField(
+        text: $text,
+        isFocused: $isFocused,
+        color: .ypWarmYellow)
 }

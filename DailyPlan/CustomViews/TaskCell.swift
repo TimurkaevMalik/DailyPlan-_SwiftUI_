@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+///TODO: make the joint of task cell and time straight
 struct TaskCell: View {
     
     @State var task: TaskInfo
