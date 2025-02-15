@@ -29,15 +29,21 @@ struct TaskCell: View {
 private extension TaskCell {
     func scheduleButton() -> some View {
         Button {
-            
+            ///TODO: show editing menu
         } label: {
             if let scheduleString = stringFromSchedule() {
                 Text(scheduleString)
+                    
                     .padding(.horizontal, 12)
                     .tint(.ypBlack)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(task.color))
+                    .background {
+                        let cornerRadius: CGFloat = 6
+                        
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                         .stroke(task.color)
+                         .frame(height: 30)
+                         .padding(.bottom, -cornerRadius)
+                }
             }
         }
     }

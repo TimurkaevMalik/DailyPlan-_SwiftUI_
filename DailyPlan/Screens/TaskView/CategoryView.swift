@@ -35,7 +35,7 @@ struct CategoryView: View {
                 .setCornerRadius(14, basedOn: positionOf(categories[index]))
                 .listSectionSeparator(.hidden)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                .padding(.top, index == 0 ? 14 : 0)
+                .padding(.top, index == 0 ? .listTopPadding : 0)
             }
             .padding(.horizontal, 14)
             .listStyle(.inset)

@@ -71,7 +71,7 @@ struct ScheduleView: View {
             .frame(height: 60)
             .padding(.horizontal, 18)
             .overlay(content: {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: .mediumCornerRadius)
                     .stroke(color)
             })
             

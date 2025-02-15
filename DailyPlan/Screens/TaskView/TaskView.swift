@@ -33,7 +33,7 @@ struct TaskView: View {
                         Divider()
                     }
                 }
-                .padding(.top, 16)
+                .padding(.top, .listTopPadding)
                 .padding(.horizontal, 8)
             }
             .navigationBarTitleDisplayMode(.inline)

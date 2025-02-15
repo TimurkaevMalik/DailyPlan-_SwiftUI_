@@ -49,7 +49,7 @@ struct PopoverTimePicker: View {
         Text(timeString(from: time))
             .frame(width: 70, height: 32)
             .background(.ypMilk)
-            .clipShape(.rect(cornerRadius: 10))
+            .clipShape(.rect(cornerRadius: .regularCornerRadius))
             .onTapGesture {
                 togglePresentation()
             }

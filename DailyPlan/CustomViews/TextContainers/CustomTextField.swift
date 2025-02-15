@@ -29,7 +29,7 @@ struct CustomTextField: View {
                 .focused(isFocused)
                 .tint(color)
                 .font(.taskText)
-                .frame(height: 60)
+                .frame(height: .mediumHeight)
                 .padding(.leading, 10)
                 .placeHolder(present: isFocused.wrappedValue || !text.isEmpty) {
                     Text("Category")
@@ -43,7 +43,7 @@ struct CustomTextField: View {
         }
         .clipped()
         .overlay {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: .mediumCornerRadius)
                 .stroke(color)
         }
         .onChange(of: text) {

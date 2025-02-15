@@ -42,7 +42,7 @@ struct CustomTextView: View {
                             linesNumber: focusedHeight == .medium ? 1 : 5)
         .tint(color)
         .focused($isFocused)
-        .frame(height: state == .focused ? focusedHeight.rawValue : 60)
+        .frame(height: state == .focused ? focusedHeight.rawValue : .mediumHeight)
         .padding(.horizontal, 10)
         .multilineTextAlignment(.leading)
         .overlay {
@@ -59,7 +59,7 @@ struct CustomTextView: View {
             }
             .clipped()
             .overlay(content: {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: .mediumCornerRadius)
                     .stroke(color)
             })
         }

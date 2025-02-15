@@ -33,7 +33,7 @@ struct PopoverDatePicker: View {
         Text(DateFormatManager.shared.dateString(from: selection))
             .frame(width: 120, height: 32)
             .background(.ypMilk)
-            .clipShape(.rect(cornerRadius: 10))
+            .clipShape(.rect(cornerRadius: .regularCornerRadius))
             .onTapGesture {
                 togglePresentation()
             }
