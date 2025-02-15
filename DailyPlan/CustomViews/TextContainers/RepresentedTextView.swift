@@ -34,7 +34,7 @@ struct RepresentedTextView: UIViewRepresentable {
         textView.delegate = context.coordinator
         textView.font = .systemFont(ofSize: 20, weight: .regular)
         textView.textContainer.lineFragmentPadding = 0
-        textView.textContainerInset = .init(top: 8, left: 0, bottom: 0, right: 0)
+        textView.textContainerInset = .init(top: 8, left: 10, bottom: 0, right: 10)
         textView.textContainer.maximumNumberOfLines = linesNumber
         
         if text.isEmpty {

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+///TODO: make custom popover of TaskConfigurationView
 struct TaskView: View {
     
     @State private var addTaskTapped: Bool

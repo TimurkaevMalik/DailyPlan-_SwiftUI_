@@ -20,7 +20,7 @@ extension TaskInfo {
         [
             TaskInfo(description: "Eat food",
                      color: .ypWarmYellow,
-                 schedule: Schedule(start: .now, end: .now),
+                     schedule: Schedule(start: nil, end: .now),
                  isDone: true),
             
             TaskInfo(description: "Go to school",

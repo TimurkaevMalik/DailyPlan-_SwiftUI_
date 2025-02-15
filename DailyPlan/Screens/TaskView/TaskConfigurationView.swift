@@ -42,7 +42,7 @@ struct TaskConfigurationView: View {
         NavigationStack {
             VStack(spacing: 16) {
                 
-                CustomTextView(
+                DescriptionView(
                     text: $task.description,
                     color: task.color,
                     focusedHeight: .large,
@@ -72,7 +72,7 @@ struct TaskConfigurationView: View {
                 }
             }
             .padding(.horizontal, 8)
-            .padding(.top, 4)
+            .padding(.top, 8)
             .navigationTitle("Configure Task")
             .navigationBarTitleDisplayMode(.inline)
         }
