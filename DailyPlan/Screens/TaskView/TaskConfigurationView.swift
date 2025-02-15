@@ -53,8 +53,7 @@ struct TaskConfigurationView: View {
                                     isFocused: $isFocused,
                                     color: task.color)
                     
-                    ///TODO: if categories != nil
-                    if true == true {
+                    if !categories.isEmpty {
                         storedCategoriesButton()
                             .padding(.leading, categoriesButtonState == .hidden ? 0 : 10)
                             .onTapGesture {

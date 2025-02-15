@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-///TODO: set regular text Font
+
 struct CustomTextView: View {
     
     @FocusState private var isFocused: Bool
