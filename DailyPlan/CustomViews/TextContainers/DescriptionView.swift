@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-///TODO: set horizontal padding for text
+
 ///TODO: make modifier that sets specific corners with stroke (just move code of "buttonOf(schedule: String)" to modifier's struct
 struct DescriptionView: View {
     
