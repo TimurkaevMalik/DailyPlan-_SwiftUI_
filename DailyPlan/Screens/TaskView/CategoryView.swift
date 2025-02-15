@@ -8,7 +8,6 @@
 import SwiftUI
 ///TODO: add methods: deleting and creating category
 ///TODO: solve bug - doesn't set written category in the rootView when you navigate
-///TODO: set top padding for the list, so it wont too close to navigationBar
 struct CategoryView: View {
     
     @Binding private var category: String
@@ -29,21 +28,22 @@ struct CategoryView: View {
     var body: some View {
         NavigationStack {
             
-            List($categories.indices,
-                 id: \.self) { index in
-                categoryView(
+            List($categories.indices, id: \.self) { index in
+                categoryItemView(
                     categories[index],
                     isToggled: $categories[index].isDone)
+                
                 .background(.ypMediumLightGray)
                 .setCornerRadius(14, basedOn: positionOf(categories[index]))
                 .listSectionSeparator(.hidden)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .padding(.top, index == 0 ? 14 : 0)
             }
-                 .padding(.horizontal, 14)
-                 .listStyle(.inset)
-                 .scrollContentBackground(.hidden)
-                 .navigationTitle("Choose Category")
-                 .navigationBarTitleDisplayMode(.inline)
+            .padding(.horizontal, 14)
+            .listStyle(.inset)
+            .scrollContentBackground(.hidden)
+            .navigationTitle("Choose Category")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -91,8 +91,8 @@ private extension CategoryView {
 }
 
 private extension CategoryView {
-    func categoryView(_ category: CategoryItem,
-                      isToggled: Binding<Bool>) -> some View {
+    func categoryItemView(_ category: CategoryItem,
+                          isToggled: Binding<Bool>) -> some View {
         Toggle(isOn: isToggled){
             Text(category.title)
                 .font(.category)
