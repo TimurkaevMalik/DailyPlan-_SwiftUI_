@@ -7,7 +7,6 @@
 
 import SwiftUI
 ///TODO: add methods: deleting and creating category
-///TODO: solve bug - doesn't set written category in the rootView when you navigate
 struct CategoryView: View {
     
     @Binding private var category: String
@@ -16,7 +15,6 @@ struct CategoryView: View {
     
     init(category: Binding<String>,
          color: Color) {
-        
         self.color = color
         _category = category
         categories = [.init(title: "Education"),
@@ -31,7 +29,7 @@ struct CategoryView: View {
             List($categories.indices, id: \.self) { index in
                 categoryItemView(
                     categories[index],
-                    isToggled: $categories[index].isDone)
+                    isToggled: $categories[index].isChosen)
                 
                 .background(.ypMediumLightGray)
                 .setCornerRadius(14, basedOn: positionOf(categories[index]))
@@ -45,29 +43,15 @@ struct CategoryView: View {
             .navigationTitle("Choose Category")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .onAppear {
+            setLastChosenCategory()
+        }
     }
 }
 
 #Preview {
     CategoryView(category: .constant(""),
                  color: .ypLightPink)
-}
-
-private extension CategoryView {
-    struct CategoryItem: Equatable {
-        let id = UUID()
-        let title: String
-        var isDone: Bool
-        
-        init(title: String, isDone: Bool = false) {
-            self.title = title
-            self.isDone = isDone
-        }
-        
-        mutating func setDoneTo(_ bool: Bool) {
-            isDone = bool
-        }
-    }
 }
 
 private extension CategoryView {
@@ -82,10 +66,10 @@ private extension CategoryView {
         }
     }
     
-    func toggleWasTapped() {
+    func setLastChosenCategory() {
         categories.indices.forEach({
-            categories[$0].setDoneTo(
-                category == categories[$0].title)
+            categories[$0].shouldSetChosen(
+                category.lowercased() == categories[$0].title.lowercased())
         })
     }
 }
@@ -103,12 +87,30 @@ private extension CategoryView {
         .padding(.leading, 18)
         .padding(.trailing, 28)
         .onChange(of: isToggled.wrappedValue) {
-            if self.category == category.title {
+            if self.category == category.title,
+               !isToggled.wrappedValue {
                 self.category = ""
             } else if isToggled.wrappedValue {
                 self.category = category.title
             }
-            toggleWasTapped()
+            setLastChosenCategory()
+        }
+    }
+}
+
+private extension CategoryView {
+    struct CategoryItem: Equatable {
+        let id = UUID()
+        let title: String
+        var isChosen: Bool
+        
+        init(title: String, isChosen: Bool = false) {
+            self.title = title
+            self.isChosen = isChosen
+        }
+        
+        mutating func shouldSetChosen(_ bool: Bool) {
+            isChosen = bool
         }
     }
 }
