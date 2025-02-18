@@ -14,6 +14,7 @@ struct ScheduleView: View {
     @State private var startTime: Date
     @State private var endTime: Date
     @State private var isDatePickerPresented: Bool
+    @State private var isStartTimePresented: Bool
     @State private var isEndTimePresented: Bool
     @State private var isMarked: Bool
     private let color: Color
@@ -24,6 +25,7 @@ struct ScheduleView: View {
         self._schedule = schedule
         self.color = color
         isDatePickerPresented = false
+        isStartTimePresented = false
         isEndTimePresented = false
         isMarked = false
         
@@ -50,7 +52,8 @@ struct ScheduleView: View {
                 
                 PopoverTimePicker(
                     time: $startTime,
-                    direction: .up)
+                    direction: .up,
+                    isPresented: $isStartTimePresented)
                 .foregroundStyle(
                     setColorBy(schedule.start))
                 .allowsHitTesting(isMarked ?
@@ -80,20 +83,23 @@ struct ScheduleView: View {
             .setSize(.checkMarkButton)
         }
         .onChange(of: isMarked) {
-            if isMarked {
-                schedule.start = startTime
-            } else {
+            if !isMarked {
                 setDefaultValuesForDates()
-            }
-        }
-        .onChange(of: isEndTimePresented) {
-            if isEndTimePresented {
-                schedule.end = endTime
             }
         }
         .onChange(of: isDatePickerPresented) {
             if isDatePickerPresented {
                 schedule.date = date
+            }
+        }
+        .onChange(of: isStartTimePresented, {
+            if isStartTimePresented {
+                schedule.start = endTime
+            }
+        })
+        .onChange(of: isEndTimePresented) {
+            if isEndTimePresented {
+                schedule.end = endTime
             }
         }
         .onChange(of: date) {
