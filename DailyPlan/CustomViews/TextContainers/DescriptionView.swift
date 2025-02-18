@@ -68,7 +68,7 @@ struct DescriptionView: View {
                 }
             }
             .strokeRoundedView(
-                stroke: BorderParameters(color: color),
+                stroke: .style(color: color),
                 topLeading: .mediumCornerRadius,
                 topTrailing: shouldRoundCorner(),
                 bottomLeading: .mediumCornerRadius,
@@ -128,7 +128,7 @@ private extension DescriptionView {
                 .padding(.horizontal, 12)
                 .tint(.ypBlack)
                 .strokeRoundedView(
-                    stroke: BorderParameters(color: color),
+                    stroke: .style(color: color),
                     topLeading: .regularCornerRadius,
                     topTrailing: .regularCornerRadius,
                     bottomLeading: 0,

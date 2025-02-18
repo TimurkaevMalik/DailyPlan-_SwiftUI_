@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct BorderParameters {
-        let width: CGFloat
-        let color: Color
-        
-        init(width: CGFloat = 1, color: Color) {
-            self.width = width
-            self.color = color
-        }
+    let width: CGFloat
+    let color: Color
+    
+    init(width: CGFloat = 1, color: Color) {
+        self.width = width
+        self.color = color
     }
+    
+    static func style(width: CGFloat = 1, color: Color) -> BorderParameters {
+        BorderParameters(width: width, color: color)
+    }
+}
