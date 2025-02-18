@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-///TODO: make modifier that sets specific corners with stroke (just move code of "buttonOf(schedule: String)" to modifier's struct
 struct DescriptionView: View {
     
     @FocusState private var isFocused: Bool
@@ -68,18 +67,12 @@ struct DescriptionView: View {
                     .padding(.bottom, buttonsStateValues.padding)
                 }
             }
-            .clipShape(.rect(
-                topLeadingRadius: .mediumCornerRadius,
-                bottomLeadingRadius: .mediumCornerRadius,
-                bottomTrailingRadius: .mediumCornerRadius,
-                topTrailingRadius:
-                    shouldRoundCorner()))
-            .background {
-                Rectangle()
-                    .foregroundStyle(color)
-                    .clipShape(.rect(topLeadingRadius: .mediumCornerRadius, bottomLeadingRadius: .mediumCornerRadius, bottomTrailingRadius: .mediumCornerRadius, topTrailingRadius: shouldRoundCorner()))
-                    .padding(.all, -1)
-            }
+            .strokeRoundedView(
+                stroke: BorderParameters(color: color),
+                topLeading: .mediumCornerRadius,
+                topTrailing: shouldRoundCorner(),
+                bottomLeading: .mediumCornerRadius,
+                bottomTrailing: .mediumCornerRadius)
             .onChange(of: isFocused, {
                 lastText = text
                 switchStateWithAnimation()
@@ -134,17 +127,12 @@ private extension DescriptionView {
             Text(schedule)
                 .padding(.horizontal, 12)
                 .tint(.ypBlack)
-                .background {
-                    Rectangle()
-                        .foregroundStyle(.white)
-                        .clipShape(.rect(topLeadingRadius: .regularCornerRadius, bottomLeadingRadius: 0, bottomTrailingRadius: 0, topTrailingRadius: .regularCornerRadius))
-                }
-                .background {
-                    Rectangle()
-                        .foregroundStyle(color)
-                        .clipShape(.rect(topLeadingRadius: .regularCornerRadius, bottomLeadingRadius: 0, bottomTrailingRadius: 0, topTrailingRadius: .regularCornerRadius))
-                        .padding(.all, -1)
-                }
+                .strokeRoundedView(
+                    stroke: BorderParameters(color: color),
+                    topLeading: .regularCornerRadius,
+                    topTrailing: .regularCornerRadius,
+                    bottomLeading: 0,
+                    bottomTrailing: 0)
         }
     }
     
