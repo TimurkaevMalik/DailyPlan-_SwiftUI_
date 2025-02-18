@@ -33,6 +33,11 @@ struct ListItemCorner: ViewModifier {
                 bottomLeadingRadius: cornerRadius,
                 bottomTrailingRadius: cornerRadius)
             
+        case .single:
+            return .rect(topLeadingRadius: cornerRadius,
+                         bottomLeadingRadius: cornerRadius,
+                         bottomTrailingRadius: cornerRadius,
+                         topTrailingRadius: cornerRadius)
         case ._default:
             return .rect(
                 topLeadingRadius: 0,

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-///TODO: add methods: deleting and creating category
+
 struct CategoryView: View {
     
     @Binding private var category: String
@@ -25,21 +25,25 @@ struct CategoryView: View {
     
     var body: some View {
         NavigationStack {
-            
-            List($categories.indices, id: \.self) { index in
-                categoryItemView(
-                    categories[index],
-                    isToggled: $categories[index].isChosen)
-                
-                .background(.ypMediumLightGray)
-                .setCornerRadius(14, basedOn: positionOf(categories[index]))
+            List {
+                ForEach($categories.indices, id: \.self) { index in
+                    
+                    categoryItemView(
+                        categories[index],
+                        isToggled: $categories[index].isChosen)
+                    .setCornerRadius(.mediumCornerRadius, basedOn: positionOf(categories[index]))
+                }
+                .onDelete(perform: deleteItem)
+                .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
-                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                .padding(.top, index == 0 ? .listTopPadding : 0)
+                .listRowInsets(
+                    .init(top: 0,
+                          leading: 0,
+                          bottom: 0,
+                          trailing: 0))
             }
             .padding(.horizontal, 14)
-            .listStyle(.inset)
-            .scrollContentBackground(.hidden)
+            .listStyle(.plain)
             .navigationTitle("Choose Category")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -50,14 +54,23 @@ struct CategoryView: View {
 }
 
 #Preview {
-    CategoryView(category: .constant(""),
+    @Previewable @State var category: String = ""
+    CategoryView(category: $category,
                  color: .ypLightPink)
 }
 
 private extension CategoryView {
+    func deleteItem(at offSet: IndexSet) {
+        withAnimation {
+            categories.remove(atOffsets: offSet)
+        }
+    }
+    
     func positionOf(_ category: CategoryItem) -> ListItemPosition {
         
-        if category == categories.first {
+        if categories.count == 1 {
+            return .single
+        } else if category == categories.first {
             return .first
         } else if category == categories.last {
             return .last
@@ -75,17 +88,29 @@ private extension CategoryView {
 }
 
 private extension CategoryView {
-    func categoryItemView(_ category: CategoryItem,
-                          isToggled: Binding<Bool>) -> some View {
-        Toggle(isOn: isToggled){
+    func categoryItemView(
+        _ category: CategoryItem,
+        isToggled: Binding<Bool>) -> some View {
+        HStack {
             Text(category.title)
                 .font(.category)
                 .foregroundStyle(.ypBlack)
+            
+            Spacer(minLength: 0)
+            
+            Toggle("", isOn: isToggled)
+                .tint(color)
         }
-        .tint(color)
         .frame(height: 66)
         .padding(.leading, 18)
         .padding(.trailing, 28)
+        .background(.ypMediumLightGray)
+        .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
+            if category != categories.first {
+                Divider()
+                    .padding(.leading, 16)
+            }
+        }
         .onChange(of: isToggled.wrappedValue) {
             if self.category == category.title,
                !isToggled.wrappedValue {
