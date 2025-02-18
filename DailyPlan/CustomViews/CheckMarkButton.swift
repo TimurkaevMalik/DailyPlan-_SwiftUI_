@@ -55,5 +55,5 @@ struct CheckMarkButton: View {
     
     CheckMarkButton(color: .ypLightPink,
                     isDone: $isDone)
-    .frame(width: 60, height: 60)
+    .setSize(.checkMarkButton)
 }

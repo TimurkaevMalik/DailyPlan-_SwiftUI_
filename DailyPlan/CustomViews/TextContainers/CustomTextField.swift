@@ -61,7 +61,7 @@ private extension CustomTextField {
         Button {
             if isFocused.wrappedValue {
                 text = ""
-                isFocused.wrappedValue.toggle()
+                isFocused.wrappedValue = false
             } else {
                 isFocused.wrappedValue = true
             }

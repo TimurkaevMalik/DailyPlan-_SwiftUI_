@@ -53,13 +53,11 @@ struct PopoverDatePicker: View {
     }
 }
 
-struct PopoverDatePicker_Preview: PreviewProvider {
-    @State static var selection = Date()
+#Preview {
+    @Previewable @State var selection = Date()
     
-    static var previews: some View {
-        PopoverDatePicker(selection: $selection,
+    PopoverDatePicker(selection: $selection,
                           direction: .up)
-    }
 }
 
 private extension PopoverDatePicker {
