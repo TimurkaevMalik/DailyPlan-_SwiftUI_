@@ -63,9 +63,14 @@ extension TabBarButton {
 }
 
 #Preview {
+    @Previewable @State var isActive = true
     TabBarButton(imageName: "list.bullet.circle",
                  buttonText: "Tasks",
                  buttonColor: .iconsSecondary,
-                 isActive: true,
-                 action: {})
+                 isActive: isActive,
+                 action: {
+        isActive.toggle()
+    })
+    .frame(width: 100, height: 60)
+    
 }
