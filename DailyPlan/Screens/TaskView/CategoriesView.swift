@@ -1,5 +1,5 @@
 //
-//  CategoryView.swift
+//  CategoriesView.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 02.02.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoryView: View {
+struct CategoriesView: View {
     
     @Binding private var category: String
     @State private var color: Color
@@ -55,11 +55,11 @@ struct CategoryView: View {
 
 #Preview {
     @Previewable @State var category: String = ""
-    CategoryView(category: $category,
-                 color: .ypLightPink)
+    CategoriesView(category: $category,
+                   color: .ypLightPink)
 }
 
-private extension CategoryView {
+private extension CategoriesView {
     func deleteItem(at offSet: IndexSet) {
         withAnimation {
             categories.remove(atOffsets: offSet)
@@ -87,43 +87,40 @@ private extension CategoryView {
     }
 }
 
-private extension CategoryView {
+private extension CategoriesView {
     func categoryItemView(
         _ category: CategoryItem,
         isToggled: Binding<Bool>) -> some View {
-        HStack {
-            Text(category.title)
-                .font(.category)
-                .foregroundStyle(.ypBlack)
-            
-            Spacer(minLength: 0)
-            
-            Toggle("", isOn: isToggled)
-                .tint(color)
-        }
-        .frame(height: 66)
-        .padding(.leading, 18)
-        .padding(.trailing, 28)
-        .background(.ypMediumLightGray)
-        .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
-            if category != categories.first {
-                Divider()
-                    .padding(.leading, 16)
+        
+            LabeledContent(category.title) {
+                Toggle("", isOn: isToggled)
+                    .tint(color)
             }
-        }
-        .onChange(of: isToggled.wrappedValue) {
-            if self.category == category.title,
-               !isToggled.wrappedValue {
-                self.category = ""
-            } else if isToggled.wrappedValue {
-                self.category = category.title
+            .foregroundStyle(.ypBlack)
+            .font(.category)
+            .frame(height: 66)
+            .padding(.leading, 18)
+            .padding(.trailing, 28)
+            .background(.ypMediumLightGray)
+            .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
+                if category != categories.first {
+                    Divider()
+                        .padding(.leading, 16)
+                }
             }
-            setLastChosenCategory()
-        }
+            .onChange(of: isToggled.wrappedValue) {
+                if self.category == category.title,
+                   !isToggled.wrappedValue {
+                    self.category = ""
+                } else if isToggled.wrappedValue {
+                    self.category = category.title
+                }
+                setLastChosenCategory()
+            }
     }
 }
 
-private extension CategoryView {
+private extension CategoriesView {
     struct CategoryItem: Equatable {
         let id = UUID()
         let title: String

@@ -77,7 +77,7 @@ struct TaskConfigurationView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .sheet(isPresented: $addTaskTapped) {
-            CategoryView(category: $category,
+            CategoriesView(category: $category,
                          color: task.color)
             .presentationDetents([.medium])
         }
