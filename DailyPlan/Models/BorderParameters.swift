@@ -15,7 +15,9 @@ struct BorderParameters {
         self.width = width
         self.color = color
     }
-    
+}
+
+extension BorderParameters {
     static func style(width: CGFloat = 1, color: Color) -> BorderParameters {
         BorderParameters(width: width, color: color)
     }

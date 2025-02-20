@@ -10,6 +10,7 @@
 		BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546132C74C01300E6AD68 /* TaskCell.swift */; };
 		BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */; };
 		BC083C822D5B86A500C6C354 /* PopoverTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */; };
+		BC17779E2D67759B00445C62 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC17779D2D67759B00445C62 /* NavBarButton.swift */; };
 		BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2084BE2D4A5AA4008C1118 /* RootView.swift */; };
 		BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305B2D4F8C1900ECA960 /* UIAplication.swift */; };
 		BC64305E2D4F8D1100ECA960 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */; };
@@ -70,6 +71,7 @@
 		BC0546132C74C01300E6AD68 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkButton.swift; sourceTree = "<group>"; };
 		BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTimePicker.swift; sourceTree = "<group>"; };
+		BC17779D2D67759B00445C62 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		BC2084BE2D4A5AA4008C1118 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BC64305B2D4F8C1900ECA960 /* UIAplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAplication.swift; sourceTree = "<group>"; };
 		BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 		BC848A1D2D5C833700776E8C /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				BC17779D2D67759B00445C62 /* NavBarButton.swift */,
 				BC83E9CD2D64860A00D31B9D /* StrokeRoundedView.swift */,
 				BC848A1E2D5C836200776E8C /* ViewSize.swift */,
 				BC98D6202D5E3BD3004817DD /* ListItemCorner.swift */,
@@ -479,6 +482,7 @@
 				BCE284062D4E68ED00224553 /* RepresentedTextView.swift in Sources */,
 				BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */,
 				BC6430622D4FC49700ECA960 /* View.swift in Sources */,
+				BC17779E2D67759B00445C62 /* NavBarButton.swift in Sources */,
 				BC98D61F2D5E3BB4004817DD /* ListItemPosition.swift in Sources */,
 				BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */,
 				BC848A1A2D5C7D1C00776E8C /* CGSize.swift in Sources */,

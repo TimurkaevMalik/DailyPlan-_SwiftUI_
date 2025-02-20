@@ -68,53 +68,48 @@ private extension TaskView {
             addTaskTapped.toggle()
         } label: {
             Image(systemName: "plus")
-                .frame(width: 70, height: 40)
-                .foregroundStyle(.ypTomato)
-                .background(.ypMilkDark)
-                .font(.system(size: 20, weight: .semibold))
-                .clipShape(.buttonBorder)
+                .tint(.ypTomato)
+                .modifier(NavBarButton(
+                    color: .ypMilkDark))
         }
     }
     
     func makeMenu() -> some View {
         Menu {
-            doneTasksFilter()
-            activeTasksFilter()
-            allTasksFilter()
+            menuButton(title: "Done tasks",
+                       image: Image(systemName: "checkmark.square")) {
+                
+                tasks = TaskInfo
+                    .getTasksMock()
+                    .filter({ $0.isDone == true })
+            }
+            
+            menuButton(title: "Active tasks",
+                       image: Image(systemName: "square")) {
+                
+                tasks = TaskInfo
+                    .getTasksMock()
+                    .filter({ $0.isDone == false })
+            }
+            
+            menuButton(title: "All tasks",
+                       image: Image(systemName: "list.bullet.rectangle")) {
+                tasks = TaskInfo.getTasksMock()
+            }
         } label: {
             Image(systemName: "slider.vertical.3")
-                .frame(width: 70, height: 40)
-                .foregroundStyle(.ypMilkDark)
-                .background(.ypTomato)
-                .font(.system(size: 20, weight: .semibold))
-                .clipShape(.buttonBorder)
+                .tint(.ypMilkDark)
+                .modifier(NavBarButton(
+                    color: .ypTomato))
         }
     }
-    
-    func doneTasksFilter() -> some View {
+   
+    func menuButton(title: String, image: Image, action: @escaping () -> Void) -> some View {
         Button {
-            tasks = TaskInfo.getTasksMock().filter({ $0.isDone == true })
+            action()
         } label: {
-            Image(systemName: "checkmark.square")
-            Text("Done tasks")
-        }
-    }
-    
-    func activeTasksFilter() -> some View {
-        Button {
-            tasks = TaskInfo.getTasksMock().filter({ $0.isDone == false })
-        } label: {
-            Image(systemName: "square")
-            Text("Active tasks")
-        }
-    }
-    
-    func allTasksFilter() -> some View {
-        Button {
-            tasks = TaskInfo.getTasksMock()
-        } label: {
-            Text("All tasks")
-            Image(systemName: "list.bullet.rectangle")
+            Text(title)
+            image
         }
     }
 }
