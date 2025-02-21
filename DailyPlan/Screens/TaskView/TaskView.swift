@@ -24,9 +24,11 @@ struct TaskView: View {
             ScrollView {
                 ForEach(tasks, id: \.id) { task in
                     
-                    TaskCell(task: task)
-                        .padding(.vertical, 10)
-                        .listRowSeparator(.visible, edges: .bottom)
+                    TaskCell(task: task) {
+                        delete(task: task)
+                    }
+                    .padding(.vertical, 2)
+                    .listRowSeparator(.visible, edges: .bottom)
                     
                     if let lastTask = tasks.last,
                        lastTask.id != task.id {
@@ -103,13 +105,23 @@ private extension TaskView {
                     color: .ypTomato))
         }
     }
-   
+    
     func menuButton(title: String, image: Image, action: @escaping () -> Void) -> some View {
         Button {
             action()
         } label: {
             Text(title)
             image
+        }
+    }
+}
+
+private extension TaskView {
+    func delete(task: TaskInfo) {
+        withAnimation {
+        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
+                tasks.remove(at: index)
+            }
         }
     }
 }
