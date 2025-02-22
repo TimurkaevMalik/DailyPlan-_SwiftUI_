@@ -10,56 +10,75 @@ import SwiftUI
 struct TaskCell: View {
     
     @State private var task: TaskInfo
-    @State private var descriptionViewOffSet: CGSize
-    @State private var spacing: CGFloat
-    @State private var deletingButtonOpacity: CGFloat
+    @State private var offSet: CGSize
     @FocusState private var isFocused: Bool
-    private var checkMarkButtonSize: CGSize
+    
+    private let checkMarkButtonSize: CGSize
+    private let spacing: CGFloat
     private let delete: () -> Void
     
     init(task: TaskInfo,
          delete: @escaping () -> Void) {
         self.task = task
         self.delete = delete
-        descriptionViewOffSet = .zero
-        spacing = 6
+        offSet = .zero
+        spacing = .defaultSpacing
         checkMarkButtonSize = .checkMarkButton
-        deletingButtonOpacity = 1
     }
     
     var body: some View {
+        
         HStack(alignment: .bottom, spacing: spacing) {
             
             CheckMarkButton(color: task.color,
                             isDone: $task.isDone)
             .setSize(checkMarkButtonSize)
             
-            DescriptionView(text: $task.description,
-                            color: task.color,
-                            focusedHeight: .large,
-                            placeHolder: "Description",
-                            schedule: task.schedule)
-            .focused($isFocused)
-            .offset(getOffSetAmount())
-            .gesture(dragGesture)
-            .onChange(of: isFocused) {
-                if isFocused {
-                    deletingButtonOpacity = 0
-                } else {
-                    deletingButtonOpacity = 1
+            VStack(alignment: .trailing, spacing: 0) {
+                if let scheduleString = stringFromSchedule() {
+                    buttonOf(schedule: scheduleString)
+                        .offset(getOffSetAmount())
                 }
-            }
-            .background(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
-                    Button {
-                        delete()
-                    } label: {
-                        trashImage()
+                
+                DescriptionView(
+                    text: $task.description,
+                    color: .clear,
+                    focusedHeight: .large,
+                    placeHolder: "Description")
+                .strokeRoundedView(
+                    stroke: .style(color: task.color),
+                    topLeading: .mediumCornerRadius,
+                    topTrailing: shouldRoundCorner(),
+                    bottomLeading: .mediumCornerRadius,
+                    bottomTrailing: .mediumCornerRadius)
+                .focused($isFocused)
+                .offset(getOffSetAmount())
+                .gesture(dragGesture)
+                .background(alignment: Alignment(horizontal: .trailing, vertical: .center)) {
+                    
+                    if !isFocused,
+                       offSet != .zero {
+                        
+                        Button {
+                            delete()
+                        } label: {
+                            trashImage()
+                        }
                     }
-                    .padding(.top, 20)
-                    .opacity(deletingButtonOpacity)
+                }
             }
         }
     }
+}
+
+#Preview {
+    TaskCell(task: TaskInfo(
+        description: "description",
+        color: .ypCyan,
+        schedule: .init(start: .distantPast, end: .distantFuture),
+        isDone: false),
+             delete: {})
+    .padding(.horizontal)
 }
 
 private extension TaskCell {
@@ -68,7 +87,7 @@ private extension TaskCell {
             .onChanged { value in
                 if !isFocused {
                     withAnimation {
-                        descriptionViewOffSet.width = value.translation.width
+                        offSet.width = value.translation.width
                     }
                 }
             }
@@ -86,18 +105,19 @@ private extension TaskCell {
             }
     }
     
-    func showDeletingButton(
-        completion: @escaping () -> Void) {
-            withAnimation {
-                descriptionViewOffSet.width = -(checkMarkButtonSize.width + spacing)
-            } completion: {
-                completion()
-            }
-        }
-    
-    func hideDeletingButton(delay: CGFloat = 0) {
-        withAnimation(.linear.delay(delay)) {
-            descriptionViewOffSet = .zero
+    func buttonOf(schedule: String) -> some View {
+        Button {
+            ///TODO: show editing menu
+        } label: {
+            Text(schedule)
+                .padding(.horizontal, 12)
+                .tint(.ypBlack)
+                .strokeRoundedView(
+                    stroke: .style(color: task.color),
+                    topLeading: .regularCornerRadius,
+                    topTrailing: .regularCornerRadius,
+                    bottomLeading: 0,
+                    bottomTrailing: 0)
         }
     }
     
@@ -119,18 +139,53 @@ private extension TaskCell {
     func getOffSetAmount() -> CGSize {
         let minWidth = 0.0
         let maxWidth = -(checkMarkButtonSize.width + spacing)
-        let currentWidth = descriptionViewOffSet.width
+        let currentWidth = offSet.width
         
         return CGSize(width: min(minWidth, max(maxWidth, currentWidth)), height: 0)
     }
-}
-
-#Preview {
-    TaskCell(task: TaskInfo(
-        description: "description",
-        color: .ypCyan,
-        schedule: .init(start: .distantPast, end: .distantFuture),
-        isDone: false),
-             delete: {})
-    .padding(.horizontal)
+    
+    func showDeletingButton(completion: @escaping () -> Void) {
+        withAnimation {
+            offSet.width = -(checkMarkButtonSize.width + spacing)
+        } completion: {
+            completion()
+        }
+    }
+    
+    func hideDeletingButton(delay: CGFloat = 0) {
+        withAnimation(.linear.delay(delay)) {
+            offSet = .zero
+        }
+    }
+    
+    func shouldRoundCorner() -> CGFloat {
+        
+        if (stringFromSchedule() == nil) {
+            return .mediumCornerRadius
+        } else {
+            return 0
+        }
+    }
+    
+    func stringFromSchedule() -> String? {
+        if let start = task.schedule.start,
+           let end = task.schedule.end {
+            
+            let startString = timeString(from: start)
+            let endString = timeString(from: end)
+            
+            return "\(startString) - \(endString)"
+            
+        } else if let start = task.schedule.start {
+            return timeString(from: start)
+        } else if let end = task.schedule.end {
+            return timeString(from: end)
+        } else {
+            return nil
+        }
+    }
+    
+    func timeString(from date: Date) -> String {
+        DateFormatManager.shared.timeString(from: date)
+    }
 }

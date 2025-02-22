@@ -24,7 +24,15 @@ extension CGFloat {
         return 8
     }
     
-    static var listTopPadding: CGFloat {
+    static var defaultSpacing: CGFloat {
+        return 6
+    }
+    
+    static var screenHorizontalSpacing: CGFloat {
+        return 10
+    }
+    
+    static var mediumSpacing: CGFloat {
         return 14
     }
 }

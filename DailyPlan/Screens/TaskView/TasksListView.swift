@@ -1,5 +1,5 @@
 //
-//  TaskView.swift
+//  TasksListView.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 18.08.2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 ///TODO: make custom popover of TaskConfigurationView
-struct TaskView: View {
+struct TasksListView: View {
     
     @State private var addTaskTapped: Bool
     @State private var selection: Date
@@ -27,16 +27,16 @@ struct TaskView: View {
                     TaskCell(task: task) {
                         delete(task: task)
                     }
-                    .padding(.vertical, 2)
-                    .listRowSeparator(.visible, edges: .bottom)
-                    
-                    if let lastTask = tasks.last,
-                       lastTask.id != task.id {
-                        Divider()
+                    .padding(.vertical, 12)
+                    .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+                        if let lastTask = tasks.last,
+                           lastTask.id != task.id {
+                            dividerView
+                        }
                     }
                 }
-                .padding(.top, .listTopPadding)
-                .padding(.horizontal, 8)
+                .padding(.top, .mediumSpacing)
+                .padding(.horizontal, .screenHorizontalSpacing)
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $addTaskTapped) {
@@ -63,7 +63,15 @@ struct TaskView: View {
     }
 }
 
-private extension TaskView {
+#Preview {
+    TasksListView()
+}
+
+private extension TasksListView {
+    var dividerView: some View {
+        Divider()
+            .padding(.leading, CGSize.checkMarkButton.width + CGFloat.defaultSpacing)
+    }
     ///TODO: change image on next view appear
     func addTaskButton() -> some View {
         Button {
@@ -116,7 +124,7 @@ private extension TaskView {
     }
 }
 
-private extension TaskView {
+private extension TasksListView {
     func delete(task: TaskInfo) {
         withAnimation {
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
@@ -124,8 +132,4 @@ private extension TaskView {
             }
         }
     }
-}
-
-#Preview {
-    TaskView()
 }

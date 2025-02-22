@@ -45,7 +45,7 @@
 		BCF072602C70D72800999035 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarView.swift */; };
 		BCF072632C70DC9F00999035 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Font.swift */; };
 		BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072642C70F0F300999035 /* TabBarButton.swift */; };
-		BCF072682C71AD4800999035 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072672C71AD4800999035 /* TaskView.swift */; };
+		BCF072682C71AD4800999035 /* TasksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072672C71AD4800999035 /* TasksListView.swift */; };
 		BCF0726B2C71B55800999035 /* FoldersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0726A2C71B55800999035 /* FoldersView.swift */; };
 		BCF0726E2C71B58600999035 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0726D2C71B58600999035 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
@@ -109,7 +109,7 @@
 		BCF0725F2C70D72800999035 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BCF072622C70DC9F00999035 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		BCF072642C70F0F300999035 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
-		BCF072672C71AD4800999035 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		BCF072672C71AD4800999035 /* TasksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListView.swift; sourceTree = "<group>"; };
 		BCF0726A2C71B55800999035 /* FoldersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersView.swift; sourceTree = "<group>"; };
 		BCF0726D2C71B58600999035 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -310,7 +310,7 @@
 		BCF072662C71ACE300999035 /* TaskView */ = {
 			isa = PBXGroup;
 			children = (
-				BCF072672C71AD4800999035 /* TaskView.swift */,
+				BCF072672C71AD4800999035 /* TasksListView.swift */,
 				BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */,
 				BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */,
 			);
@@ -465,7 +465,7 @@
 			files = (
 				BC848A182D5C629500776E8C /* Date.swift in Sources */,
 				BC083C822D5B86A500C6C354 /* PopoverTimePicker.swift in Sources */,
-				BCF072682C71AD4800999035 /* TaskView.swift in Sources */,
+				BCF072682C71AD4800999035 /* TasksListView.swift in Sources */,
 				BCBE35332D5DD89700796ABB /* PopoverDirection.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Font.swift in Sources */,
 				BC98D6212D5E3BD3004817DD /* ListItemCorner.swift in Sources */,

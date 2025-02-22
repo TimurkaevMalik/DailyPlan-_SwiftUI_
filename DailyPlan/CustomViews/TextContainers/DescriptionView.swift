@@ -20,18 +20,15 @@ struct DescriptionView: View {
     private let focusedHeight: FocusedHeight
     private let color: Color
     private let placeHolder: String
-    private let schedule: Schedule?
     
     init(text: Binding<String>,
          color: Color,
          focusedHeight: FocusedHeight,
-         placeHolder: String,
-         schedule: Schedule? = nil) {
+         placeHolder: String) {
         self._text = text
         self.color = color
         self.placeHolder = placeHolder
         self.focusedHeight = focusedHeight
-        self.schedule = schedule
         
         editorState = .default
         lastText = ""
@@ -40,54 +37,44 @@ struct DescriptionView: View {
     
     var body: some View {
         
-        VStack(alignment: .trailing, spacing: 0) {
-            
-            if let scheduleString = stringFromSchedule() {
-                buttonOf(schedule: scheduleString)
-            }
-            
-            RepresentedTextView(text: $text,
-                                placeHolder: placeHolder,
-                                linesNumber: focusedHeight == .medium ? 1 : 5)
-            .tint(color)
-            .focused($isFocused)
-            .frame(height: editorState == .focused ? focusedHeight.rawValue : .mediumHeight)
-            .multilineTextAlignment(.leading)
-            .overlay {
-                ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                    
-                    Color.clear
-                    
-                    HStack {
-                        Spacer()
-                        cancelButton()
-                        confirmButton()
-                    }
-                    .padding(.trailing, 12)
-                    .padding(.bottom, buttonsStateValues.padding)
+        RepresentedTextView(text: $text,
+                            placeHolder: placeHolder,
+                            linesNumber: focusedHeight == .medium ? 1 : 5)
+        .tint(color)
+        .focused($isFocused)
+        .frame(height: editorState == .focused ? focusedHeight.rawValue : .mediumHeight)
+        .multilineTextAlignment(.leading)
+        .overlay {
+            ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+                
+                Color.clear
+                
+                HStack {
+                    Spacer()
+                    cancelButton()
+                    confirmButton()
                 }
+                .padding(.trailing, 12)
+                .padding(.bottom, buttonsStateValues.padding)
             }
-            .strokeRoundedView(
-                stroke: .style(color: color),
-                topLeading: .mediumCornerRadius,
-                topTrailing: shouldRoundCorner(),
-                bottomLeading: .mediumCornerRadius,
-                bottomTrailing: .mediumCornerRadius)
-            .onChange(of: isFocused, {
-                lastText = text
-                switchStateWithAnimation()
-            })
         }
+        .background {
+            RoundedRectangle(cornerRadius: .mediumCornerRadius)
+                .stroke(color)
+        }
+        .onChange(of: isFocused, {
+            lastText = text
+            switchStateWithAnimation()
+        })
     }
 }
 
 #Preview {
     @Previewable @State var text: String = ""
     DescriptionView(text: $text,
-                   color: .messRed,
-                   focusedHeight: .large,
-                   placeHolder: "Description",
-                   schedule: Schedule(start: .now))
+                    color: .messRed,
+                    focusedHeight: .large,
+                    placeHolder: "Description")
     .padding(.horizontal)
 }
 
@@ -120,22 +107,6 @@ private extension DescriptionView {
         }
     }
     
-    func buttonOf(schedule: String) -> some View {
-        Button {
-            ///TODO: show editing menu
-        } label: {
-            Text(schedule)
-                .padding(.horizontal, 12)
-                .tint(.ypBlack)
-                .strokeRoundedView(
-                    stroke: .style(color: color),
-                    topLeading: .regularCornerRadius,
-                    topTrailing: .regularCornerRadius,
-                    bottomLeading: 0,
-                    bottomTrailing: 0)
-        }
-    }
-    
     func cancelButton() -> some View {
         Button {
             text = lastText
@@ -164,13 +135,14 @@ private extension DescriptionView {
 
 private extension DescriptionView {
     func switchStateWithAnimation() {
-        if editorState == .default {
+        
+        if isFocused {
             
-            withAnimation(.snappy(duration: 0.6, extraBounce: 0.4)) {
+            withAnimation(.bouncy(duration: 0.8, extraBounce: 0.2)) {
                 editorState = .focused
                 
             } completion: {
-                withAnimation(.snappy(duration: 0.4, extraBounce: 0.4)) {
+                withAnimation(.bouncy(duration: 0.8, extraBounce: 0.2)) {
                     buttonsStateValues = ButtonStateValues(state: editorState)
                 }
             }
@@ -178,48 +150,15 @@ private extension DescriptionView {
             
             let editorDefaultState = EditorState.default
             
-            withAnimation(.smooth) {
+            withAnimation {
                 
                 buttonsStateValues = ButtonStateValues(state: editorDefaultState)
                 
             } completion: {
-                withAnimation(.smooth) {
+                withAnimation {
                     editorState = editorDefaultState
                 }
             }
         }
-    }
-    
-    func shouldRoundCorner() -> CGFloat {
-        
-        if (stringFromSchedule() == nil) {
-            return .mediumCornerRadius
-        } else {
-            return 0
-        }
-    }
-    
-    func stringFromSchedule() -> String? {
-        guard let schedule else { return nil }
-        
-        if let start = schedule.start,
-           let end = schedule.end {
-            
-            let startString = timeString(from: start)
-            let endString = timeString(from: end)
-            
-            return "\(startString) - \(endString)"
-            
-        } else if let start = schedule.start {
-            return timeString(from: start)
-        } else if let end = schedule.end {
-            return timeString(from: end)
-        } else {
-            return nil
-        }
-    }
-    
-    func timeString(from date: Date) -> String {
-        DateFormatManager.shared.timeString(from: date)
     }
 }

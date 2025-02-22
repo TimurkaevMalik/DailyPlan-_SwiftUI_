@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoriesView: View {
     
+    @Environment(\.dismiss) var dismiss
     @Binding private var category: String
     @State private var color: Color
     @State private var categories: [CategoryItem]
@@ -42,7 +43,7 @@ struct CategoriesView: View {
                           bottom: 0,
                           trailing: 0))
             }
-            .padding(.horizontal, 14)
+            .padding(.horizontal, .screenHorizontalSpacing)
             .listStyle(.plain)
             .navigationTitle("Choose Category")
             .navigationBarTitleDisplayMode(.inline)
@@ -63,6 +64,12 @@ private extension CategoriesView {
     func deleteItem(at offSet: IndexSet) {
         withAnimation {
             categories.remove(atOffsets: offSet)
+        } completion: {
+            if categories.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    dismiss()
+                }
+            }
         }
     }
     

@@ -71,7 +71,7 @@ struct TaskConfigurationView: View {
                     }
                 }
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, .screenHorizontalSpacing)
             .padding(.top, 8)
             .navigationTitle("Configure Task")
             .navigationBarTitleDisplayMode(.inline)
