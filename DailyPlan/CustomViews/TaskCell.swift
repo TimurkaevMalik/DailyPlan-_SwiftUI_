@@ -10,9 +10,12 @@ import SwiftUI
 struct TaskCell: View {
     
     @State private var task: TaskInfo
+    
     @State private var cellOffSet: CGSize
     @State private var descriptionViewOffSet: CGSize
+    
     @State private var isDelayedAnimationActive: Bool
+    @State private var isAnimating: Bool
     @FocusState private var isFocused: Bool
     
     private let checkMarkButtonSize: CGSize
@@ -23,9 +26,13 @@ struct TaskCell: View {
          delete: @escaping () -> Void) {
         self.task = task
         self.delete = delete
+        
         cellOffSet = .zero
         descriptionViewOffSet = .zero
+        
         isDelayedAnimationActive = false
+        isAnimating = false
+        
         spacing = .defaultSpacing
         checkMarkButtonSize = .checkMarkButton
     }
@@ -44,7 +51,7 @@ struct TaskCell: View {
                     scheduleView(scheduleString)
                         .offset(getOffSetAmount())
                 }
-               
+                
                 DescriptionView(
                     text: $task.description,
                     color: .clear,
@@ -61,13 +68,13 @@ struct TaskCell: View {
                 .gesture(dragGesture)
                 .background(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
                     
-                    if !isFocused {
+                    if !isFocused,
+                       isAnimating {
                         Button {
                             dismissTaskCell()
                         } label: {
                             trashImage
                         }
-//                        .offset(cellOffSet)
                     }
                 }
             }
@@ -117,6 +124,9 @@ private extension TaskCell {
             .onChanged { value in
                 if !isFocused,
                    !isDelayedAnimationActive {
+                    
+                    isAnimating = true
+                    
                     withAnimation {
                         descriptionViewOffSet.width = value.translation.width
                     }
@@ -127,13 +137,11 @@ private extension TaskCell {
                    !isDelayedAnimationActive {
                     
                     if value.translation.width > -30 {
+                        
                         hideDeletingButton()
                     } else {
                         showDeletingButton(completion: {
-                            DispatchQueue.global().async {
-                                
-                                hideDeletingButton(delay: 2)
-                            }
+                            hideDeletingButton(delay: 2)
                         })
                     }
                 }
@@ -168,6 +176,7 @@ private extension TaskCell {
         withAnimation(.linear.delay(delay)) {
             descriptionViewOffSet = .zero
         } completion: {
+            isAnimating = false
             isDelayedAnimationActive = false
         }
     }
