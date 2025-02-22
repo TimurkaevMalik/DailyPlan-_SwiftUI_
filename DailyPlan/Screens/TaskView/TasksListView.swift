@@ -25,7 +25,7 @@ struct TasksListView: View {
                 ForEach(tasks, id: \.id) { task in
                     
                     TaskCell(task: task) {
-                        delete(task: task)
+                            delete(task: task)
                     }
                     .padding(.vertical, 12)
                     .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -44,7 +44,6 @@ struct TasksListView: View {
                     .presentationDetents([.medium])
             }
             .toolbar {
-                
                 ToolbarItem(placement: .topBarLeading) {
                     menuButton
                 }
@@ -88,7 +87,6 @@ private extension TasksListView {
         Menu {
             menuItemButton(title: "Done tasks",
                            image: Image(systemName: "checkmark.square")) {
-                
                 tasks = TaskInfo
                     .getTasksMock()
                     .filter({ $0.isDone == true })

@@ -16,10 +16,10 @@ struct NavBarButton: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .frame(width: 70, height: 40)
+            .frame(width: 64, height: 34)
             .background(color)
-            .font(.system(size: 20, weight: .semibold))
+            .font(.system(size: 16, weight: .semibold))
             .clipShape(.rect(
-                cornerRadius: .mediumCornerRadius))
+                cornerRadius: .regularCornerRadius))
     }
 }

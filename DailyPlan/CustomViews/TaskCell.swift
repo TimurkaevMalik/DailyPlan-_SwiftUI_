@@ -10,7 +10,8 @@ import SwiftUI
 struct TaskCell: View {
     
     @State private var task: TaskInfo
-    @State private var offSet: CGSize
+    @State private var cellOffSet: CGSize
+    @State private var descriptionViewOffSet: CGSize
     @State private var isDelayedAnimationActive: Bool
     @FocusState private var isFocused: Bool
     
@@ -22,10 +23,11 @@ struct TaskCell: View {
          delete: @escaping () -> Void) {
         self.task = task
         self.delete = delete
-        offSet = .zero
+        cellOffSet = .zero
+        descriptionViewOffSet = .zero
+        isDelayedAnimationActive = false
         spacing = .defaultSpacing
         checkMarkButtonSize = .checkMarkButton
-        isDelayedAnimationActive = false
     }
     
     var body: some View {
@@ -37,11 +39,12 @@ struct TaskCell: View {
             .setSize(checkMarkButtonSize)
             
             VStack(alignment: .trailing, spacing: 0) {
+                
                 if let scheduleString = stringFromSchedule() {
                     scheduleView(scheduleString)
                         .offset(getOffSetAmount())
                 }
-                
+               
                 DescriptionView(
                     text: $task.description,
                     color: .clear,
@@ -56,20 +59,20 @@ struct TaskCell: View {
                 .focused($isFocused)
                 .offset(getOffSetAmount())
                 .gesture(dragGesture)
-                .background(alignment: Alignment(horizontal: .trailing, vertical: .center)) {
+                .background(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
                     
-                    if !isFocused,
-                       offSet != .zero {
-                        
+                    if !isFocused {
                         Button {
-                            delete()
+                            dismissTaskCell()
                         } label: {
                             trashImage
                         }
+//                        .offset(cellOffSet)
                     }
                 }
             }
         }
+        .offset(cellOffSet)
     }
 }
 
@@ -101,7 +104,7 @@ private extension TaskCell {
             .foregroundStyle(.messRed)
             .setSize(.checkMarkButton)
             .padding(.trailing, 6)
-            .padding(.leading, 20)
+            .padding(.leading, 100)
             .background {
                 RoundedRectangle(cornerRadius: .mediumCornerRadius)
                     .stroke(.messRed, lineWidth: 2)
@@ -115,7 +118,7 @@ private extension TaskCell {
                 if !isFocused,
                    !isDelayedAnimationActive {
                     withAnimation {
-                        offSet.width = value.translation.width
+                        descriptionViewOffSet.width = value.translation.width
                     }
                 }
             }
@@ -127,7 +130,10 @@ private extension TaskCell {
                         hideDeletingButton()
                     } else {
                         showDeletingButton(completion: {
-                            hideDeletingButton(delay: 2)
+                            DispatchQueue.global().async {
+                                
+                                hideDeletingButton(delay: 2)
+                            }
                         })
                     }
                 }
@@ -139,14 +145,14 @@ private extension TaskCell {
     func getOffSetAmount() -> CGSize {
         let minWidth = 0.0
         let maxWidth = -(checkMarkButtonSize.width + spacing)
-        let currentWidth = offSet.width
+        let currentWidth = descriptionViewOffSet.width
         
         return CGSize(width: min(minWidth, max(maxWidth, currentWidth)), height: 0)
     }
     
     func showDeletingButton(completion: @escaping () -> Void) {
         withAnimation {
-            offSet.width = -(checkMarkButtonSize.width + spacing)
+            descriptionViewOffSet.width = -(checkMarkButtonSize.width + spacing)
         } completion: {
             completion()
         }
@@ -160,9 +166,17 @@ private extension TaskCell {
         }
         
         withAnimation(.linear.delay(delay)) {
-            offSet = .zero
+            descriptionViewOffSet = .zero
         } completion: {
             isDelayedAnimationActive = false
+        }
+    }
+    
+    func dismissTaskCell() {
+        withAnimation {
+            cellOffSet.width = -UIScreen.main.bounds.width
+        } completion: {
+            delete()
         }
     }
     
