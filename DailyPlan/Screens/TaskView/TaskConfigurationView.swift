@@ -42,7 +42,7 @@ struct TaskConfigurationView: View {
         NavigationStack {
             VStack(spacing: 16) {
                 
-                CustomTextView(
+                DescriptionView(
                     text: $task.description,
                     color: task.color,
                     focusedHeight: .large,
@@ -53,43 +53,31 @@ struct TaskConfigurationView: View {
                                     isFocused: $isFocused,
                                     color: task.color)
                     
-                    ///TODO: if categories != nil
-                    if true == true {
-                        storedCategoriesButton()
-                            .padding(.leading, categoriesButtonState == .hidden ? 0 : 10)
-                            .onTapGesture {
-                                if categoriesButtonState == .visible {
-                                    addTaskTapped.toggle()
-                                }
-                            }
+                    if !categories.isEmpty {
+                        storedCategoriesButton
                     }
                 }
                 
                 ScheduleView(
                     color: task.color,
                     schedule: $task.schedule)
+                
                 Spacer(minLength: 0)
                 
                 HStack {
                     ForEach(colors, id: \.self) { color in
                         
-                        Button {
-                            task.color = color
-                        } label: {
-                            color
-                                .frame(width: 48, height: 48)
-                                .clipShape(.buttonBorder)
-                        }
+                        buttonOf(color: color)
                     }
                 }
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, .screenHorizontalSpacing)
             .padding(.top, 8)
             .navigationTitle("Configure Task")
             .navigationBarTitleDisplayMode(.inline)
         }
         .sheet(isPresented: $addTaskTapped) {
-            CategoryView(category: $category,
+            CategoriesView(category: $category,
                          color: task.color)
             .presentationDetents([.medium])
         }
@@ -107,22 +95,38 @@ struct TaskConfigurationView: View {
 }
 
 private extension TaskConfigurationView {
-    func storedCategoriesButton() -> some View {
-        Image(systemName: "list.bullet")
+    var storedCategoriesButton: some View {
+        
+        let width = CGSize.checkMarkButton.width
+        
+        let customView = Image(systemName: "list.bullet")
             .resizable()
             .frame(width: 34, height: 36)
             .foregroundStyle(doesCategoryExist() ? task.color : .grayPlaceholder)
-            .frame(width: categoriesButtonState == .hidden ? 0 : 56, height: 60)
+            .frame(width: categoriesButtonState == .hidden ? 0 : width,
+                   height: .mediumHeight)
             .clipped()
             .overlay(content: {
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: .mediumCornerRadius)
                     .stroke(task.color)
             })
+            .padding(.leading, categoriesButtonState == .hidden ? 0 : 10)
+            .onTapGesture {
+                if categoriesButtonState == .visible {
+                    addTaskTapped.toggle()
+                }
+            }
+        
+        return customView
     }
     
-    func doesCategoryExist() -> Bool {
-        return categories.contains {
-            $0.lowercased() == category.lowercased()
+    private func buttonOf(color: Color) -> some View {
+        Button {
+            task.color = color
+        } label: {
+            color
+                .frame(width: 48, height: 48)
+                .clipShape(.rect(cornerRadius: .mediumCornerRadius))
         }
     }
 }
@@ -138,6 +142,12 @@ private extension TaskConfigurationView {
             withAnimation {
                 categoriesButtonState = .visible
             }
+        }
+    }
+    
+    func doesCategoryExist() -> Bool {
+        return categories.contains {
+            $0.lowercased() == category.lowercased()
         }
     }
 }

@@ -20,7 +20,7 @@ extension TaskInfo {
         [
             TaskInfo(description: "Eat food",
                      color: .ypWarmYellow,
-                 schedule: Schedule(start: .now, end: .now),
+                     schedule: Schedule(start: nil, end: .now),
                  isDone: true),
             
             TaskInfo(description: "Go to school",
@@ -43,12 +43,12 @@ extension TaskInfo {
                  schedule: Schedule(start: nil, end: .now),
                  isDone: false),
             
-            TaskInfo(description: "Lesten to music break the dishes",
+            TaskInfo(description: "Listen to music break the dishes",
                      color: .ypRed,
                  schedule: Schedule(start: .now, end: .now),
                  isDone: true),
             
-            TaskInfo(description: "Lesten to music break the dishes",
+            TaskInfo(description: "Listen to music break the dishes",
                      color: .ypRed,
                  schedule: Schedule(start: nil, end: .now),
                  isDone: true),
@@ -78,12 +78,12 @@ extension TaskInfo {
                  schedule: Schedule(start: .now, end: nil),
                  isDone: false),
             
-            TaskInfo(description: "Lesten to music break the dishes",
+            TaskInfo(description: "Listen to music break the dishes",
                  color: .ypWarmYellow,
                  schedule: Schedule(start: .now, end: nil),
                  isDone: true),
             
-            TaskInfo(description: "Lesten to music break the dishes",
+            TaskInfo(description: "Listen to music break the dishes",
                      color: .ypWarmYellow,
                  schedule: Schedule(start: .now, end: nil),
                  isDone: true)

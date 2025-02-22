@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-///TODO: set regular text Font
 ///TODO: add method - (isFocused = false on screen tap)
 struct CustomTextField: View {
     
@@ -30,7 +29,7 @@ struct CustomTextField: View {
                 .focused(isFocused)
                 .tint(color)
                 .font(.taskText)
-                .frame(height: 60)
+                .frame(height: .mediumHeight)
                 .padding(.leading, 10)
                 .placeHolder(present: isFocused.wrappedValue || !text.isEmpty) {
                     Text("Category")
@@ -39,12 +38,12 @@ struct CustomTextField: View {
                         .padding(.horizontal, 10)
                 }
             
-            clearButton()
+            clearButton
                 .padding(.trailing, 10)
         }
         .clipped()
         .overlay {
-            RoundedRectangle(cornerRadius: 16)
+            RoundedRectangle(cornerRadius: .mediumCornerRadius)
                 .stroke(color)
         }
         .onChange(of: text) {
@@ -58,11 +57,11 @@ struct CustomTextField: View {
 }
 
 private extension CustomTextField {
-    func clearButton() -> some View {
+    var clearButton: some View {
         Button {
             if isFocused.wrappedValue {
                 text = ""
-                isFocused.wrappedValue.toggle()
+                isFocused.wrappedValue = false
             } else {
                 isFocused.wrappedValue = true
             }

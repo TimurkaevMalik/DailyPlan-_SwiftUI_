@@ -10,5 +10,6 @@ import Foundation
 enum ListItemPosition {
     case first
     case last
+    case single
     case _default
 }

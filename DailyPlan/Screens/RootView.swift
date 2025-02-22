@@ -16,7 +16,7 @@ struct RootView: View {
     }
     var body: some View {
         if selectedTab == .tasks {
-            TaskView()
+            TasksListView()
         } else if selectedTab == .files {
             FoldersView()
         } else if selectedTab == .settings {
