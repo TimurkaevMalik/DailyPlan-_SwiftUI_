@@ -1,21 +1,21 @@
 //
-//  CustomTextView.swift
+//  DescriptionView.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 20.08.2024.
 //
 
 import SwiftUI
-///TODO: set regular text Font
-struct CustomTextView: View {
+
+struct DescriptionView: View {
     
     @FocusState private var isFocused: Bool
     
     @Binding private var text: String
     @State private var lastText: String
     
-    @State private var state: EditorState
-    @State private var stateValues: StateValues
+    @State private var editorState: EditorState
+    @State private var buttonsStateValues: ButtonStateValues
     
     private let focusedHeight: FocusedHeight
     private let color: Color
@@ -30,9 +30,9 @@ struct CustomTextView: View {
         self.placeHolder = placeHolder
         self.focusedHeight = focusedHeight
         
-        state = .default
+        editorState = .default
         lastText = ""
-        stateValues = StateValues(state: .default)
+        buttonsStateValues = ButtonStateValues(state: .default)
     }
     
     var body: some View {
@@ -42,8 +42,7 @@ struct CustomTextView: View {
                             linesNumber: focusedHeight == .medium ? 1 : 5)
         .tint(color)
         .focused($isFocused)
-        .frame(height: state == .focused ? focusedHeight.rawValue : 60)
-        .padding(.horizontal, 10)
+        .frame(height: editorState == .focused ? focusedHeight.rawValue : .mediumHeight)
         .multilineTextAlignment(.leading)
         .overlay {
             ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -51,17 +50,17 @@ struct CustomTextView: View {
                 Color.clear
                 
                 HStack {
-                    cancelButton()
-                    confirmButton()
+                    Spacer()
+                    cancelButton
+                    confirmationButton
                 }
                 .padding(.trailing, 12)
-                .padding(.bottom, stateValues.padding)
+                .padding(.bottom, buttonsStateValues.padding)
             }
-            .clipped()
-            .overlay(content: {
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(color)
-            })
+        }
+        .background {
+            RoundedRectangle(cornerRadius: .mediumCornerRadius)
+                .stroke(color)
         }
         .onChange(of: isFocused, {
             lastText = text
@@ -70,20 +69,29 @@ struct CustomTextView: View {
     }
 }
 
-extension CustomTextView {
+#Preview {
+    @Previewable @State var text: String = ""
+    DescriptionView(text: $text,
+                    color: .messRed,
+                    focusedHeight: .large,
+                    placeHolder: "Description")
+    .padding(.horizontal)
+}
+
+extension DescriptionView {
     enum FocusedHeight: CGFloat {
         case medium = 84
         case large = 184
     }
 }
 
-private extension CustomTextView {
+private extension DescriptionView {
     enum EditorState {
         case focused
         case `default`
     }
     
-    struct StateValues {
+    struct ButtonStateValues {
         let padding: CGFloat
         let height: CGFloat
         
@@ -98,26 +106,26 @@ private extension CustomTextView {
             }
         }
     }
-    
-    func cancelButton() -> some View {
+    ///TODO: make custom button style
+    var cancelButton: some View {
         Button {
             text = lastText
             isFocused = false
         } label: {
             Image(systemName: "multiply")
-                .frame(width: 50, height: stateValues.height)
+                .frame(width: 50, height: buttonsStateValues.height)
                 .foregroundStyle(.ypRed)
                 .background(.messGradientFirst)
                 .clipShape(.buttonBorder)
         }
     }
     
-    func confirmButton() -> some View {
+    var confirmationButton: some View {
         Button {
             isFocused = false
         } label: {
             Image(systemName: "checkmark")
-                .frame(width: 50, height: stateValues.height)
+                .frame(width: 50, height: buttonsStateValues.height)
                 .foregroundStyle(.ypLightGreen)
                 .background(.messGradientBottom)
                 .clipShape(.buttonBorder)
@@ -125,38 +133,32 @@ private extension CustomTextView {
     }
 }
 
-private extension CustomTextView {
+private extension DescriptionView {
     func switchStateWithAnimation() {
-        if state == .default {
+        
+        if isFocused {
             
-            withAnimation {
-                state = .focused
+            withAnimation(.bouncy(duration: 0.8, extraBounce: 0.2)) {
+                editorState = .focused
+                
             } completion: {
-                withAnimation {
-                    stateValues = StateValues(state: state)
+                withAnimation(.bouncy(duration: 0.8, extraBounce: 0.2)) {
+                    buttonsStateValues = ButtonStateValues(state: editorState)
                 }
             }
         } else {
             
-            let defaultState = EditorState.default
+            let editorDefaultState = EditorState.default
             
-            withAnimation(.linear(duration: 0.2)) {
+            withAnimation {
                 
-                stateValues = StateValues(state: defaultState)
+                buttonsStateValues = ButtonStateValues(state: editorDefaultState)
                 
             } completion: {
                 withAnimation {
-                    state = defaultState
+                    editorState = editorDefaultState
                 }
             }
         }
     }
-}
-
-#Preview {
-    @Previewable @State var text: String = ""
-    CustomTextView(text: $text,
-                   color: .ypWarmYellow,
-                   focusedHeight: .large,
-                   placeHolder: "Description")
 }

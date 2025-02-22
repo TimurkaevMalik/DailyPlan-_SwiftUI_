@@ -33,7 +33,7 @@ struct PopoverDatePicker: View {
         Text(DateFormatManager.shared.dateString(from: selection))
             .frame(width: 120, height: 32)
             .background(.ypMilk)
-            .clipShape(.rect(cornerRadius: 10))
+            .clipShape(.rect(cornerRadius: .regularCornerRadius))
             .onTapGesture {
                 togglePresentation()
             }
@@ -53,13 +53,11 @@ struct PopoverDatePicker: View {
     }
 }
 
-struct PopoverDatePicker_Preview: PreviewProvider {
-    @State static var selection = Date()
+#Preview {
+    @Previewable @State var selection = Date()
     
-    static var previews: some View {
-        PopoverDatePicker(selection: $selection,
+    PopoverDatePicker(selection: $selection,
                           direction: .up)
-    }
 }
 
 private extension PopoverDatePicker {

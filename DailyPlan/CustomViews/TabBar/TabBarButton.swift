@@ -28,7 +28,7 @@ struct TabBarButton: View {
                     }
                     
                     VStack(spacing: 4) {
-                        tabItemImage()
+                        tabItemImage
                         
                         Text(buttonText)
                             .font(Font.tabBar)
@@ -53,8 +53,10 @@ extension TabBarButton {
                 bottomTrailingRadius: 20,
                 topTrailingRadius: 0))
     }
-    
-    private func tabItemImage() -> some View {
+}
+
+private extension TabBarButton {
+    var tabItemImage: some View {
         Image(systemName: imageName)
             .resizable()
             .scaledToFit()
@@ -63,9 +65,13 @@ extension TabBarButton {
 }
 
 #Preview {
+    @Previewable @State var isActive = true
     TabBarButton(imageName: "list.bullet.circle",
                  buttonText: "Tasks",
                  buttonColor: .iconsSecondary,
-                 isActive: true,
-                 action: {})
+                 isActive: isActive,
+                 action: {
+        isActive.toggle()
+    })
+    .frame(width: 100, height: 60)
 }

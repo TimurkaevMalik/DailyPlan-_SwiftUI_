@@ -44,7 +44,7 @@ struct CheckMarkButton: View {
                     }
             }
         }
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: .mediumCornerRadius))
     }
 }
 
@@ -55,5 +55,5 @@ struct CheckMarkButton: View {
     
     CheckMarkButton(color: .ypLightPink,
                     isDone: $isDone)
-    .frame(width: 60, height: 60)
+    .setSize(.checkMarkButton)
 }
