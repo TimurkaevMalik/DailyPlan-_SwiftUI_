@@ -61,7 +61,7 @@ struct PopoverTimePicker: View {
             }
             .popover(isPresented: $shouldPresent,
                      arrowEdge: arrowEdge) {
-                timeWheel()
+                timeWheelView
                     .presentationCompactAdaptation(.popover)
             }
     }
@@ -76,7 +76,7 @@ struct PopoverTimePicker: View {
 }
 
 private extension PopoverTimePicker {
-    func timeWheel() -> some View {
+    var timeWheelView: some View {
         HStack(spacing: 0) {
             Picker("", selection: $hoursSelection) {
                 ForEach(0..<600) {

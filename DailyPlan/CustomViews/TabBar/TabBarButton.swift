@@ -28,7 +28,7 @@ struct TabBarButton: View {
                     }
                     
                     VStack(spacing: 4) {
-                        tabItemImage()
+                        tabItemImage
                         
                         Text(buttonText)
                             .font(Font.tabBar)
@@ -53,8 +53,10 @@ extension TabBarButton {
                 bottomTrailingRadius: 20,
                 topTrailingRadius: 0))
     }
-    
-    private func tabItemImage() -> some View {
+}
+
+private extension TabBarButton {
+    var tabItemImage: some View {
         Image(systemName: imageName)
             .resizable()
             .scaledToFit()
@@ -72,5 +74,4 @@ extension TabBarButton {
         isActive.toggle()
     })
     .frame(width: 100, height: 60)
-    
 }

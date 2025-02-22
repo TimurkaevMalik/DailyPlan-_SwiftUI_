@@ -61,36 +61,19 @@ struct CategoriesView: View {
 }
 
 private extension CategoriesView {
-    func deleteItem(at offSet: IndexSet) {
-        withAnimation {
-            categories.remove(atOffsets: offSet)
-        } completion: {
-            if categories.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    dismiss()
-                }
-            }
-        }
-    }
-    
-    func positionOf(_ category: CategoryItem) -> ListItemPosition {
+    struct CategoryItem: Equatable {
+        let id = UUID()
+        let title: String
+        var isChosen: Bool
         
-        if categories.count == 1 {
-            return .single
-        } else if category == categories.first {
-            return .first
-        } else if category == categories.last {
-            return .last
-        } else {
-            return ._default
+        init(title: String, isChosen: Bool = false) {
+            self.title = title
+            self.isChosen = isChosen
         }
-    }
-    
-    func setLastChosenCategory() {
-        categories.indices.forEach({
-            categories[$0].shouldSetChosen(
-                category.lowercased() == categories[$0].title.lowercased())
-        })
+        
+        mutating func shouldSetChosen(_ bool: Bool) {
+            isChosen = bool
+        }
     }
 }
 
@@ -128,18 +111,35 @@ private extension CategoriesView {
 }
 
 private extension CategoriesView {
-    struct CategoryItem: Equatable {
-        let id = UUID()
-        let title: String
-        var isChosen: Bool
-        
-        init(title: String, isChosen: Bool = false) {
-            self.title = title
-            self.isChosen = isChosen
+    func deleteItem(at offSet: IndexSet) {
+        withAnimation {
+            categories.remove(atOffsets: offSet)
+        } completion: {
+            if categories.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    dismiss()
+                }
+            }
         }
+    }
+    
+    func positionOf(_ category: CategoryItem) -> ListItemPosition {
         
-        mutating func shouldSetChosen(_ bool: Bool) {
-            isChosen = bool
+        if categories.count == 1 {
+            return .single
+        } else if category == categories.first {
+            return .first
+        } else if category == categories.last {
+            return .last
+        } else {
+            return ._default
         }
+    }
+    
+    func setLastChosenCategory() {
+        categories.indices.forEach({
+            categories[$0].shouldSetChosen(
+                category.lowercased() == categories[$0].title.lowercased())
+        })
     }
 }

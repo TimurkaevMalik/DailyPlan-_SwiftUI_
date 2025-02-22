@@ -38,7 +38,7 @@ struct CustomTextField: View {
                         .padding(.horizontal, 10)
                 }
             
-            clearButton()
+            clearButton
                 .padding(.trailing, 10)
         }
         .clipped()
@@ -57,7 +57,7 @@ struct CustomTextField: View {
 }
 
 private extension CustomTextField {
-    func clearButton() -> some View {
+    var clearButton: some View {
         Button {
             if isFocused.wrappedValue {
                 text = ""

@@ -54,7 +54,7 @@ struct TaskConfigurationView: View {
                                     color: task.color)
                     
                     if !categories.isEmpty {
-                        storedCategoriesButton()
+                        storedCategoriesButton
                     }
                 }
                 
@@ -95,7 +95,7 @@ struct TaskConfigurationView: View {
 }
 
 private extension TaskConfigurationView {
-    func storedCategoriesButton() -> some View {
+    var storedCategoriesButton: some View {
         
         let width = CGSize.checkMarkButton.width
         

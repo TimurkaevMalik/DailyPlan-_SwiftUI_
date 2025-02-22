@@ -51,8 +51,8 @@ struct DescriptionView: View {
                 
                 HStack {
                     Spacer()
-                    cancelButton()
-                    confirmButton()
+                    cancelButton
+                    confirmationButton
                 }
                 .padding(.trailing, 12)
                 .padding(.bottom, buttonsStateValues.padding)
@@ -106,8 +106,8 @@ private extension DescriptionView {
             }
         }
     }
-    
-    func cancelButton() -> some View {
+    ///TODO: make custom button style
+    var cancelButton: some View {
         Button {
             text = lastText
             isFocused = false
@@ -120,7 +120,7 @@ private extension DescriptionView {
         }
     }
     
-    func confirmButton() -> some View {
+    var confirmationButton: some View {
         Button {
             isFocused = false
         } label: {

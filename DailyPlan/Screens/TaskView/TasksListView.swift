@@ -46,7 +46,7 @@ struct TasksListView: View {
             .toolbar {
                 
                 ToolbarItem(placement: .topBarLeading) {
-                    makeMenu()
+                    menuButton
                 }
                 
                 ToolbarItem(placement: .principal) {
@@ -56,7 +56,7 @@ struct TasksListView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    addTaskButton()
+                    newTaskButton
                 }
             }
         }
@@ -73,7 +73,7 @@ private extension TasksListView {
             .padding(.leading, CGSize.checkMarkButton.width + CGFloat.defaultSpacing)
     }
     ///TODO: change image on next view appear
-    func addTaskButton() -> some View {
+    var newTaskButton: some View {
         Button {
             addTaskTapped.toggle()
         } label: {
@@ -84,26 +84,26 @@ private extension TasksListView {
         }
     }
     
-    func makeMenu() -> some View {
+    var menuButton: some View {
         Menu {
-            menuButton(title: "Done tasks",
-                       image: Image(systemName: "checkmark.square")) {
+            menuItemButton(title: "Done tasks",
+                           image: Image(systemName: "checkmark.square")) {
                 
                 tasks = TaskInfo
                     .getTasksMock()
                     .filter({ $0.isDone == true })
             }
             
-            menuButton(title: "Active tasks",
-                       image: Image(systemName: "square")) {
+            menuItemButton(title: "Active tasks",
+                           image: Image(systemName: "square")) {
                 
                 tasks = TaskInfo
                     .getTasksMock()
                     .filter({ $0.isDone == false })
             }
             
-            menuButton(title: "All tasks",
-                       image: Image(systemName: "list.bullet.rectangle")) {
+            menuItemButton(title: "All tasks",
+                           image: Image(systemName: "list.bullet.rectangle")) {
                 tasks = TaskInfo.getTasksMock()
             }
         } label: {
@@ -114,7 +114,8 @@ private extension TasksListView {
         }
     }
     
-    func menuButton(title: String, image: Image, action: @escaping () -> Void) -> some View {
+    func menuItemButton(title: String, image: Image, action: @escaping () -> Void) -> some View {
+        
         Button {
             action()
         } label: {
@@ -127,7 +128,7 @@ private extension TasksListView {
 private extension TasksListView {
     func delete(task: TaskInfo) {
         withAnimation {
-        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
+            if let index = tasks.firstIndex(where: { $0.id == task.id }) {
                 tasks.remove(at: index)
             }
         }

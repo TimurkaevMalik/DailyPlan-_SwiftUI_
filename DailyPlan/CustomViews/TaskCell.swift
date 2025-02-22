@@ -11,6 +11,7 @@ struct TaskCell: View {
     
     @State private var task: TaskInfo
     @State private var offSet: CGSize
+    @State private var isDelayedAnimationActive: Bool
     @FocusState private var isFocused: Bool
     
     private let checkMarkButtonSize: CGSize
@@ -24,6 +25,7 @@ struct TaskCell: View {
         offSet = .zero
         spacing = .defaultSpacing
         checkMarkButtonSize = .checkMarkButton
+        isDelayedAnimationActive = false
     }
     
     var body: some View {
@@ -36,7 +38,7 @@ struct TaskCell: View {
             
             VStack(alignment: .trailing, spacing: 0) {
                 if let scheduleString = stringFromSchedule() {
-                    buttonOf(schedule: scheduleString)
+                    scheduleView(scheduleString)
                         .offset(getOffSetAmount())
                 }
                 
@@ -62,7 +64,7 @@ struct TaskCell: View {
                         Button {
                             delete()
                         } label: {
-                            trashImage()
+                            trashImage
                         }
                     }
                 }
@@ -82,46 +84,19 @@ struct TaskCell: View {
 }
 
 private extension TaskCell {
-    var dragGesture: some Gesture {
-        DragGesture(minimumDistance: 20, coordinateSpace: .local)
-            .onChanged { value in
-                if !isFocused {
-                    withAnimation {
-                        offSet.width = value.translation.width
-                    }
-                }
-            }
-            .onEnded { value in
-                if !isFocused {
-                    
-                    if value.translation.width > -30 {
-                        hideDeletingButton()
-                    } else {
-                        showDeletingButton(completion: {
-                            hideDeletingButton(delay: 2)
-                        })
-                    }
-                }
-            }
+    func scheduleView(_ schedule: String) -> some View {
+        Text(schedule)
+            .padding(.horizontal, 12)
+            .tint(.ypBlack)
+            .strokeRoundedView(
+                stroke: .style(color: task.color),
+                topLeading: .regularCornerRadius,
+                topTrailing: .regularCornerRadius,
+                bottomLeading: 0,
+                bottomTrailing: 0)
     }
     
-    func buttonOf(schedule: String) -> some View {
-        Button {
-            ///TODO: show editing menu
-        } label: {
-            Text(schedule)
-                .padding(.horizontal, 12)
-                .tint(.ypBlack)
-                .strokeRoundedView(
-                    stroke: .style(color: task.color),
-                    topLeading: .regularCornerRadius,
-                    topTrailing: .regularCornerRadius,
-                    bottomLeading: 0,
-                    bottomTrailing: 0)
-        }
-    }
-    
-    func trashImage() -> some View {
+    var trashImage: some View {
         Image(systemName: "trash")
             .foregroundStyle(.messRed)
             .setSize(.checkMarkButton)
@@ -131,6 +106,31 @@ private extension TaskCell {
                 RoundedRectangle(cornerRadius: .mediumCornerRadius)
                     .stroke(.messRed, lineWidth: 2)
                     .clipShape(.rect(cornerRadius: .mediumCornerRadius))
+            }
+    }
+    
+    var dragGesture: some Gesture {
+        DragGesture(minimumDistance: 20, coordinateSpace: .local)
+            .onChanged { value in
+                if !isFocused,
+                   !isDelayedAnimationActive {
+                    withAnimation {
+                        offSet.width = value.translation.width
+                    }
+                }
+            }
+            .onEnded { value in
+                if !isFocused,
+                   !isDelayedAnimationActive {
+                    
+                    if value.translation.width > -30 {
+                        hideDeletingButton()
+                    } else {
+                        showDeletingButton(completion: {
+                            hideDeletingButton(delay: 2)
+                        })
+                    }
+                }
             }
     }
 }
@@ -153,8 +153,16 @@ private extension TaskCell {
     }
     
     func hideDeletingButton(delay: CGFloat = 0) {
+        if delay > 0 {
+            isDelayedAnimationActive = true
+        } else {
+            isDelayedAnimationActive = false
+        }
+        
         withAnimation(.linear.delay(delay)) {
             offSet = .zero
+        } completion: {
+            isDelayedAnimationActive = false
         }
     }
     
