@@ -12,8 +12,8 @@ struct TaskCell: View {
     @State private var task: TaskInfo
     @State private var descriptionViewOffSet: CGSize
     @State private var spacing: CGFloat
+    @State private var deletingButtonOpacity: CGFloat
     @FocusState private var isFocused: Bool
-    
     private var checkMarkButtonSize: CGSize
     private let delete: () -> Void
     
@@ -24,6 +24,7 @@ struct TaskCell: View {
         descriptionViewOffSet = .zero
         spacing = 6
         checkMarkButtonSize = .checkMarkButton
+        deletingButtonOpacity = 1
     }
     
     var body: some View {
@@ -41,21 +42,21 @@ struct TaskCell: View {
             .focused($isFocused)
             .offset(getOffSetAmount())
             .gesture(dragGesture)
-            .background(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                if !isFocused {
+            .onChange(of: isFocused) {
+                if isFocused {
+                    deletingButtonOpacity = 0
+                } else {
+                    deletingButtonOpacity = 1
+                }
+            }
+            .background(alignment: Alignment(horizontal: .trailing, vertical: .top)) {
                     Button {
                         delete()
                     } label: {
                         trashImage()
                     }
-                }
-            }
-            .onChange(of: isFocused) {
-                if isFocused {
-                    withAnimation {
-                        descriptionViewOffSet = .zero
-                    }
-                }
+                    .padding(.top, 20)
+                    .opacity(deletingButtonOpacity)
             }
         }
     }
@@ -73,17 +74,31 @@ private extension TaskCell {
             }
             .onEnded { value in
                 if !isFocused {
-                    if value.translation.width > -20 {
-                        withAnimation {
-                            descriptionViewOffSet = .zero
-                        }
+                    
+                    if value.translation.width > -30 {
+                        hideDeletingButton()
                     } else {
-                        withAnimation {
-                            descriptionViewOffSet.width = -(checkMarkButtonSize.width + spacing)
-                        }
+                        showDeletingButton(completion: {
+                            hideDeletingButton(delay: 2)
+                        })
                     }
                 }
             }
+    }
+    
+    func showDeletingButton(
+        completion: @escaping () -> Void) {
+            withAnimation {
+                descriptionViewOffSet.width = -(checkMarkButtonSize.width + spacing)
+            } completion: {
+                completion()
+            }
+        }
+    
+    func hideDeletingButton(delay: CGFloat = 0) {
+        withAnimation(.linear.delay(delay)) {
+            descriptionViewOffSet = .zero
+        }
     }
     
     func trashImage() -> some View {
