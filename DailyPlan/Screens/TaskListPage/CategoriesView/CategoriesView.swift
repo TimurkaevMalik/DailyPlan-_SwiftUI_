@@ -7,65 +7,24 @@
 
 import SwiftUI
 
-final class CategoriesViewModel: ObservableObject {
-    @Published var color: Color
-    @Published var category: String
-    @Published var categories: [CategoryItem]
-    
-    init() {
-        color = .ypGreen
-        _category = ""
-        categories = [.init(title: "Education"),
-                      .init(title: "Work"),
-                      .init(title: "Housework"),
-                      .init(title: "Unnecessary")]
-    }
-}
-
-private extension CategoriesViewModel {
-    struct CategoryItem: Equatable {
-        let id = UUID()
-        let title: String
-        var isChosen: Bool
-        
-        init(title: String, isChosen: Bool = false) {
-            self.title = title
-            self.isChosen = isChosen
-        }
-        
-        mutating func shouldSetChosen(_ bool: Bool) {
-            isChosen = bool
-        }
-    }
-}
-
-
 struct CategoriesView: View {
     
     @Environment(\.dismiss) var dismiss
     @StateObject var vm = CategoriesViewModel()
-//    category: Binding<String>,
-//     color: Color)
-    init() {
-//        self.color = color
-//        _category = category
-//        categories = [.init(title: "Education"),
-//                      .init(title: "Work"),
-//                      .init(title: "Housework"),
-//                      .init(title: "Unnecessary")]
-    }
+    
+    init() {}
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach($categories.indices, id: \.self) { index in
+                ForEach($vm.categories.indices, id: \.self) { index in
                     
                     categoryItemView(
-                        categories[index],
-                        isToggled: $categories[index].isChosen)
-                    .setCornerRadius(.mediumCornerRadius, basedOn: positionOf(categories[index]))
+                        vm.categories[index],
+                        isToggled: $vm.categories[index].isChosen)
+                    .setCornerRadius(.mediumCornerRadius, basedOn: positionOf(vm.categories[index]))
                 }
-                .onDelete(perform: deleteItem)
+                .onDelete(perform: vm.deleteItem)
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
                 .listRowInsets(
@@ -79,81 +38,65 @@ struct CategoriesView: View {
             .navigationTitle("Choose Category")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .onChange(of: vm.categories, {
+            if vm.categories.isEmpty {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    dismiss()
+                }
+            }
+        })
         .onAppear {
-            setLastChosenCategory()
+            vm.setLastChosenCategory()
         }
     }
 }
 
 #Preview {
-    @Previewable @State var category: String = ""
-    CategoriesView(category: $category,
-                   color: .ypLightPink)
+    CategoriesView()
 }
 
 private extension CategoriesView {
-    func categoryItemView(
-        _ category: CategoryItem,
-        isToggled: Binding<Bool>) -> some View {
+    func categoryItemView(_ category: CategoryItem, isToggled: Binding<Bool>) -> some View {
         
-            LabeledContent(category.title) {
-                Toggle("", isOn: isToggled)
-                    .tint(color)
-            }
-            .foregroundStyle(.ypBlack)
-            .font(.category)
-            .frame(height: 66)
-            .padding(.leading, 18)
-            .padding(.trailing, 28)
-            .background(.ypMediumLightGray)
-            .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
-                if category != categories.first {
-                    Divider()
-                        .padding(.leading, 16)
-                }
-            }
-            .onChange(of: isToggled.wrappedValue) {
-                if self.category == category.title,
-                   !isToggled.wrappedValue {
-                    self.category = ""
-                } else if isToggled.wrappedValue {
-                    self.category = category.title
-                }
-                setLastChosenCategory()
-            }
-    }
-}
-
-private extension CategoriesView {
-    func deleteItem(at offSet: IndexSet) {
-        withAnimation {
-            categories.remove(atOffsets: offSet)
-        } completion: {
-            if categories.isEmpty {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    dismiss()
-                }
+        LabeledContent(category.title) {
+            Toggle("", isOn: isToggled)
+                .tint(vm.color)
+        }
+        .foregroundStyle(.ypBlack)
+        .font(.category)
+        .frame(height: 66)
+        .padding(.leading, 18)
+        .padding(.trailing, 28)
+        .background(.ypMediumLightGray)
+        .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
+            if vm.category != vm.categories.first?.title {
+                Divider()
+                    .padding(.leading, 16)
             }
         }
+        .onChange(of: isToggled.wrappedValue) {
+            if vm.category == category.title,
+               !isToggled.wrappedValue {
+                vm.category = ""
+            } else if isToggled.wrappedValue {
+                vm.category = category.title
+            }
+            vm.setLastChosenCategory()
+        }
     }
-    
+}
+
+private extension CategoriesView {
     func positionOf(_ category: CategoryItem) -> ListItemPosition {
         
-        if categories.count == 1 {
+        if vm.categories.count == 1 {
             return .single
-        } else if category == categories.first {
+        } else if category == vm.categories.first {
             return .first
-        } else if category == categories.last {
+        } else if category == vm.categories.last {
             return .last
         } else {
             return ._default
         }
-    }
-    
-    func setLastChosenCategory() {
-        categories.indices.forEach({
-            categories[$0].shouldSetChosen(
-                category.lowercased() == categories[$0].title.lowercased())
-        })
     }
 }
