@@ -146,8 +146,8 @@
 		BC748A172D6B13A900EB9D5C /* TaskConfigurationView */ = {
 			isa = PBXGroup;
 			children = (
-				BC748A202D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift */,
 				BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */,
+				BC748A202D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift */,
 			);
 			path = TaskConfigurationView;
 			sourceTree = "<group>";

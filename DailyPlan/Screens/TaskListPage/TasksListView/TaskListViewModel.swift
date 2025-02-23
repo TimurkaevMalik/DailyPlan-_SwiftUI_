@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TaskListViewModel: ObservableObject {
+final class TaskListViewModel: ObservableObject {
     
     @Published var tasks: [TaskInfo]
     @Published var addTaskTapped: Bool

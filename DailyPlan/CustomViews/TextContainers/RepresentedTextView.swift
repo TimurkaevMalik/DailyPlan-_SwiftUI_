@@ -59,7 +59,7 @@ struct RepresentedTextView: UIViewRepresentable {
                            placeHolder: placeHolder)
     }
     
-    class Coordinator: NSObject, UITextViewDelegate {
+    final class Coordinator: NSObject, UITextViewDelegate {
         
         @Binding private var text: String
         @Binding private var state: TextViewState

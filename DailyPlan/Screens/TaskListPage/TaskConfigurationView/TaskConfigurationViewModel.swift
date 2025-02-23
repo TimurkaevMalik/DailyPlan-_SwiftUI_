@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class TaskConfigurationViewModel: ObservableObject {
+final class TaskConfigurationViewModel: ObservableObject {
     
     @Published var presentCategoriesView: Bool
     @Published var categoriesButtonState: Visibility
