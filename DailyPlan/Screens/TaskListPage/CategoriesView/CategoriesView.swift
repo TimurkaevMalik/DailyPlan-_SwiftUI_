@@ -7,14 +7,46 @@
 
 import SwiftUI
 
+final class CategoriesViewModel: ObservableObject {
+    @Published var color: Color
+    @Published var category: String
+    @Published var categories: [CategoryItem]
+    
+    init() {
+        color = .ypGreen
+        _category = ""
+        categories = [.init(title: "Education"),
+                      .init(title: "Work"),
+                      .init(title: "Housework"),
+                      .init(title: "Unnecessary")]
+    }
+}
+
+private extension CategoriesViewModel {
+    struct CategoryItem: Equatable {
+        let id = UUID()
+        let title: String
+        var isChosen: Bool
+        
+        init(title: String, isChosen: Bool = false) {
+            self.title = title
+            self.isChosen = isChosen
+        }
+        
+        mutating func shouldSetChosen(_ bool: Bool) {
+            isChosen = bool
+        }
+    }
+}
+
+
 struct CategoriesView: View {
     
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var vm: TaskConfigurationViewModel
+    @StateObject var vm = CategoriesViewModel()
 //    category: Binding<String>,
 //     color: Color)
-    init(viewModel: TaskConfigurationViewModel) {
-        vm = viewModel
+    init() {
 //        self.color = color
 //        _category = category
 //        categories = [.init(title: "Education"),
@@ -57,23 +89,6 @@ struct CategoriesView: View {
     @Previewable @State var category: String = ""
     CategoriesView(category: $category,
                    color: .ypLightPink)
-}
-
-private extension CategoriesView {
-    struct CategoryItem: Equatable {
-        let id = UUID()
-        let title: String
-        var isChosen: Bool
-        
-        init(title: String, isChosen: Bool = false) {
-            self.title = title
-            self.isChosen = isChosen
-        }
-        
-        mutating func shouldSetChosen(_ bool: Bool) {
-            isChosen = bool
-        }
-    }
 }
 
 private extension CategoriesView {

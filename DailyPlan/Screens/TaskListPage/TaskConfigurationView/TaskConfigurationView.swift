@@ -55,8 +55,7 @@ struct TaskConfigurationView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .sheet(isPresented: $vm.presentCategoriesView) {
-            CategoriesView(category: $vm.category,
-                           color: vm.task.color)
+            CategoriesView()
             .presentationDetents([.medium])
         }
         .onChange(of: isFocused) {
