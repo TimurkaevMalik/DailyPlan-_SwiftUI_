@@ -10,18 +10,17 @@ import SwiftUI
 struct CategoriesView: View {
     
     @Environment(\.dismiss) var dismiss
-    @Binding private var category: String
-    @State private var color: Color
-    @State private var categories: [CategoryItem]
-    
-    init(category: Binding<String>,
-         color: Color) {
-        self.color = color
-        _category = category
-        categories = [.init(title: "Education"),
-                      .init(title: "Work"),
-                      .init(title: "Housework"),
-                      .init(title: "Unnecessary")]
+    @ObservedObject var vm: TaskConfigurationViewModel
+//    category: Binding<String>,
+//     color: Color)
+    init(viewModel: TaskConfigurationViewModel) {
+        vm = viewModel
+//        self.color = color
+//        _category = category
+//        categories = [.init(title: "Education"),
+//                      .init(title: "Work"),
+//                      .init(title: "Housework"),
+//                      .init(title: "Unnecessary")]
     }
     
     var body: some View {
