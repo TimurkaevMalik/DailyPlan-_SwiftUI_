@@ -9,27 +9,21 @@ import SwiftUI
 ///TODO: make custom popover of TaskConfigurationView
 struct TasksListView: View {
     
-    @State private var addTaskTapped: Bool
-    @State private var selection: Date
-    @State private var tasks: [TaskInfo]
+    @StateObject private var vm = TaskListViewModel()
     
-    init() {
-        addTaskTapped = false
-        selection = Date()
-        tasks = TaskInfo.getTasksMock()
-    }
+    init() {}
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(tasks, id: \.id) { task in
+                ForEach(vm.tasks, id: \.id) { task in
                     
                     TaskCell(task: task) {
-                            delete(task: task)
+                        vm.delete(task: task)
                     }
                     .padding(.vertical, 12)
                     .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                        if let lastTask = tasks.last,
+                        if let lastTask = vm.tasks.last,
                            lastTask.id != task.id {
                             dividerView
                         }
@@ -39,8 +33,8 @@ struct TasksListView: View {
                 .padding(.horizontal, .screenHorizontalSpacing)
             }
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $addTaskTapped) {
-                TaskConfigurationView(tasks: $tasks)
+            .sheet(isPresented: $vm.addTaskTapped) {
+                TaskConfigurationView()
                     .presentationDetents([.medium])
             }
             .toolbar {
@@ -50,7 +44,7 @@ struct TasksListView: View {
                 
                 ToolbarItem(placement: .principal) {
                     PopoverDatePicker(
-                        selection: $selection,
+                        selection: $vm.selection,
                         direction: .down)
                 }
                 
@@ -74,7 +68,7 @@ private extension TasksListView {
     ///TODO: change image on next view appear
     var newTaskButton: some View {
         Button {
-            addTaskTapped.toggle()
+            vm.addTaskTapped.toggle()
         } label: {
             Image(systemName: "plus")
                 .tint(.ypTomato)
@@ -87,22 +81,17 @@ private extension TasksListView {
         Menu {
             menuItemButton(title: "Done tasks",
                            image: Image(systemName: "checkmark.square")) {
-                tasks = TaskInfo
-                    .getTasksMock()
-                    .filter({ $0.isDone == true })
+                vm.doneTasksFilter()
             }
             
             menuItemButton(title: "Active tasks",
                            image: Image(systemName: "square")) {
-                
-                tasks = TaskInfo
-                    .getTasksMock()
-                    .filter({ $0.isDone == false })
+                vm.activeTasksFilter()
             }
             
             menuItemButton(title: "All tasks",
                            image: Image(systemName: "list.bullet.rectangle")) {
-                tasks = TaskInfo.getTasksMock()
+                vm.allTasksFilter()
             }
         } label: {
             Image(systemName: "slider.vertical.3")
@@ -119,16 +108,6 @@ private extension TasksListView {
         } label: {
             Text(title)
             image
-        }
-    }
-}
-
-private extension TasksListView {
-    func delete(task: TaskInfo) {
-        withAnimation {
-            if let index = tasks.firstIndex(where: { $0.id == task.id }) {
-                tasks.remove(at: index)
-            }
         }
     }
 }

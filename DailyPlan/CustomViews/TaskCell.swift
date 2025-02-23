@@ -108,8 +108,8 @@ private extension TaskCell {
                 Spacer(minLength: 0)
                 
                 Button {
-                    withAnimation {
-                        cellOffSet.width = -(proxy.size.width * 2)
+                    withAnimation(.linear(duration: 0.2)) {
+                        cellOffSet.width = -(proxy.size.width * 1.4)
                     } completion: {
                         delete()
                     }

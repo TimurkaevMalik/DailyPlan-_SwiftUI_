@@ -9,34 +9,36 @@ import SwiftUI
 ///TODO: add method - (isFocused = false on screen tap)
 struct CustomTextField: View {
     
+    @FocusState private var isFocused: Bool
     @Binding private var text: String
     @State private var lastText: String
+    
+    private let placeHolder: String
     private let color: Color
-    private var isFocused: FocusState<Bool>.Binding
     
     init(text: Binding<String>,
-         isFocused: FocusState<Bool>.Binding,
+         placeHolder: String,
          color: Color) {
         self._text = text
+        self.placeHolder = placeHolder
         self.color = color
-        self.isFocused = isFocused
         lastText = ""
     }
     
     var body: some View {
         HStack(spacing: 0) {
-            TextField("", text: $text)
-                .focused(isFocused)
-                .tint(color)
-                .font(.taskText)
-                .frame(height: .mediumHeight)
-                .padding(.leading, 10)
-                .placeHolder(present: isFocused.wrappedValue || !text.isEmpty) {
+            TextField(text: $text, label: {
+                if !isFocused {
                     Text("Category")
-                        .foregroundStyle(.grayPlaceholder)
+                        .foregroundStyle(.ypGray)
                         .font(.taskText)
-                        .padding(.horizontal, 10)
                 }
+            })
+            .focused($isFocused)
+            .tint(color)
+            .font(.taskText)
+            .frame(height: .mediumHeight)
+            .padding(.leading, 10)
             
             clearButton
                 .padding(.trailing, 10)
@@ -46,6 +48,9 @@ struct CustomTextField: View {
             RoundedRectangle(cornerRadius: .mediumCornerRadius)
                 .stroke(color)
         }
+        .onChange(of: isFocused, { oldValue, newValue in
+            text = text.trimmingCharacters(in: .whitespaces)
+        })
         .onChange(of: text) {
             if text.count > 25 {
                 text = lastText
@@ -59,15 +64,15 @@ struct CustomTextField: View {
 private extension CustomTextField {
     var clearButton: some View {
         Button {
-            if isFocused.wrappedValue {
+            if isFocused {
                 text = ""
-                isFocused.wrappedValue = false
+                isFocused = false
             } else {
-                isFocused.wrappedValue = true
+                isFocused = true
             }
         } label: {
             Image(systemName: "x.square")
-                .foregroundStyle(isFocused.wrappedValue ? .messGrayText : .clear)
+                .foregroundStyle(isFocused ? .messGrayText : .clear)
                 .font(.system(size: 20, weight: .medium))
                 .frame(width: 40, height: 40)
         }
@@ -80,6 +85,6 @@ private extension CustomTextField {
     
     CustomTextField(
         text: $text,
-        isFocused: $isFocused,
+        placeHolder: "Placeholder",
         color: .ypWarmYellow)
 }
