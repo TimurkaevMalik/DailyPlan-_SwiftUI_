@@ -106,7 +106,7 @@ private extension DescriptionView {
             }
         }
     }
-    ///TODO: make custom button style
+    
     var cancelButton: some View {
         Button {
             text = lastText

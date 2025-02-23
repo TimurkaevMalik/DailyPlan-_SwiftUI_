@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+///TODO: fix jumping behavior of scheduleView
 struct TaskCell: View {
     
     @State private var task: TaskInfo
@@ -23,9 +23,9 @@ struct TaskCell: View {
     private let delete: () -> Void
     
     init(task: TaskInfo,
-         delete: @escaping () -> Void) {
+         onDelete: @escaping () -> Void) {
         self.task = task
-        self.delete = delete
+        self.delete = onDelete
         
         cellOffSet = .zero
         descriptionViewOffSet = .zero
@@ -70,11 +70,7 @@ struct TaskCell: View {
                     
                     if !isFocused,
                        isAnimating {
-                        Button {
-                            dismissTaskCell()
-                        } label: {
-                            trashImage
-                        }
+                        dismissCellButton
                     }
                 }
             }
@@ -89,7 +85,7 @@ struct TaskCell: View {
         color: .ypCyan,
         schedule: .init(start: .distantPast, end: .distantFuture),
         isDone: false),
-             delete: {})
+             onDelete: {})
     .padding(.horizontal)
 }
 
@@ -106,17 +102,30 @@ private extension TaskCell {
                 bottomTrailing: 0)
     }
     
-    var trashImage: some View {
-        Image(systemName: "trash")
-            .foregroundStyle(.messRed)
-            .setSize(.checkMarkButton)
-            .padding(.trailing, 6)
-            .padding(.leading, 100)
+    var dismissCellButton: some View {
+        GeometryReader() { proxy in
+            HStack {
+                Spacer(minLength: 0)
+                
+                Button {
+                    withAnimation {
+                        cellOffSet.width = -(proxy.size.width * 2)
+                    } completion: {
+                        delete()
+                    }
+                    
+                } label: {
+                    Image(systemName: "trash")
+                        .foregroundStyle(.messRed)
+                        .setSize(.checkMarkButton)
+                }.padding(.leading, 6)
+            }
             .background {
                 RoundedRectangle(cornerRadius: .mediumCornerRadius)
                     .stroke(.messRed, lineWidth: 2)
                     .clipShape(.rect(cornerRadius: .mediumCornerRadius))
             }
+        }
     }
     
     var dragGesture: some Gesture {
@@ -175,17 +184,10 @@ private extension TaskCell {
         
         withAnimation(.linear.delay(delay)) {
             descriptionViewOffSet = .zero
+            
         } completion: {
             isAnimating = false
             isDelayedAnimationActive = false
-        }
-    }
-    
-    func dismissTaskCell() {
-        withAnimation {
-            cellOffSet.width = -UIScreen.main.bounds.width
-        } completion: {
-            delete()
         }
     }
     
