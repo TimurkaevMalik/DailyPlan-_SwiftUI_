@@ -8,6 +8,7 @@
 import SwiftUI
 
 final class CategoriesViewModel: ObservableObject {
+    @Environment(\.dismiss) var dismiss
     @Published var color: Color
     @Published var category: String
     @Published var categories: [CategoryItem]

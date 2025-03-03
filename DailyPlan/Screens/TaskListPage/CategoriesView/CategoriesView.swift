@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CategoriesView: View {
     
-    @Environment(\.dismiss) var dismiss
     @StateObject var vm = CategoriesViewModel()
     
     init() {}
@@ -41,7 +40,7 @@ struct CategoriesView: View {
         .onChange(of: vm.categories, {
             if vm.categories.isEmpty {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    dismiss()
+                    vm.dismiss()
                 }
             }
         })

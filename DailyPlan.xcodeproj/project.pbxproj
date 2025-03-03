@@ -197,13 +197,13 @@
 		BC7EFA2E2C6C6A8000FB24EA /* DailyPlan */ = {
 			isa = PBXGroup;
 			children = (
+				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
 				BC848A1C2D5C831A00776E8C /* Helpers */,
 				BCB295F22D4D34B400B75559 /* Services */,
 				BCEF08B12C74DBAA0014A8AA /* CustomViews */,
 				BCC288FB2C730740008E7176 /* Models */,
 				BCF0725D2C70D6EB00999035 /* Screens */,
 				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
-				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
 				BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */,
 			);
 			path = DailyPlan;
