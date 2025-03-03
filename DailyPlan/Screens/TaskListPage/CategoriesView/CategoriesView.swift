@@ -9,7 +9,8 @@ import SwiftUI
 
 struct CategoriesView: View {
     
-    @StateObject var vm = CategoriesViewModel()
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var vm: TaskConfigurationViewModel
     
     init() {}
     
@@ -19,11 +20,16 @@ struct CategoriesView: View {
                 ForEach($vm.categories.indices, id: \.self) { index in
                     
                     categoryItemView(
-                        vm.categories[index],
-                        isToggled: $vm.categories[index].isChosen)
+                        vm.categories[index])
                     .setCornerRadius(.mediumCornerRadius, basedOn: positionOf(vm.categories[index]))
+                    .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
+                        if index != 0 {
+                            Divider()
+                                .padding(.leading, 16)
+                        }
+                    }
                 }
-                .onDelete(perform: vm.deleteItem)
+                .onDelete(perform: vm.deleteCategory)
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
                 .listRowInsets(
@@ -40,26 +46,32 @@ struct CategoriesView: View {
         .onChange(of: vm.categories, {
             if vm.categories.isEmpty {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    vm.dismiss()
+                    dismiss()
                 }
             }
         })
-        .onAppear {
-            vm.setLastChosenCategory()
-        }
     }
 }
 
 #Preview {
     CategoriesView()
+        .environmentObject(
+            TaskConfigurationViewModel())
 }
 
 private extension CategoriesView {
-    func categoryItemView(_ category: CategoryItem, isToggled: Binding<Bool>) -> some View {
+    func categoryItemView(_ category: String) -> some View {
         
-        LabeledContent(category.title) {
-            Toggle("", isOn: isToggled)
-                .tint(vm.color)
+        HStack {
+            Text(category)
+            
+            Spacer()
+            
+            NonBindingToggle(
+                isOn: category == vm.category,
+                color: vm.task.color) {
+                    vm.category = category
+                }
         }
         .foregroundStyle(.ypBlack)
         .font(.category)
@@ -67,28 +79,13 @@ private extension CategoriesView {
         .padding(.leading, 18)
         .padding(.trailing, 28)
         .background(.ypMediumLightGray)
-        .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
-            if vm.category != vm.categories.first?.title {
-                Divider()
-                    .padding(.leading, 16)
-            }
-        }
-        .onChange(of: isToggled.wrappedValue) {
-            if vm.category == category.title,
-               !isToggled.wrappedValue {
-                vm.category = ""
-            } else if isToggled.wrappedValue {
-                vm.category = category.title
-            }
-            vm.setLastChosenCategory()
-        }
     }
 }
 
 
 
 private extension CategoriesView {
-    func positionOf(_ category: CategoryItem) -> ListItemPosition {
+    func positionOf(_ category: String) -> ListItemPosition {
         
         if vm.categories.count == 1 {
             return .single

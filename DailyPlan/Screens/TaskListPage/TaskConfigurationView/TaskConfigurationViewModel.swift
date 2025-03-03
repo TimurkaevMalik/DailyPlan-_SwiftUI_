@@ -40,6 +40,10 @@ final class TaskConfigurationViewModel: ObservableObject {
         print("\(category)\n\(task)")
     }
     
+    func deleteCategory(at offSet: IndexSet) {
+        categories.remove(atOffsets: offSet)
+    }
+    
     private func fetchCategories() {
         categories = ["Education", "Work",
                       "Housework", "Unnecessary"]
