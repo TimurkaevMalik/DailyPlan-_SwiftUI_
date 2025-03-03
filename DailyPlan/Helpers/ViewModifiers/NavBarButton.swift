@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+///TODO: change type from viewModifier to ButtonStyle
 struct NavBarButton: ViewModifier {
     private let color: Color
     

@@ -46,6 +46,9 @@
 		BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */; };
 		BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */; };
 		BCE284062D4E68ED00224553 /* RepresentedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE284052D4E68ED00224553 /* RepresentedTextView.swift */; };
+		BCEA4E4C2D760C9C005FB175 /* NonBindingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E4B2D760C9C005FB175 /* NonBindingToggle.swift */; };
+		BCEA4E4F2D761787005FB175 /* StaticButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */; };
+		BCEA4E512D7618B6005FB175 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */; };
 		BCF072602C70D72800999035 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarView.swift */; };
 		BCF072632C70DC9F00999035 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Font.swift */; };
 		BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072642C70F0F300999035 /* TabBarButton.swift */; };
@@ -114,6 +117,9 @@
 		BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskConfigurationView.swift; sourceTree = "<group>"; };
 		BCE284052D4E68ED00224553 /* RepresentedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepresentedTextView.swift; sourceTree = "<group>"; };
+		BCEA4E4B2D760C9C005FB175 /* NonBindingToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonBindingToggle.swift; sourceTree = "<group>"; };
+		BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticButtonStyle.swift; sourceTree = "<group>"; };
+		BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		BCF0725F2C70D72800999035 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BCF072622C70DC9F00999035 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		BCF072642C70F0F300999035 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
@@ -237,6 +243,7 @@
 		BC848A1C2D5C831A00776E8C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BCEA4E4D2D76177C005FB175 /* ButtonStyles */,
 				BC848A1D2D5C833700776E8C /* ViewModifiers */,
 				BCF072612C70DC8300999035 /* Extensions */,
 			);
@@ -296,9 +303,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		BCEA4E4D2D76177C005FB175 /* ButtonStyles */ = {
+			isa = PBXGroup;
+			children = (
+				BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */,
+			);
+			path = ButtonStyles;
+			sourceTree = "<group>";
+		};
 		BCEF08B12C74DBAA0014A8AA /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				BCEA4E4B2D760C9C005FB175 /* NonBindingToggle.swift */,
 				BC848A222D5C922300776E8C /* PopoverDatePicker.swift */,
 				BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */,
 				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
@@ -333,6 +349,7 @@
 		BCF072612C70DC8300999035 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */,
 				BC64305B2D4F8C1900ECA960 /* UIAplication.swift */,
 				BC848A202D5C866900776E8C /* CGFloat.swift */,
 				BC848A192D5C7CEF00776E8C /* CGSize.swift */,
@@ -516,6 +533,7 @@
 				BCBE35352D5DDACF00796ABB /* Tabs.swift in Sources */,
 				BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */,
 				BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */,
+				BCEA4E4F2D761787005FB175 /* StaticButtonStyle.swift in Sources */,
 				BCE284062D4E68ED00224553 /* RepresentedTextView.swift in Sources */,
 				BCB295F62D4D39C900B75559 /* Schedule.swift in Sources */,
 				BC6430622D4FC49700ECA960 /* View.swift in Sources */,
@@ -524,6 +542,7 @@
 				BC748A252D6B697E00EB9D5C /* CategoriesViewModel.swift in Sources */,
 				BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */,
 				BC848A1A2D5C7D1C00776E8C /* CGSize.swift in Sources */,
+				BCEA4E4C2D760C9C005FB175 /* NonBindingToggle.swift in Sources */,
 				BC848A212D5C867000776E8C /* CGFloat.swift in Sources */,
 				BCA93C1A2C74F6B70028DE2D /* DescriptionView.swift in Sources */,
 				BCF0726B2C71B55800999035 /* FoldersView.swift in Sources */,
@@ -534,6 +553,7 @@
 				BC748A162D6B138C00EB9D5C /* TaskListViewModel.swift in Sources */,
 				BCF0726E2C71B58600999035 /* SettingsView.swift in Sources */,
 				BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */,
+				BCEA4E512D7618B6005FB175 /* ButtonStyle.swift in Sources */,
 				BC748A232D6B696000EB9D5C /* CategoryItem.swift in Sources */,
 				BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */,
 				BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */,

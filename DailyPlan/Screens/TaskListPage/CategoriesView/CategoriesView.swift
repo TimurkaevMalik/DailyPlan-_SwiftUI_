@@ -85,6 +85,8 @@ private extension CategoriesView {
     }
 }
 
+
+
 private extension CategoriesView {
     func positionOf(_ category: CategoryItem) -> ListItemPosition {
         
