@@ -63,7 +63,7 @@ struct ScheduleView: View {
                     .padding(.horizontal, 2)
                 
                 PopoverTimePicker(
-                    time: $startTime,
+                    time: $endTime,
                     direction: .up,
                     isPresented: $isEndTimePresented)
                 .foregroundStyle(
