@@ -41,7 +41,9 @@ final class TaskConfigurationViewModel: ObservableObject {
     }
     
     func deleteCategory(at offSet: IndexSet) {
-        categories.remove(atOffsets: offSet)
+        withAnimation {
+            categories.remove(atOffsets: offSet)
+        }
     }
     
     private func fetchCategories() {
