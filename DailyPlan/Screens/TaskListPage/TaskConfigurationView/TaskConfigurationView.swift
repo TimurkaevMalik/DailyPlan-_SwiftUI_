@@ -55,6 +55,7 @@ struct TaskConfigurationView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .sheet(isPresented: $vm.presentCategoriesView) {
+            
             CategoriesView()
             .presentationDetents([.medium])
             .environmentObject(vm)

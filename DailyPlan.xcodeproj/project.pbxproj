@@ -20,8 +20,6 @@
 		BC6EBB362C730B3900F86B52 /* TaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EBB352C730B3900F86B52 /* TaskRecord.swift */; };
 		BC748A162D6B138C00EB9D5C /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC748A152D6B138C00EB9D5C /* TaskListViewModel.swift */; };
 		BC748A212D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC748A202D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift */; };
-		BC748A232D6B696000EB9D5C /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC748A222D6B696000EB9D5C /* CategoryItem.swift */; };
-		BC748A252D6B697E00EB9D5C /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC748A242D6B697E00EB9D5C /* CategoriesViewModel.swift */; };
 		BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */; };
 		BC7EFA362C6C6A8200FB24EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */; };
 		BC7EFA392C6C6A8200FB24EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFA382C6C6A8200FB24EA /* Preview Assets.xcassets */; };
@@ -88,8 +86,6 @@
 		BC6EBB352C730B3900F86B52 /* TaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRecord.swift; sourceTree = "<group>"; };
 		BC748A152D6B138C00EB9D5C /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
 		BC748A202D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskConfigurationViewModel.swift; sourceTree = "<group>"; };
-		BC748A222D6B696000EB9D5C /* CategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
-		BC748A242D6B697E00EB9D5C /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		BC7EFA2C2C6C6A8000FB24EA /* DailyPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanApp.swift; sourceTree = "<group>"; };
 		BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -166,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */,
-				BC748A242D6B697E00EB9D5C /* CategoriesViewModel.swift */,
 			);
 			path = CategoriesView;
 			sourceTree = "<group>";
@@ -293,7 +288,6 @@
 		BCC288FB2C730740008E7176 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BC748A222D6B696000EB9D5C /* CategoryItem.swift */,
 				BC83E9CF2D648C7700D31B9D /* BorderParameters.swift */,
 				BC98D61E2D5E3BB4004817DD /* ListItemPosition.swift */,
 				BCBE35322D5DD89700796ABB /* PopoverDirection.swift */,
@@ -539,7 +533,6 @@
 				BC6430622D4FC49700ECA960 /* View.swift in Sources */,
 				BC17779E2D67759B00445C62 /* NavBarButton.swift in Sources */,
 				BC98D61F2D5E3BB4004817DD /* ListItemPosition.swift in Sources */,
-				BC748A252D6B697E00EB9D5C /* CategoriesViewModel.swift in Sources */,
 				BCB295F42D4D34D100B75559 /* DateFormatManager.swift in Sources */,
 				BC848A1A2D5C7D1C00776E8C /* CGSize.swift in Sources */,
 				BCEA4E4C2D760C9C005FB175 /* NonBindingToggle.swift in Sources */,
@@ -554,7 +547,6 @@
 				BCF0726E2C71B58600999035 /* SettingsView.swift in Sources */,
 				BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */,
 				BCEA4E512D7618B6005FB175 /* ButtonStyle.swift in Sources */,
-				BC748A232D6B696000EB9D5C /* CategoryItem.swift in Sources */,
 				BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */,
 				BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */,
 				BC83E9D02D648C7700D31B9D /* BorderParameters.swift in Sources */,
