@@ -14,8 +14,8 @@ final class TaskConfigurationViewModel: ObservableObject {
     
     @Published var task: TaskInfo
     @Published var category: String
+    @Published var categories: [String]
     
-    var categories: [String]
     let colors: [Color]
     
     init() {
@@ -41,9 +41,7 @@ final class TaskConfigurationViewModel: ObservableObject {
     }
     
     func deleteCategory(at offSet: IndexSet) {
-        withAnimation {
-            categories.remove(atOffsets: offSet)
-        }
+        categories.remove(atOffsets: offSet)
     }
     
     private func fetchCategories() {

@@ -31,7 +31,9 @@ struct TaskConfigurationView: View {
                         color: vm.task.color)
                     .focused($isFocused)
                     
-                    storedCategoriesButton
+                    if !vm.categories.isEmpty {
+                        storedCategoriesButton
+                    }
                 }
                 
                 ScheduleView(
@@ -60,12 +62,6 @@ struct TaskConfigurationView: View {
         .onChange(of: isFocused) {
             switchCategoriesButtonState()
         }
-        .onChange(of: vm.categories, {
-            if vm.categories.isEmpty,
-               vm.categoriesButtonState == .visible {
-                switchCategoriesButtonState()
-            }
-        })
         .onDisappear {
             if !vm.task.description.isEmpty {
                 vm.storeNewTask()

@@ -29,7 +29,11 @@ struct CategoriesView: View {
                         }
                     }
                 }
-                .onDelete(perform: vm.deleteCategory)
+                .onDelete(perform: { indexSet in
+                    withAnimation {
+                        vm.deleteCategory(at: indexSet)
+                    }
+                })
                 .listRowSeparator(.hidden)
                 .listSectionSeparator(.hidden)
                 .listRowInsets(
