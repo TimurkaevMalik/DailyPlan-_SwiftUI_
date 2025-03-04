@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Schedule {
     var date: Date?
     var start: Date?

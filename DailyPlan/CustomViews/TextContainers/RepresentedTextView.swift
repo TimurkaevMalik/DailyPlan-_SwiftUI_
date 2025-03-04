@@ -33,12 +33,13 @@ struct RepresentedTextView: UIViewRepresentable {
     
         textView.delegate = context.coordinator
         textView.font = .systemFont(ofSize: 20, weight: .regular)
+        ///TODO: custom inset for containers
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .init(top: 8, left: 10, bottom: 0, right: 10)
         textView.textContainer.maximumNumberOfLines = linesNumber
         textView.backgroundColor = .clear
         if text.isEmpty {
-            textView.textColor = .grayPlaceholder
+            textView.textColor = .ypGray
             textView.text = placeHolder
         }
         
@@ -58,7 +59,7 @@ struct RepresentedTextView: UIViewRepresentable {
                            placeHolder: placeHolder)
     }
     
-    class Coordinator: NSObject, UITextViewDelegate {
+    final class Coordinator: NSObject, UITextViewDelegate {
         
         @Binding private var text: String
         @Binding private var state: TextViewState
@@ -90,7 +91,7 @@ struct RepresentedTextView: UIViewRepresentable {
             
             if finalText.isEmpty {
                 state = .empty
-                textView.textColor = .grayPlaceholder
+                textView.textColor = .ypGray
                 textView.text = placeHolder
             } else {
                 text = finalText
