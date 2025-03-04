@@ -11,6 +11,7 @@ struct NonBindingToggle: View {
     private let isOn: Bool
     private let color: Color
     private let tapAction: () -> Void
+    @State private var state: ToggleState
     
     init(isOn: Bool,
          color: Color,
@@ -18,46 +19,30 @@ struct NonBindingToggle: View {
         self.isOn = isOn
         self.color = color
         self.tapAction = tapAction
+        
+        state = isOn ? .on : .off
     }
-    
+    @State var isOn1: Bool = false
     var body: some View {
+        
         Button {
             tapAction()
         } label: {
-            ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
-                    Circle()
-                        .foregroundStyle(.ypWhite)
-                        .padding(.all, 2)
-                        .padding(.leading, isOn ? 20 : -20)
-                }
-                .frame(width: 52, height: 32)
-                .background(isOn ? color : .messGradientTop)
-                .clipShape(.rect(cornerRadius: 16))
+            RoundedRectangle(cornerRadius: 8)
+                .frame(width: 24, height: 24)
+                .foregroundStyle(.ypWhite)
+                .padding(.leading, state.rawValue)
         }
+        .frame(width: 48, height: 28)
+        .background(state == .on ?
+                    color : .messGradientTop)
+        .clipShape(.rect(cornerRadius: 8))
         .buttonStyle(.staticButton())
-//        .onChange(of: isOn) {
-//            animatedPadding()
-//        }
+        .onChange(of: isOn) {
+            changeState()
+        }
     }
 }
-
-//private extension NonBindingToggle {
-//    enum ToggleState {
-//        case on
-//        case off
-//    }
-//    
-//    struct ToggleParameters {
-//        let width: CGFloat
-//        let padding: CGFloat
-//    }
-//}
-//
-//private extension NonBindingToggle {
-//    func animatedPadding() -> CGFloat {
-//        
-//    }
-//}
 
 #Preview {
     @Previewable @State var isOn: Bool = false
@@ -65,4 +50,26 @@ struct NonBindingToggle: View {
     NonBindingToggle(isOn: isOn,
                      color: .ypWarmYellow,
                      tapAction: { isOn.toggle() })
+}
+
+private extension NonBindingToggle {
+    func changeState() {
+        if state == .off {
+            withAnimation {
+                self.state = .on
+            }
+            
+        } else if state == .on {
+            withAnimation {
+                self.state = .off
+            }
+        }
+    }
+}
+
+private extension NonBindingToggle {
+    enum ToggleState: CGFloat {
+        case on = 18
+        case off = -18
+    }
 }

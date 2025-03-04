@@ -70,7 +70,11 @@ private extension CategoriesView {
             NonBindingToggle(
                 isOn: category == vm.category,
                 color: vm.task.color) {
-                    vm.category = category
+                    if vm.category == category {
+                        vm.category = ""
+                    } else {
+                        vm.category = category
+                    }
                 }
         }
         .foregroundStyle(.ypBlack)
