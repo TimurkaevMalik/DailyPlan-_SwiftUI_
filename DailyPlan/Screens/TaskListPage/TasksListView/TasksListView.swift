@@ -65,7 +65,7 @@ private extension TasksListView {
         Divider()
             .padding(.leading, CGSize.checkMarkButton.width + CGFloat.defaultSpacing)
     }
-    ///TODO: change image on next view appear
+
     var newTaskButton: some View {
         Button {
             vm.addTaskTapped.toggle()

@@ -1,5 +1,5 @@
 //
-//  CGFo.swift
+//  CGSize.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 12.02.2025.
