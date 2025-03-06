@@ -44,7 +44,7 @@ struct CheckMarkButton: View {
                     }
             }
         }
-        .clipShape(RoundedRectangle(cornerRadius: .mediumCornerRadius))
+        .clipShape(RoundedRectangle(cornerRadius: .regularCornerRadius))
     }
 }
 

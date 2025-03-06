@@ -29,7 +29,7 @@ struct TasksListView: View {
                         }
                     }
                 }
-                .padding(.top, .mediumSpacing)
+                .padding(.top, 14)
                 .padding(.horizontal, .screenHorizontalSpacing)
             }
             .navigationBarTitleDisplayMode(.inline)

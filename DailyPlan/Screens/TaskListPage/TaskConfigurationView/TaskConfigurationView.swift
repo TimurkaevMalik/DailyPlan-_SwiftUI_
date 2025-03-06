@@ -84,7 +84,7 @@ private extension TaskConfigurationView {
                    height: .mediumHeight)
             .clipped()
             .overlay(content: {
-                RoundedRectangle(cornerRadius: .mediumCornerRadius)
+                RoundedRectangle(cornerRadius: .regularCornerRadius)
                     .stroke(vm.task.color)
             })
             .padding(.leading, vm.categoriesButtonState == .hidden ? 0 : 10)

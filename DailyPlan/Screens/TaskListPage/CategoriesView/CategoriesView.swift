@@ -21,7 +21,7 @@ struct CategoriesView: View {
                     
                     categoryItemView(
                         vm.categories[index])
-                    .setCornerRadius(.mediumCornerRadius, basedOn: positionOf(vm.categories[index]))
+                    .setCornerRadius(.regularCornerRadius, basedOn: positionOf(vm.categories[index]))
                     .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
                         if index != 0 {
                             Divider()
