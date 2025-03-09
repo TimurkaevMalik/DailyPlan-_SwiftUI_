@@ -30,10 +30,10 @@ struct TaskConfigurationView: View {
                         placeHolder: "placeHolder",
                         color: vm.task.color)
                     .focused($isFocused)
-                    
-                    if !vm.categories.isEmpty {
-                        storedCategoriesButton
-                    }
+                    .modifier(categoriesButtonModifier)
+//                    if !vm.categories.isEmpty {
+//                        storedCategoriesButton
+//                    }
                 }
                 
                 ScheduleView(
@@ -72,29 +72,17 @@ struct TaskConfigurationView: View {
 }
 
 private extension TaskConfigurationView {
-    var storedCategoriesButton: some View {
+    var categoriesButtonModifier: some ViewModifier {
         
-        let width = CGSize.checkMarkButton.width
+        let predicate: Visibility = vm.categories.isEmpty ? .hidden : vm.categoriesButtonState
         
-        let customView = Image(systemName: "list.bullet")
-            .resizable()
-            .frame(width: 34, height: 36)
-            .foregroundStyle(doesCategoryExist() ? vm.task.color : .ypGray)
-            .frame(width: vm.categoriesButtonState == .hidden ? 0 : width,
-                   height: .mediumHeight)
-            .clipped()
-            .overlay(content: {
-                RoundedRectangle(cornerRadius: .regularCornerRadius)
-                    .stroke(vm.task.color)
+        return ToggleVisibilityButton(
+            state: predicate,
+            image: Image(systemName: "list.bullet"),
+            color: vm.task.color,
+            action: {
+                vm.presentCategoriesView.toggle()
             })
-            .padding(.leading, vm.categoriesButtonState == .hidden ? 0 : 10)
-            .onTapGesture {
-                if vm.categoriesButtonState == .visible {
-                    vm.presentCategoriesView.toggle()
-                }
-            }
-        
-        return customView
     }
     
     private func buttonOf(color: Color) -> some View {

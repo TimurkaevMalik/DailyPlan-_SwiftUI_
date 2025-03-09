@@ -13,7 +13,7 @@ struct ScheduleView: View {
     @State private var date: Date
     @State private var startTime: Date
     @State private var endTime: Date
-    @State private var categoriesButtonState: Visibility
+    @State private var clearButtonState: Visibility
     @State private var isDatePickerPresented: Bool
     @State private var isStartTimePresented: Bool
     @State private var isEndTimePresented: Bool
@@ -25,7 +25,7 @@ struct ScheduleView: View {
         
         self._schedule = schedule
         self.color = color
-        categoriesButtonState = .hidden
+        clearButtonState = .hidden
         isDatePickerPresented = false
         isStartTimePresented = false
         isEndTimePresented = false
@@ -43,7 +43,7 @@ struct ScheduleView: View {
                 PopoverDatePicker(selection: $date,
                                   direction: .up,
                                   isPresented: $isDatePickerPresented)
-                .padding(.leading, categoriesButtonState == .hidden ? 18 : 0)
+                .padding(.leading, clearButtonState == .hidden ? 18 : 0)
                 .foregroundStyle(
                     setColorBy(schedule.date))
                 
@@ -65,7 +65,7 @@ struct ScheduleView: View {
                     isPresented: $isEndTimePresented)
                 .foregroundStyle(
                     setColorBy(schedule.end))
-                .padding(.trailing, categoriesButtonState == .hidden ? 8 : 0)
+                .padding(.trailing, clearButtonState == .hidden ? 8 : 0)
             }
             .frame(height: 60)
             .padding(.horizontal, 12)
@@ -73,27 +73,26 @@ struct ScheduleView: View {
                 RoundedRectangle(cornerRadius: .regularCornerRadius)
                     .stroke(color)
             })
-            
-            storedCategoriesButton
+            .modifier(clearButtonModifier)
         }
-        .onChange(of: isDatePickerPresented) { _, newValue in
+        .onChange(of: isDatePickerPresented) {
             schedule.date = date
             
-            if newValue == false {
+            if isDatePickerPresented == false {
                 setClearButtonState()
             }
         }
         .onChange(of: isStartTimePresented, { _, newValue in
             schedule.start = startTime
             
-            if newValue == false {
+            if isStartTimePresented == false {
                 setClearButtonState()
             }
         })
-        .onChange(of: isEndTimePresented) { _, newValue in
+        .onChange(of: isEndTimePresented) {
             schedule.end = endTime
             
-            if newValue == false {
+            if isEndTimePresented == false {
                 setClearButtonState()
             }
         }
@@ -129,30 +128,15 @@ private extension ScheduleView {
         }
     }
     
-    var storedCategoriesButton: some View {
-        
-        let width = CGSize.checkMarkButton.width
-
-        let customView = Image(systemName: "arrow.uturn.backward.square")
-            .resizable()
-            .frame(width: 26, height: 26)
-            .foregroundStyle(.ypGray)
-            .frame(width: categoriesButtonState == .hidden ? 0 : width,
-                   height: .mediumHeight)
-            .clipped()
-            .overlay(content: {
-                RoundedRectangle(cornerRadius: .regularCornerRadius)
-                    .stroke(color)
+    var clearButtonModifier: some ViewModifier {
+        ToggleVisibilityButton(
+            state: clearButtonState,
+            image: Image(systemName: "arrow.uturn.backward.square"),
+            color: color,
+            action: {
+                resetDates()
+                setClearButtonState()
             })
-            .padding(.leading, categoriesButtonState == .hidden ? 0 : 6)
-            .onTapGesture {
-                if categoriesButtonState == .visible {
-                    resetDates()
-                    setClearButtonState()
-                }
-            }
-        
-        return customView
     }
 }
 
@@ -161,17 +145,17 @@ private extension ScheduleView  {
         if schedule.date != nil ||
            schedule.start != nil ||
            schedule.end != nil,
-           categoriesButtonState == .hidden {
+           clearButtonState == .hidden {
             withAnimation {
-                categoriesButtonState = .visible
+                clearButtonState = .visible
             }
         } else
         if schedule.date == nil,
            schedule.start == nil,
            schedule.end == nil,
-           categoriesButtonState == .visible {
+           clearButtonState == .visible {
             withAnimation {
-                categoriesButtonState = .hidden
+                clearButtonState = .hidden
             }
         }
     }
