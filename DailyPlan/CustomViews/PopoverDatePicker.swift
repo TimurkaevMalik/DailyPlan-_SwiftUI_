@@ -34,11 +34,16 @@ struct PopoverDatePicker: View {
             .frame(width: 120, height: 32)
             .background(.ypMilk)
             .clipShape(.rect(cornerRadius: .regularCornerRadius))
+            .onChange(of: shouldPresent, {
+                if shouldPresent == false {
+                    setPresentationState(false)
+                }
+            })
             .onTapGesture {
-                togglePresentation()
+                setPresentationState(true)
             }
             .onChange(of: selection) {
-                togglePresentation()
+                setPresentationState(true)
             }
             .popover(isPresented: $shouldPresent,
                      arrowEdge: arrowEdge) {
@@ -61,10 +66,8 @@ struct PopoverDatePicker: View {
 }
 
 private extension PopoverDatePicker {
-    func togglePresentation() {
-        if shouldPresent == false,
-           isPresented?.wrappedValue == false ||
-            isPresented == nil {
+    func setPresentationState(_ bool: Bool) {
+        if bool == true {
             shouldPresent = true
             isPresented?.wrappedValue = true
         } else {

@@ -13,21 +13,22 @@ struct ScheduleView: View {
     @State private var date: Date
     @State private var startTime: Date
     @State private var endTime: Date
+    @State private var categoriesButtonState: Visibility
     @State private var isDatePickerPresented: Bool
     @State private var isStartTimePresented: Bool
     @State private var isEndTimePresented: Bool
-    @State private var isMarked: Bool
-    private let color: Color
+    
+    private var color: Color
     
     init(color: Color,
          schedule: Binding<Schedule>) {
         
         self._schedule = schedule
         self.color = color
+        categoriesButtonState = .hidden
         isDatePickerPresented = false
         isStartTimePresented = false
         isEndTimePresented = false
-        isMarked = false
         
         let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
         
@@ -37,16 +38,14 @@ struct ScheduleView: View {
     }
     
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 0) {
             HStack(spacing: 0) {
                 PopoverDatePicker(selection: $date,
                                   direction: .up,
                                   isPresented: $isDatePickerPresented)
-                .padding(.leading, 10)
+                .padding(.leading, categoriesButtonState == .hidden ? 18 : 0)
                 .foregroundStyle(
                     setColorBy(schedule.date))
-                .allowsHitTesting(isMarked ?
-                                  true : false)
                 
                 Spacer(minLength: 0)
                 
@@ -56,8 +55,6 @@ struct ScheduleView: View {
                     isPresented: $isStartTimePresented)
                 .foregroundStyle(
                     setColorBy(schedule.start))
-                .allowsHitTesting(isMarked ?
-                                  true : false)
                 
                 Text(":")
                     .padding(.horizontal, 2)
@@ -68,54 +65,46 @@ struct ScheduleView: View {
                     isPresented: $isEndTimePresented)
                 .foregroundStyle(
                     setColorBy(schedule.end))
-                .allowsHitTesting(isMarked ?
-                                  true : false)
+                .padding(.trailing, categoriesButtonState == .hidden ? 8 : 0)
             }
             .frame(height: 60)
-            .padding(.horizontal, 18)
+            .padding(.horizontal, 12)
             .overlay(content: {
                 RoundedRectangle(cornerRadius: .regularCornerRadius)
                     .stroke(color)
             })
             
-            CheckMarkButton(color: color,
-                            isDone: $isMarked)
-            .setSize(.checkMarkButton)
+            storedCategoriesButton
         }
-        .onChange(of: isMarked) {
-            if !isMarked {
-                setDefaultValuesForDates()
+        .onChange(of: isDatePickerPresented) { _, newValue in
+            schedule.date = date
+            
+            if newValue == false {
+                setClearButtonState()
             }
         }
-        .onChange(of: isDatePickerPresented) {
-            if isDatePickerPresented {
-                schedule.date = date
-            }
-        }
-        .onChange(of: isStartTimePresented, {
-            if isStartTimePresented {
-                schedule.start = endTime
+        .onChange(of: isStartTimePresented, { _, newValue in
+            schedule.start = startTime
+            
+            if newValue == false {
+                setClearButtonState()
             }
         })
-        .onChange(of: isEndTimePresented) {
-            if isEndTimePresented {
-                schedule.end = endTime
+        .onChange(of: isEndTimePresented) { _, newValue in
+            schedule.end = endTime
+            
+            if newValue == false {
+                setClearButtonState()
             }
         }
         .onChange(of: date) {
-            if isMarked {
-                schedule.date = date
-            }
+            schedule.date = date
         }
         .onChange(of: startTime) {
-            if isMarked {
-                schedule.start = startTime
-            }
+            schedule.start = startTime
         }
         .onChange(of: endTime) {
-            if isMarked {
-                schedule.end = endTime
-            }
+            schedule.end = endTime
         }
     }
 }
@@ -126,6 +115,7 @@ struct ScheduleView: View {
     
     ScheduleView(color: .ypWarmYellow,
                  schedule: $schedule)
+    .padding(.horizontal)
 }
 
 private extension ScheduleView {
@@ -138,10 +128,55 @@ private extension ScheduleView {
             date = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
         }
     }
+    
+    var storedCategoriesButton: some View {
+        
+        let width = CGSize.checkMarkButton.width
+
+        let customView = Image(systemName: "arrow.uturn.backward.square")
+            .resizable()
+            .frame(width: 26, height: 26)
+            .foregroundStyle(.ypGray)
+            .frame(width: categoriesButtonState == .hidden ? 0 : width,
+                   height: .mediumHeight)
+            .clipped()
+            .overlay(content: {
+                RoundedRectangle(cornerRadius: .regularCornerRadius)
+                    .stroke(color)
+            })
+            .padding(.leading, categoriesButtonState == .hidden ? 0 : 6)
+            .onTapGesture {
+                if categoriesButtonState == .visible {
+                    resetDates()
+                    setClearButtonState()
+                }
+            }
+        
+        return customView
+    }
 }
 
 private extension ScheduleView  {
-    func setDefaultValuesForDates() {
+    func setClearButtonState() {
+        if schedule.date != nil ||
+           schedule.start != nil ||
+           schedule.end != nil,
+           categoriesButtonState == .hidden {
+            withAnimation {
+                categoriesButtonState = .visible
+            }
+        } else
+        if schedule.date == nil,
+           schedule.start == nil,
+           schedule.end == nil,
+           categoriesButtonState == .visible {
+            withAnimation {
+                categoriesButtonState = .hidden
+            }
+        }
+    }
+    
+    func resetDates() {
         let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
         
         date = defaultDate
