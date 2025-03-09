@@ -57,6 +57,7 @@ struct ScheduleView: View {
                     setColorBy(schedule.start))
                 
                 Text(":")
+                    .foregroundStyle(setDividerColor())
                     .padding(.horizontal, 2)
                 
                 PopoverTimePicker(
@@ -157,6 +158,14 @@ private extension ScheduleView  {
             withAnimation {
                 clearButtonState = .hidden
             }
+        }
+    }
+    
+    func setDividerColor() -> Color {
+        if schedule.start != nil,
+           schedule.end != nil { .ypBlack
+        } else {
+            .ypGray
         }
     }
     
