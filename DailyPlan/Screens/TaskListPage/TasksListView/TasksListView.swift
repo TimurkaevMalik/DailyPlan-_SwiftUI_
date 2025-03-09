@@ -17,40 +17,42 @@ struct TasksListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(vm.tasks, id: \.id) { task in
-                    
-                    TaskCell(task: task) {
-                        vm.delete(task: task)
-                    }
-                    .padding(.vertical, 12)
-                    .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                        if let lastTask = vm.tasks.last,
-                           lastTask.id != task.id {
-                            dividerView
+                LazyVStack {
+                    ForEach(vm.tasks, id: \.id) { task in
+                        
+                        TaskCell(task: task) {
+                            vm.delete(task: task)
+                        }
+                        .padding(.vertical, 12)
+                        .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+                            if let lastTask = vm.tasks.last,
+                               lastTask.id != task.id {
+                                dividerView
+                            }
                         }
                     }
+                    .padding(.top, 14)
+                    .padding(.horizontal, .screenHorizontalSpacing)
                 }
-                .padding(.top, 14)
-                .padding(.horizontal, .screenHorizontalSpacing)
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .sheet(isPresented: $vm.addTaskTapped) {
-                TaskConfigurationView()
-                    .presentationDetents([.medium])
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    menuButton
+                .navigationBarTitleDisplayMode(.inline)
+                .sheet(isPresented: $vm.addTaskTapped) {
+                    TaskConfigurationView()
+                        .presentationDetents([.medium])
                 }
-                
-                ToolbarItem(placement: .principal) {
-                    PopoverDatePicker(
-                        selection: $vm.selection,
-                        direction: .down)
-                }
-                
-                ToolbarItem(placement: .topBarTrailing) {
-                    newTaskButton
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        menuButton
+                    }
+                    
+                    ToolbarItem(placement: .principal) {
+                        PopoverDatePicker(
+                            selection: $vm.selection,
+                            direction: .down)
+                    }
+                    
+                    ToolbarItem(placement: .topBarTrailing) {
+                        newTaskButton
+                    }
                 }
             }
         }
