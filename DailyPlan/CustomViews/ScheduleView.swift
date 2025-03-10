@@ -39,43 +39,41 @@ struct ScheduleView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            HStack(spacing: 0) {
-                PopoverDatePicker(selection: $date,
-                                  direction: .up,
-                                  isPresented: $isDatePickerPresented)
-                .padding(.leading, clearButtonState == .hidden ? 18 : 0)
-                .foregroundStyle(
-                    setColorBy(schedule.date))
-                
-                Spacer(minLength: 0)
-                
-                PopoverTimePicker(
-                    time: $startTime,
-                    direction: .up,
-                    isPresented: $isStartTimePresented)
-                .foregroundStyle(
-                    setColorBy(schedule.start))
-                
-                Text(":")
-                    .foregroundStyle(setDividerColor())
-                    .padding(.horizontal, 2)
-                
-                PopoverTimePicker(
-                    time: $endTime,
-                    direction: .up,
-                    isPresented: $isEndTimePresented)
-                .foregroundStyle(
-                    setColorBy(schedule.end))
-                .padding(.trailing, clearButtonState == .hidden ? 8 : 0)
-            }
-            .frame(height: 60)
-            .padding(.horizontal, 12)
-            .overlay(content: {
-                RoundedRectangle(cornerRadius: .regularCornerRadius)
-                    .stroke(color)
-            })
-            .modifier(clearButtonModifier)
+            PopoverDatePicker(selection: $date,
+                              direction: .up,
+                              isPresented: $isDatePickerPresented)
+            .padding(.leading, clearButtonState == .hidden ? 18 : 0)
+            .foregroundStyle(
+                setColorBy(schedule.date))
+            
+            Spacer(minLength: 0)
+            
+            PopoverTimePicker(
+                time: $startTime,
+                direction: .up,
+                isPresented: $isStartTimePresented)
+            .foregroundStyle(
+                setColorBy(schedule.start))
+            
+            Text(":")
+                .foregroundStyle(setDividerColor())
+                .padding(.horizontal, 2)
+            
+            PopoverTimePicker(
+                time: $endTime,
+                direction: .up,
+                isPresented: $isEndTimePresented)
+            .foregroundStyle(
+                setColorBy(schedule.end))
+            .padding(.trailing, clearButtonState == .hidden ? 8 : 0)
         }
+        .frame(height: 60)
+        .padding(.horizontal, 12)
+        .overlay(content: {
+            RoundedRectangle(cornerRadius: .regularCornerRadius)
+                .stroke(color)
+        })
+        .modifier(clearButtonModifier)
         .onChange(of: isDatePickerPresented) {
             schedule.date = date
             
@@ -144,8 +142,8 @@ private extension ScheduleView {
 private extension ScheduleView  {
     func setClearButtonState() {
         if schedule.date != nil ||
-           schedule.start != nil ||
-           schedule.end != nil,
+            schedule.start != nil ||
+            schedule.end != nil,
            clearButtonState == .hidden {
             withAnimation {
                 clearButtonState = .visible

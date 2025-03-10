@@ -24,17 +24,12 @@ struct TaskConfigurationView: View {
                     focusedHeight: .large,
                     placeHolder: "Description")
                 
-                HStack(spacing: 0) {
-                    CustomTextField(
-                        text: $vm.category,
-                        placeHolder: "placeHolder",
-                        color: vm.task.color)
-                    .focused($isFocused)
-                    .modifier(categoriesButtonModifier)
-//                    if !vm.categories.isEmpty {
-//                        storedCategoriesButton
-//                    }
-                }
+                CustomTextField(
+                    text: $vm.category,
+                    placeHolder: "placeHolder",
+                    color: vm.task.color)
+                .focused($isFocused)
+                .modifier(categoriesButtonModifier)
                 
                 ScheduleView(
                     color: vm.task.color,
@@ -57,8 +52,8 @@ struct TaskConfigurationView: View {
         .sheet(isPresented: $vm.presentCategoriesView) {
             
             CategoriesView()
-            .presentationDetents([.medium])
-            .environmentObject(vm)
+                .presentationDetents([.medium])
+                .environmentObject(vm)
         }
         .onChange(of: isFocused) {
             switchCategoriesButtonState()
