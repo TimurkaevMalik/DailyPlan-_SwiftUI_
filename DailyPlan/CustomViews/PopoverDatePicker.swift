@@ -42,9 +42,6 @@ struct PopoverDatePicker: View {
             .onTapGesture {
                 setPresentationState(true)
             }
-            .onChange(of: selection) {
-                setPresentationState(true)
-            }
             .popover(isPresented: $shouldPresent,
                      arrowEdge: arrowEdge) {
                 DatePicker(

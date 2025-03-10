@@ -51,9 +51,8 @@ struct TaskConfigurationView: View {
         }
         .sheet(isPresented: $vm.presentCategoriesView) {
             
-            CategoriesView()
+            CategoriesView(viewModel: vm)
                 .presentationDetents([.medium])
-                .environmentObject(vm)
         }
         .onChange(of: isFocused) {
             switchCategoriesButtonState()
