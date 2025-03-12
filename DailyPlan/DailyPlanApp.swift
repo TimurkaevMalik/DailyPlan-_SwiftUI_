@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+///TODO: Set protocols for ViewModels
 @main
 struct DailyPlanApp: App {
     var body: some Scene {

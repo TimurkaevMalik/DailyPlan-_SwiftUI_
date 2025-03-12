@@ -34,6 +34,7 @@ struct TasksListView: View {
                     .padding(.top, 14)
                     .padding(.horizontal, .screenHorizontalSpacing)
                 }
+                .background(Color.ypMediumLightGray)
                 .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $vm.addTaskTapped) {
                     TaskConfigurationView()
