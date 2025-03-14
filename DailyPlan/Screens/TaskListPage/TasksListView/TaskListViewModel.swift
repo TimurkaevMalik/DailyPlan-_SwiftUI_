@@ -39,10 +39,7 @@ extension TaskListViewModel {
     }
     
     func doneTasksFilter() {
-        print(allTasks.count)
         tasks = allTasks.filter({ $0.isDone == true })
-        
-        print(allTasks.count)
     }
     
     func activeTasksFilter() {

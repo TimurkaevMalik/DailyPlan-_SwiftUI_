@@ -15,6 +15,24 @@ struct TaskInfo: Identifiable {
     var isDone: Bool
 }
 
+//class TaskInfo: Object {
+//    @Persisted(primaryKey: true) var _id = UUID()
+//    @Persisted var text: String
+//    @Persisted var color: String
+////    @Persisted var schedule: Schedule
+//    @Persisted var isDone: Bool
+//    
+//    init(text: String,
+//         color: Color,
+//         schedule: Schedule,
+//         isDone: Bool) {
+//        self.text = text
+////        self.color = color
+////        self.schedule = schedule
+//        self.isDone = isDone
+//    }
+//}
+
 extension TaskInfo {
     static func getTasksMock() -> [TaskInfo] {
         [

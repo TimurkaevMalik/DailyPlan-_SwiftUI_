@@ -31,8 +31,4 @@ extension CGFloat {
     static var screenHorizontalSpacing: CGFloat {
         return 10
     }
-    
-    static var mediumSpacing: CGFloat {
-        return 14
-    }
 }

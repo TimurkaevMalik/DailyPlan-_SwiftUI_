@@ -45,7 +45,7 @@ struct CustomTextField: View {
         }
         .clipped()
         .overlay {
-            RoundedRectangle(cornerRadius: .mediumCornerRadius)
+            RoundedRectangle(cornerRadius: .regularCornerRadius)
                 .stroke(color)
         }
         .onChange(of: isFocused, { oldValue, newValue in

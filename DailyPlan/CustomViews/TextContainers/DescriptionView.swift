@@ -59,7 +59,7 @@ struct DescriptionView: View {
             }
         }
         .background {
-            RoundedRectangle(cornerRadius: .mediumCornerRadius)
+            RoundedRectangle(cornerRadius: .regularCornerRadius)
                 .stroke(color)
         }
         .onChange(of: isFocused, {

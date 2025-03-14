@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Schedule {
+struct Schedule: Equatable {
     var date: Date?
     var start: Date?
     var end: Date?

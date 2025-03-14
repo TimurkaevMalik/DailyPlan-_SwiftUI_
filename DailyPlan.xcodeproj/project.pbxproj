@@ -12,6 +12,7 @@
 		BC083C822D5B86A500C6C354 /* PopoverTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */; };
 		BC17779E2D67759B00445C62 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC17779D2D67759B00445C62 /* NavBarButton.swift */; };
 		BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2084BE2D4A5AA4008C1118 /* RootView.swift */; };
+		BC5DABBF2D7DC66800E30ADA /* ToggleVisiblityBtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DABBE2D7DC66800E30ADA /* ToggleVisiblityBtton.swift */; };
 		BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305B2D4F8C1900ECA960 /* UIAplication.swift */; };
 		BC64305E2D4F8D1100ECA960 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */; };
 		BC6430602D4FC35E00ECA960 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305F2D4FC35000ECA960 /* CustomTextField.swift */; };
@@ -41,9 +42,12 @@
 		BCBE35332D5DD89700796ABB /* PopoverDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBE35322D5DD89700796ABB /* PopoverDirection.swift */; };
 		BCBE35352D5DDACF00796ABB /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBE35342D5DDACF00796ABB /* Tabs.swift */; };
 		BCC288FA2C7304A3008E7176 /* TaskInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC288F92C7304A3008E7176 /* TaskInfo.swift */; };
+		BCCEFBDF2D81D72600FF40C5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCEFBDE2D81D72600FF40C5 /* Color.swift */; };
 		BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */; };
 		BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */; };
 		BCE284062D4E68ED00224553 /* RepresentedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE284052D4E68ED00224553 /* RepresentedTextView.swift */; };
+		BCE76B4F2D78760200478A56 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BCE76B4E2D78760200478A56 /* RealmSwift */; };
+		BCE76B502D78760200478A56 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BCE76B4E2D78760200478A56 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BCEA4E4C2D760C9C005FB175 /* NonBindingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E4B2D760C9C005FB175 /* NonBindingToggle.swift */; };
 		BCEA4E4F2D761787005FB175 /* StaticButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */; };
 		BCEA4E512D7618B6005FB175 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */; };
@@ -72,12 +76,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BC1A31EB2D787387000790E7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BCE76B502D78760200478A56 /* RealmSwift in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		BC0546132C74C01300E6AD68 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkButton.swift; sourceTree = "<group>"; };
 		BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTimePicker.swift; sourceTree = "<group>"; };
 		BC17779D2D67759B00445C62 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		BC2084BE2D4A5AA4008C1118 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		BC5DABBE2D7DC66800E30ADA /* ToggleVisiblityBtton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleVisiblityBtton.swift; sourceTree = "<group>"; };
 		BC64305B2D4F8C1900ECA960 /* UIAplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAplication.swift; sourceTree = "<group>"; };
 		BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		BC64305F2D4FC35000ECA960 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -110,6 +129,7 @@
 		BCBE35322D5DD89700796ABB /* PopoverDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDirection.swift; sourceTree = "<group>"; };
 		BCBE35342D5DDACF00796ABB /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		BCC288F92C7304A3008E7176 /* TaskInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskInfo.swift; sourceTree = "<group>"; };
+		BCCEFBDE2D81D72600FF40C5 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		BCE284032D4E0FCF00224553 /* TaskConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskConfigurationView.swift; sourceTree = "<group>"; };
 		BCE284052D4E68ED00224553 /* RepresentedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepresentedTextView.swift; sourceTree = "<group>"; };
@@ -129,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCE76B4F2D78760200478A56 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +170,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC1A31E42D78737B000790E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BC748A172D6B13A900EB9D5C /* TaskConfigurationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +209,7 @@
 				BC7EFA2E2C6C6A8000FB24EA /* DailyPlan */,
 				BC7EFA412C6C6A8200FB24EA /* DailyPlanTests */,
 				BC7EFA4B2C6C6A8200FB24EA /* DailyPlanUITests */,
+				BC1A31E42D78737B000790E7 /* Frameworks */,
 				BC7EFA2D2C6C6A8000FB24EA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -248,6 +277,7 @@
 		BC848A1D2D5C833700776E8C /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				BC5DABBE2D7DC66800E30ADA /* ToggleVisiblityBtton.swift */,
 				BC17779D2D67759B00445C62 /* NavBarButton.swift */,
 				BC83E9CD2D64860A00D31B9D /* StrokeRoundedView.swift */,
 				BC848A1E2D5C836200776E8C /* ViewSize.swift */,
@@ -343,6 +373,7 @@
 		BCF072612C70DC8300999035 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BCCEFBDE2D81D72600FF40C5 /* Color.swift */,
 				BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */,
 				BC64305B2D4F8C1900ECA960 /* UIAplication.swift */,
 				BC848A202D5C866900776E8C /* CGFloat.swift */,
@@ -390,6 +421,7 @@
 				BC7EFA282C6C6A8000FB24EA /* Sources */,
 				BC7EFA292C6C6A8000FB24EA /* Frameworks */,
 				BC7EFA2A2C6C6A8000FB24EA /* Resources */,
+				BC1A31EB2D787387000790E7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -468,6 +500,9 @@
 				Base,
 			);
 			mainGroup = BC7EFA232C6C6A8000FB24EA;
+			packageReferences = (
+				BCFB78112D787193000A92CF /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = BC7EFA2D2C6C6A8000FB24EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -547,6 +582,8 @@
 				BCF0726E2C71B58600999035 /* SettingsView.swift in Sources */,
 				BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */,
 				BCEA4E512D7618B6005FB175 /* ButtonStyle.swift in Sources */,
+				BCCEFBDF2D81D72600FF40C5 /* Color.swift in Sources */,
+				BC5DABBF2D7DC66800E30ADA /* ToggleVisiblityBtton.swift in Sources */,
 				BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */,
 				BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */,
 				BC83E9D02D648C7700D31B9D /* BorderParameters.swift in Sources */,
@@ -888,6 +925,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BCFB78112D787193000A92CF /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BCE76B4E2D78760200478A56 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCFB78112D787193000A92CF /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BC7EFA242C6C6A8000FB24EA /* Project object */;
 }

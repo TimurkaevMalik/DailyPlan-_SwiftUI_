@@ -50,8 +50,13 @@ struct PopoverTimePicker: View {
             .frame(width: 70, height: 32)
             .background(.ypMilk)
             .clipShape(.rect(cornerRadius: .regularCornerRadius))
+            .onChange(of: shouldPresent, {
+                if shouldPresent == false {
+                    setPresentationState(false)
+                }
+            })
             .onTapGesture {
-                togglePresentation()
+                setPresentationState(true)
             }
             .onChange(of: hoursSelection) {
                 hoursValueChanged()
@@ -118,10 +123,8 @@ private extension PopoverTimePicker {
         DateFormatManager.shared.timeString(from: date)
     }
     
-    func togglePresentation() {
-        if shouldPresent == false,
-           isPresented?.wrappedValue == false ||
-            isPresented == nil {
+    func setPresentationState(_ bool: Bool) {
+        if bool == true {
             shouldPresent = true
             isPresented?.wrappedValue = true
         } else {

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-///TODO: fix jumping behavior of scheduleView
+
 struct TaskCell: View {
     
     @State private var task: TaskInfo
@@ -59,10 +59,10 @@ struct TaskCell: View {
                     placeHolder: "Description")
                 .strokeRoundedView(
                     stroke: .style(color: task.color),
-                    topLeading: .mediumCornerRadius,
+                    topLeading: .regularCornerRadius,
                     topTrailing: shouldRoundCorner(),
-                    bottomLeading: .mediumCornerRadius,
-                    bottomTrailing: .mediumCornerRadius)
+                    bottomLeading: .regularCornerRadius,
+                    bottomTrailing: .regularCornerRadius)
                 .focused($isFocused)
                 .offset(getOffSetAmount())
                 .gesture(dragGesture)
@@ -121,9 +121,9 @@ private extension TaskCell {
                 }.padding(.leading, 6)
             }
             .background {
-                RoundedRectangle(cornerRadius: .mediumCornerRadius)
+                RoundedRectangle(cornerRadius: .regularCornerRadius)
                     .stroke(.messRed, lineWidth: 2)
-                    .clipShape(.rect(cornerRadius: .mediumCornerRadius))
+                    .clipShape(.rect(cornerRadius: .regularCornerRadius))
             }
         }
     }
@@ -194,7 +194,7 @@ private extension TaskCell {
     func shouldRoundCorner() -> CGFloat {
         
         if (stringFromSchedule() == nil) {
-            return .mediumCornerRadius
+            return .regularCornerRadius
         } else {
             return 0
         }
