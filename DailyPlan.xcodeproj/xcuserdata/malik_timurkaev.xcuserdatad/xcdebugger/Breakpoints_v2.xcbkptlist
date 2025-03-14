@@ -3,22 +3,4 @@
    uuid = "8688FB35-3965-42F0-8316-4F021F76A486"
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E1B7388-511D-43D0-A5AA-4CFC4CAB6FD1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DailyPlan/CustomViews/ScheduleView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "init(color:schedule:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

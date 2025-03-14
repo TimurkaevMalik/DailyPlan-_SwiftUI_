@@ -6,45 +6,48 @@
 //
 
 import SwiftUI
-import RealmSwift
-import Combine
 
 final class TaskConfigurationViewModel: ObservableObject {
     
     @Published var presentCategoriesView: Bool
     @Published var categoriesButtonState: Visibility
     
-    @ObservedRealmObject var task: TaskInfo
+    @Published var taskText: String
     @Published var category: String
     @Published var categories: [String]
+    @Published var color: Color
+    @Published var schedule: Schedule
     
-    let colors: [Color]
-    private var anyCancellable: AnyCancellable?
+    let availableColors: [Color]
     
     init() {
         presentCategoriesView = false
         categoriesButtonState = .visible
         
-        categories = []
-        colors = [.ypLightPink, .ypCyan,
-                   .ypRed, .ypWarmYellow,
-                   .ypGreen]
-        
+        taskText = ""
         category = ""
-        task = .init(text: "",
-                     colorHex: Color.ypWarmYellow.hexString() ?? "#F9D4D4",
-                     schedule: nil,
-                     isDone: false)
+        color = .ypWarmYellow
+        schedule = Schedule()
+        
+        categories = []
+        availableColors = [.ypLightPink,
+                           .ypCyan,
+                           .ypRed,
+                           .ypWarmYellow,
+                           .ypGreen]
         
         fetchCategories()
-        
-//        anyCancellable = task.objectWillChange.sink{ [weak self] _ in
-//            self?.objectWillChange.send()
-//        }
     }
     
     func storeNewTask() {
-        print("\(category)\n\(task)")
+        if let colorHex = color.hexString() {
+            let taskInfo = TaskInfo(text: taskText,
+                                    colorHex: colorHex,
+                                    schedule: schedule,
+                                    isDone: false)
+            
+            print("\(category)\n\(taskInfo)")
+        }
     }
     
     func deleteCategory(at offSet: IndexSet) {

@@ -11,40 +11,35 @@ struct TaskConfigurationView: View {
     
     @FocusState var isFocused: Bool
     @StateObject private var vm = TaskConfigurationViewModel()
-    @ObservedRealmObject var task: TaskInfo
     
-    init() {
-        task = .init(text: "",
-                     colorHex: Color.ypWarmYellow.hexString() ?? "#F9D4D4",
-                     schedule: nil,
-                     isDone: false)
-    }
+    init() {}
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
                 
                 DescriptionView(
-                    text: $task.text,
-                    color: Color(hex: task.colorHex),
+                    text: $vm.taskText,
+                    color: vm.color,
                     focusedHeight: .large,
                     placeHolder: "Description")
                 
                 CustomTextField(
                     text: $vm.category,
                     placeHolder: "placeHolder",
-                    color: vm.task.color)
+                    color: vm.color)
                 .focused($isFocused)
                 .modifier(categoriesButtonModifier)
                 
-//                ScheduleView(
-//                    color: vm.task.color,
-//                    schedule: $vm.task.schedule)
+                ScheduleView(
+                    color: vm.color,
+                    schedule: $vm.schedule)
                 
                 Spacer(minLength: 0)
                 
                 HStack {
-                    ForEach(vm.colors, id: \.self) { color in
+                    ForEach(vm.availableColors,
+                            id: \.self) { color in
                         
                         buttonOf(color: color)
                     }
@@ -64,7 +59,7 @@ struct TaskConfigurationView: View {
             switchCategoriesButtonState()
         }
         .onDisappear {
-            if !vm.task.description.isEmpty {
+            if !vm.taskText.isEmpty {
                 vm.storeNewTask()
             }
         }
@@ -74,12 +69,15 @@ struct TaskConfigurationView: View {
 private extension TaskConfigurationView {
     var categoriesButtonModifier: some ViewModifier {
         
-        let predicate: Visibility = vm.categories.isEmpty ? .hidden : vm.categoriesButtonState
+        let statePredicate: Visibility = vm.categories.isEmpty ? .hidden : vm.categoriesButtonState
+        
+        let image: Image = Image(systemName:
+                                    "list.bullet")
         
         return ToggleVisibilityButton(
-            state: predicate,
-            image: Image(systemName: "list.bullet"),
-            color: vm.task.color,
+            state: statePredicate,
+            image: image,
+            color: vm.color,
             action: {
                 vm.presentCategoriesView.toggle()
             })
@@ -87,13 +85,7 @@ private extension TaskConfigurationView {
     
     private func buttonOf(color: Color) -> some View {
         Button {
-            if let colorHex = color.hexString() {
-//                task.colorHex = colorHex
-//                task.color = Color(hex: colorHex)
-                
-                vm.task.colorHex = colorHex
-                vm.task.color = Color(hex: colorHex)
-            }
+            vm.color = color
         } label: {
             color
                 .frame(width: 48, height: 48)

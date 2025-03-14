@@ -34,26 +34,25 @@ struct TasksListView: View {
                     .padding(.top, 14)
                     .padding(.horizontal, .screenHorizontalSpacing)
                 }
-                .background(Color.ypMediumLightGray)
-                .navigationBarTitleDisplayMode(.inline)
-                .sheet(isPresented: $vm.addTaskTapped) {
-                    TaskConfigurationView()
-                        .presentationDetents([.medium])
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $vm.addTaskTapped) {
+                TaskConfigurationView()
+                    .presentationDetents([.medium])
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    menuButton
                 }
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        menuButton
-                    }
-                    
-                    ToolbarItem(placement: .principal) {
-                        PopoverDatePicker(
-                            selection: $vm.selection,
-                            direction: .down)
-                    }
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        newTaskButton
-                    }
+                
+                ToolbarItem(placement: .principal) {
+                    PopoverDatePicker(
+                        selection: $vm.selection,
+                        direction: .down)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    newTaskButton
                 }
             }
         }
