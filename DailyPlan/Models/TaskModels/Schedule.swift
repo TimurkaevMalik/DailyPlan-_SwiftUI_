@@ -6,9 +6,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Schedule: Equatable {
-    var date: Date?
-    var start: Date?
-    var end: Date?
+final class Schedule: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id = UUID()
+    @Persisted var start: Date?
+    @Persisted var end: Date?
+    
+    convenience init(start: Date? = nil,
+         end: Date? = nil) {
+        self.init()
+        self.start = start
+        self.end = end
+    }
 }

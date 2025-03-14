@@ -6,8 +6,16 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct TaskRecord {
-    let id: UUID
-    let date: Date
+final class TaskRecord: Object, ObjectKeyIdentifiable {
+    @Persisted var id: UUID
+    @Persisted var date: Date
+    
+    convenience init(taskId: UUID,
+                     date: Date) {
+        self.init()
+        id = taskId
+        self.date = date
+    }
 }

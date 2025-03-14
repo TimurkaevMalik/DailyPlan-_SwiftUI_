@@ -43,8 +43,9 @@ struct ScheduleView: View {
                               direction: .up,
                               isPresented: $isDatePickerPresented)
             .padding(.leading, clearButtonState == .hidden ? 18 : 0)
-            .foregroundStyle(
-                setColorBy(schedule.date))
+//            .foregroundStyle(
+//                setColorBy(schedule.start ||
+//                           schedule.end))
             
             Spacer(minLength: 0)
             
@@ -75,11 +76,11 @@ struct ScheduleView: View {
         })
         .modifier(clearButtonModifier)
         .onChange(of: isDatePickerPresented) {
-            schedule.date = date
-            
-            if isDatePickerPresented == false {
-                setClearButtonState()
-            }
+//            schedule.date = date
+//            
+//            if isDatePickerPresented == false {
+//                setClearButtonState()
+//            }
         }
         .onChange(of: isStartTimePresented, { _, newValue in
             schedule.start = startTime
@@ -96,7 +97,10 @@ struct ScheduleView: View {
             }
         }
         .onChange(of: date) {
-            schedule.date = date
+//            let startDate = Calendar.current.date(bySettingHour: sta, minute: 00, second: 0, of: Date()) ?? Date()
+//            let endDate =
+//            schedule.date = date
+            
         }
         .onChange(of: startTime) {
             schedule.start = startTime
@@ -141,16 +145,14 @@ private extension ScheduleView {
 
 private extension ScheduleView  {
     func setClearButtonState() {
-        if schedule.date != nil ||
-            schedule.start != nil ||
+        if schedule.start != nil ||
             schedule.end != nil,
            clearButtonState == .hidden {
             withAnimation {
                 clearButtonState = .visible
             }
         } else
-        if schedule.date == nil,
-           schedule.start == nil,
+        if schedule.start == nil,
            schedule.end == nil,
            clearButtonState == .visible {
             withAnimation {
@@ -167,20 +169,48 @@ private extension ScheduleView  {
         }
     }
     
+    func dateForSchedule() {
+        if schedule.start != nil,
+           schedule.end != nil {
+            
+//            let startDate = Calendar.current.date(
+//                bySettingHour: startTime,
+//                minute: 00,
+//                second: 0,
+//                of: date) ?? Date()
+            
+//            let endDate = Calendar.current.date(
+//                bySettingHour: endTime,
+//                minute: 00,
+//                second: 0,
+//                of: date) ?? Date()
+            
+//            schedule.start = startDate
+//            schedule.end = endDate
+        } else if schedule.start != nil {
+            
+        } else if schedule.end != nil {
+            
+        }
+    }
+    
     func resetDates() {
-        let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
+        let defaultDate = Calendar.current.date(
+            bySettingHour: 12,
+            minute: 00,
+            second: 0,
+            of: Date()) ?? Date()
         
         date = defaultDate
         startTime = defaultDate
         endTime = defaultDate
         
-        schedule.date = nil
         schedule.start = nil
         schedule.end = nil
     }
     
     func setScheduleToNil() {
-        schedule = Schedule(date: nil, start: nil, end: nil)
+        schedule = Schedule(start: nil, end: nil)
     }
     
     func setColorBy(_ dateValue: Date?) -> Color {

@@ -6,17 +6,20 @@
 //
 
 import SwiftUI
+import RealmSwift
+import Combine
 
 final class TaskConfigurationViewModel: ObservableObject {
     
     @Published var presentCategoriesView: Bool
     @Published var categoriesButtonState: Visibility
     
-    @Published var task: TaskInfo
+    @ObservedRealmObject var task: TaskInfo
     @Published var category: String
     @Published var categories: [String]
     
     let colors: [Color]
+    private var anyCancellable: AnyCancellable?
     
     init() {
         presentCategoriesView = false
@@ -28,12 +31,16 @@ final class TaskConfigurationViewModel: ObservableObject {
                    .ypGreen]
         
         category = ""
-        task = .init(description: "",
-                     color: .ypWarmYellow,
-                     schedule: .init(),
+        task = .init(text: "",
+                     colorHex: Color.ypWarmYellow.hexString() ?? "#F9D4D4",
+                     schedule: nil,
                      isDone: false)
         
         fetchCategories()
+        
+//        anyCancellable = task.objectWillChange.sink{ [weak self] _ in
+//            self?.objectWillChange.send()
+//        }
     }
     
     func storeNewTask() {

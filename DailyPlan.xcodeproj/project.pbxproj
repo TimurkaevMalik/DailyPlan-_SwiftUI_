@@ -228,10 +228,12 @@
 			isa = PBXGroup;
 			children = (
 				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
+				BCC288FB2C730740008E7176 /* Models */,
 				BC848A1C2D5C831A00776E8C /* Helpers */,
 				BCB295F22D4D34B400B75559 /* Services */,
+				BCEA4E4D2D76177C005FB175 /* ButtonStyles */,
+				BC848A1D2D5C833700776E8C /* ViewModifiers */,
 				BCEF08B12C74DBAA0014A8AA /* CustomViews */,
-				BCC288FB2C730740008E7176 /* Models */,
 				BCF0725D2C70D6EB00999035 /* Screens */,
 				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
 				BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */,
@@ -267,8 +269,6 @@
 		BC848A1C2D5C831A00776E8C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BCEA4E4D2D76177C005FB175 /* ButtonStyles */,
-				BC848A1D2D5C833700776E8C /* ViewModifiers */,
 				BCF072612C70DC8300999035 /* Extensions */,
 			);
 			path = Helpers;
@@ -476,7 +476,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					BC7EFA2B2C6C6A8000FB24EA = {
 						CreatedOnToolsVersion = 15.4;
@@ -812,7 +812,6 @@
 		BC7EFA562C6C6A8200FB24EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -832,7 +831,6 @@
 		BC7EFA572C6C6A8200FB24EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -852,7 +850,6 @@
 		BC7EFA592C6C6A8200FB24EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8V4HQNY692;
@@ -870,7 +867,6 @@
 		BC7EFA5A2C6C6A8200FB24EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8V4HQNY692;

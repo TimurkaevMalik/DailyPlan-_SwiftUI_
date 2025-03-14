@@ -6,21 +6,27 @@
 //
 
 import SwiftUI
-
+import RealmSwift
 struct TaskConfigurationView: View {
     
     @FocusState var isFocused: Bool
     @StateObject private var vm = TaskConfigurationViewModel()
+    @ObservedRealmObject var task: TaskInfo
     
-    init() {}
+    init() {
+        task = .init(text: "",
+                     colorHex: Color.ypWarmYellow.hexString() ?? "#F9D4D4",
+                     schedule: nil,
+                     isDone: false)
+    }
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
                 
                 DescriptionView(
-                    text: $vm.task.description,
-                    color: vm.task.color,
+                    text: $task.text,
+                    color: Color(hex: task.colorHex),
                     focusedHeight: .large,
                     placeHolder: "Description")
                 
@@ -31,9 +37,9 @@ struct TaskConfigurationView: View {
                 .focused($isFocused)
                 .modifier(categoriesButtonModifier)
                 
-                ScheduleView(
-                    color: vm.task.color,
-                    schedule: $vm.task.schedule)
+//                ScheduleView(
+//                    color: vm.task.color,
+//                    schedule: $vm.task.schedule)
                 
                 Spacer(minLength: 0)
                 
@@ -81,7 +87,13 @@ private extension TaskConfigurationView {
     
     private func buttonOf(color: Color) -> some View {
         Button {
-            vm.task.color = color
+            if let colorHex = color.hexString() {
+//                task.colorHex = colorHex
+//                task.color = Color(hex: colorHex)
+                
+                vm.task.colorHex = colorHex
+                vm.task.color = Color(hex: colorHex)
+            }
         } label: {
             color
                 .frame(width: 48, height: 48)

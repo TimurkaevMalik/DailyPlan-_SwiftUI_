@@ -6,8 +6,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct TaskCategory {
-    var title: String
-    var tasks: [TaskInfo]
+final class TaskCategory: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id = UUID()
+    @Persisted var title: String
+    @Persisted var tasks = RealmSwift.List<TaskInfo>()
+    
+    convenience init(title: String,
+         tasks: [TaskInfo] = []) {
+        self.init()
+        self.title = title
+        self.tasks.append(objectsIn: tasks)
+    }
 }
