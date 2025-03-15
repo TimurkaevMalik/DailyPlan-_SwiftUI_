@@ -34,19 +34,23 @@ struct CustomTextField: View {
                         .font(.taskText)
                 }
             })
-            .focused($isFocused)
+            .frame(height: .mediumHeight)
             .tint(color)
             .font(.taskText)
-            .frame(height: .mediumHeight)
             .padding(.leading, 10)
+            .focused($isFocused)
             
             clearButton
                 .padding(.trailing, 10)
         }
-        .clipped()
-        .overlay {
+        .background {
             RoundedRectangle(cornerRadius: .regularCornerRadius)
                 .stroke(color)
+        }
+        .onTapGesture {
+            if !isFocused {
+                isFocused = true
+            }
         }
         .onChange(of: isFocused, { oldValue, newValue in
             text = text.trimmingCharacters(in: .whitespaces)
