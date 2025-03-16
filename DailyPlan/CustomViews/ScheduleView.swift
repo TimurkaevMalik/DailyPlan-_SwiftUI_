@@ -109,9 +109,6 @@ struct ScheduleView: View {
     ScheduleView(color: .ypWarmYellow,
                  schedule: $schedule)
     .padding(.horizontal)
-    .onChange(of: schedule) { oldValue, newValue in
-        print("I CHANGED")
-    }
 }
 #endif
 
