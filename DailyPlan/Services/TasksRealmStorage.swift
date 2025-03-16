@@ -16,11 +16,15 @@ protocol TasksStorageProtocol {
     func deleteTask(_ task: TaskInfo) async throws
 }
 ///TODO: move to another file
-enum ErrorMessage: String {
-    case dataBaseAccessError = "Could not access data base"
+enum ErrorMessage {
+    case dataBaseAccessError(_ code: Int)
     
-    func message(with error: NSError) -> String {
-        "\(self.rawValue). Error: \(error.code)"
+    var message: String {
+        switch self {
+        case .dataBaseAccessError(let code):
+            return "Could not access data base. Error: \(code)"
+
+        }
     }
 }
 
@@ -32,10 +36,10 @@ class TasksRealmStorage: TasksStorageProtocol {
         do {
             TasksRealmStorage.realm = try Realm()
         } catch let error as NSError {
-
+            
             NotificationCenter.default.post(
                 name: .dataBaseAccesError,
-                object: ErrorMessage.dataBaseAccessError.message(with: error))
+                object: ErrorMessage.dataBaseAccessError(error.code).message)
             
             TasksRealmStorage.realm = nil
         }
@@ -58,6 +62,4 @@ class TasksRealmStorage: TasksStorageProtocol {
     func deleteTask(_ task: TaskInfo) async throws {
         
     }
-    
-    
 }
