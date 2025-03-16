@@ -1,5 +1,5 @@
 //
-//  PopoverDatePicker.swift
+//  CustomDatePicker.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 12.02.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PopoverDatePicker: View {
+struct CustomDatePicker: View {
     
     @Binding private var selection: Date
     @State private var shouldPresent: Bool
@@ -59,12 +59,12 @@ struct PopoverDatePicker: View {
 #Preview {
     @Previewable @State var selection = Date()
     
-    PopoverDatePicker(selection: $selection,
+    CustomDatePicker(selection: $selection,
                           direction: .up)
 }
 #endif
 
-private extension PopoverDatePicker {
+private extension CustomDatePicker {
     func setPresentationState(_ bool: Bool) {
         if bool == true {
             shouldPresent = true

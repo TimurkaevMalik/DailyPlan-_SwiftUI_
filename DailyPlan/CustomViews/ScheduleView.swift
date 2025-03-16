@@ -38,14 +38,14 @@ struct ScheduleView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            PopoverDatePicker(
+            CustomDatePicker(
                 selection: $day,
                 direction: .up)
             .padding(.leading, clearButtonState == .hidden ? 18 : 0)
             
             Spacer(minLength: 0)
             
-            PopoverTimePicker(
+            TimePicker(
                 time: $startTime,
                 direction: .up,
                 isPresented: $isStartTimePresented)
@@ -56,7 +56,7 @@ struct ScheduleView: View {
                 .foregroundStyle(setDividerColor())
                 .padding(.horizontal, 2)
             
-            PopoverTimePicker(
+            TimePicker(
                 time: $endTime,
                 direction: .up,
                 isPresented: $isEndTimePresented)

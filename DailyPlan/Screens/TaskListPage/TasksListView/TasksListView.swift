@@ -46,7 +46,7 @@ struct TasksListView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    PopoverDatePicker(
+                    CustomDatePicker(
                         selection: $vm.selection,
                         direction: .down)
                 }
