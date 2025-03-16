@@ -10,13 +10,17 @@ import RealmSwift
 
 final class Schedule: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id = UUID()
+    @Persisted var day: Date
     @Persisted var start: Date?
     @Persisted var end: Date?
     
-    convenience init(start: Date? = nil,
-         end: Date? = nil) {
-        self.init()
-        self.start = start
-        self.end = end
-    }
+    convenience init(
+        day: Date = Date(),
+        start: Date? = nil,
+        end: Date? = nil) {
+            self.init()
+            self.day = day
+            self.start = start
+            self.end = end
+        }
 }
