@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import RealmSwift
 struct TaskConfigurationView: View {
     
     @FocusState var isFocused: Bool
@@ -19,31 +19,27 @@ struct TaskConfigurationView: View {
             VStack(spacing: 16) {
                 
                 DescriptionView(
-                    text: $vm.task.description,
-                    color: vm.task.color,
+                    text: $vm.taskText,
+                    color: vm.color,
                     focusedHeight: .large,
                     placeHolder: "Description")
                 
-                HStack(spacing: 0) {
-                    CustomTextField(
-                        text: $vm.category,
-                        placeHolder: "placeHolder",
-                        color: vm.task.color)
-                    .focused($isFocused)
-                    
-                    if !vm.categories.isEmpty {
-                        storedCategoriesButton
-                    }
-                }
+                CustomTextField(
+                    text: $vm.category,
+                    placeHolder: "placeHolder",
+                    color: vm.color)
+                .focused($isFocused)
+                .modifier(categoriesButtonModifier)
                 
                 ScheduleView(
-                    color: vm.task.color,
-                    schedule: $vm.task.schedule)
+                    color: vm.color,
+                    schedule: $vm.schedule)
                 
                 Spacer(minLength: 0)
                 
                 HStack {
-                    ForEach(vm.colors, id: \.self) { color in
+                    ForEach(vm.availableColors,
+                            id: \.self) { color in
                         
                         buttonOf(color: color)
                     }
@@ -56,50 +52,46 @@ struct TaskConfigurationView: View {
         }
         .sheet(isPresented: $vm.presentCategoriesView) {
             
-            CategoriesView()
-            .presentationDetents([.medium])
-            .environmentObject(vm)
+            CategoriesView(viewModel: vm)
+                .presentationDetents([.medium])
         }
         .onChange(of: isFocused) {
             switchCategoriesButtonState()
         }
         .onDisappear {
-            if !vm.task.description.isEmpty {
+            if !vm.taskText.isEmpty {
                 vm.storeNewTask()
             }
         }
     }
 }
 
+#if DEBUG
+#Preview {
+    TaskConfigurationView()
+}
+#endif
+
 private extension TaskConfigurationView {
-    var storedCategoriesButton: some View {
+    var categoriesButtonModifier: some ViewModifier {
         
-        let width = CGSize.checkMarkButton.width
+        let statePredicate: Visibility = vm.categories.isEmpty ? .hidden : vm.categoriesButtonState
         
-        let customView = Image(systemName: "list.bullet")
-            .resizable()
-            .frame(width: 34, height: 36)
-            .foregroundStyle(doesCategoryExist() ? vm.task.color : .ypGray)
-            .frame(width: vm.categoriesButtonState == .hidden ? 0 : width,
-                   height: .mediumHeight)
-            .clipped()
-            .overlay(content: {
-                RoundedRectangle(cornerRadius: .mediumCornerRadius)
-                    .stroke(vm.task.color)
+        let image: Image = Image(systemName:
+                                    "list.bullet")
+        
+        return ToggleVisibilityButton(
+            state: statePredicate,
+            image: image,
+            color: vm.color,
+            action: {
+                vm.presentCategoriesView.toggle()
             })
-            .padding(.leading, vm.categoriesButtonState == .hidden ? 0 : 10)
-            .onTapGesture {
-                if vm.categoriesButtonState == .visible {
-                    vm.presentCategoriesView.toggle()
-                }
-            }
-        
-        return customView
     }
     
     private func buttonOf(color: Color) -> some View {
         Button {
-            vm.task.color = color
+            vm.color = color
         } label: {
             color
                 .frame(width: 48, height: 48)
@@ -127,8 +119,4 @@ private extension TaskConfigurationView {
             $0.lowercased() == vm.category.lowercased()
         }
     }
-}
-
-#Preview {
-    TaskConfigurationView()
 }

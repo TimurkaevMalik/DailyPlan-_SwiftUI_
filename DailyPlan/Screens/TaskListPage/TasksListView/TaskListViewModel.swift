@@ -23,9 +23,7 @@ final class TaskListViewModel: ObservableObject {
         getAllTasks()
         allTasksFilter()
     }
-}
 
-extension TaskListViewModel {
     func delete(task: TaskInfo) {
         withAnimation {
             if let index = tasks.firstIndex(where: { $0.id == task.id }) {
@@ -39,10 +37,7 @@ extension TaskListViewModel {
     }
     
     func doneTasksFilter() {
-        print(allTasks.count)
         tasks = allTasks.filter({ $0.isDone == true })
-        
-        print(allTasks.count)
     }
     
     func activeTasksFilter() {

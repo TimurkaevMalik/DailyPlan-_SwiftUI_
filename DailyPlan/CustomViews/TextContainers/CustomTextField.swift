@@ -34,19 +34,23 @@ struct CustomTextField: View {
                         .font(.taskText)
                 }
             })
-            .focused($isFocused)
+            .frame(height: .mediumHeight)
             .tint(color)
             .font(.taskText)
-            .frame(height: .mediumHeight)
             .padding(.leading, 10)
+            .focused($isFocused)
             
             clearButton
                 .padding(.trailing, 10)
         }
-        .clipped()
-        .overlay {
-            RoundedRectangle(cornerRadius: .mediumCornerRadius)
+        .background {
+            RoundedRectangle(cornerRadius: .regularCornerRadius)
                 .stroke(color)
+        }
+        .onTapGesture {
+            if !isFocused {
+                isFocused = true
+            }
         }
         .onChange(of: isFocused, { oldValue, newValue in
             text = text.trimmingCharacters(in: .whitespaces)
@@ -60,6 +64,18 @@ struct CustomTextField: View {
         }
     }
 }
+
+#if DEBUG
+#Preview {
+    @Previewable@FocusState var isFocused: Bool
+    @Previewable @State var text: String = ""
+    
+    CustomTextField(
+        text: $text,
+        placeHolder: "Placeholder",
+        color: .ypWarmYellow)
+}
+#endif
 
 private extension CustomTextField {
     var clearButton: some View {
@@ -77,14 +93,4 @@ private extension CustomTextField {
                 .frame(width: 40, height: 40)
         }
     }
-}
-
-#Preview {
-    @Previewable@FocusState var isFocused: Bool
-    @Previewable @State var text: String = ""
-    
-    CustomTextField(
-        text: $text,
-        placeHolder: "Placeholder",
-        color: .ypWarmYellow)
 }

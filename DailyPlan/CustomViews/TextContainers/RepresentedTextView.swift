@@ -9,6 +9,11 @@ import SwiftUI
 
 struct RepresentedTextView: UIViewRepresentable {
     
+    enum TextViewState {
+        case notEmpty
+        case empty
+    }
+    
     @Binding private var text: String
     @State private var state: TextViewState
 
@@ -32,12 +37,13 @@ struct RepresentedTextView: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView { let textView = UITextView()
     
         textView.delegate = context.coordinator
+        textView.backgroundColor = .clear
         textView.font = .systemFont(ofSize: 20, weight: .regular)
-        ///TODO: custom inset for containers
+        
         textView.textContainer.lineFragmentPadding = 0
         textView.textContainerInset = .init(top: 8, left: 10, bottom: 0, right: 10)
         textView.textContainer.maximumNumberOfLines = linesNumber
-        textView.backgroundColor = .clear
+        
         if text.isEmpty {
             textView.textColor = .ypGray
             textView.text = placeHolder
@@ -98,16 +104,13 @@ struct RepresentedTextView: UIViewRepresentable {
             }
         }
     }
-    
-    enum TextViewState {
-        case notEmpty
-        case empty
-    }
 }
 
+#if DEBUG
 #Preview {
     RepresentedTextView(
         text: .constant(""),
         placeHolder: "Placeholder",
         linesNumber: 5)
 }
+#endif

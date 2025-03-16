@@ -7,6 +7,7 @@
 
 import SwiftUI
 ///TODO: make custom popover of TaskConfigurationView
+///TODO: Set List or LazyVStack
 struct TasksListView: View {
     
     @StateObject private var vm = TaskListViewModel()
@@ -16,21 +17,23 @@ struct TasksListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                ForEach(vm.tasks, id: \.id) { task in
-                    
-                    TaskCell(task: task) {
-                        vm.delete(task: task)
-                    }
-                    .padding(.vertical, 12)
-                    .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                        if let lastTask = vm.tasks.last,
-                           lastTask.id != task.id {
-                            dividerView
+                LazyVStack {
+                    ForEach(vm.tasks, id: \.id) { task in
+                        
+                        TaskCell(task: task) {
+                            vm.delete(task: task)
+                        }
+                        .padding(.vertical, 12)
+                        .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+                            if let lastTask = vm.tasks.last,
+                               lastTask.id != task.id {
+                                dividerView
+                            }
                         }
                     }
+                    .padding(.top, 14)
+                    .padding(.horizontal, .screenHorizontalSpacing)
                 }
-                .padding(.top, .mediumSpacing)
-                .padding(.horizontal, .screenHorizontalSpacing)
             }
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $vm.addTaskTapped) {
@@ -43,7 +46,7 @@ struct TasksListView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    PopoverDatePicker(
+                    CustomDatePicker(
                         selection: $vm.selection,
                         direction: .down)
                 }
@@ -56,16 +59,18 @@ struct TasksListView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     TasksListView()
 }
+#endif
 
 private extension TasksListView {
     var dividerView: some View {
         Divider()
             .padding(.leading, CGSize.checkMarkButton.width + CGFloat.defaultSpacing)
     }
-    ///TODO: change image on next view appear
+
     var newTaskButton: some View {
         Button {
             vm.addTaskTapped.toggle()

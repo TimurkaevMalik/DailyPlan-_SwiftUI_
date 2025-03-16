@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-///TODO: fix jumping behavior of scheduleView
+
 struct TaskCell: View {
     
     @State private var task: TaskInfo
@@ -53,16 +53,16 @@ struct TaskCell: View {
                 }
                 
                 DescriptionView(
-                    text: $task.description,
+                    text: $task.text,
                     color: .clear,
                     focusedHeight: .large,
                     placeHolder: "Description")
                 .strokeRoundedView(
                     stroke: .style(color: task.color),
-                    topLeading: .mediumCornerRadius,
+                    topLeading: .regularCornerRadius,
                     topTrailing: shouldRoundCorner(),
-                    bottomLeading: .mediumCornerRadius,
-                    bottomTrailing: .mediumCornerRadius)
+                    bottomLeading: .regularCornerRadius,
+                    bottomTrailing: .regularCornerRadius)
                 .focused($isFocused)
                 .offset(getOffSetAmount())
                 .gesture(dragGesture)
@@ -79,15 +79,17 @@ struct TaskCell: View {
     }
 }
 
+#if DEBUG
 #Preview {
     TaskCell(task: TaskInfo(
-        description: "description",
-        color: .ypCyan,
+        text: "description",
+        colorHex: Color.ypCyan.hexString() ?? "#1A1B22",
         schedule: .init(start: .distantPast, end: .distantFuture),
         isDone: false),
              onDelete: {})
     .padding(.horizontal)
 }
+#endif
 
 private extension TaskCell {
     func scheduleView(_ schedule: String) -> some View {
@@ -121,9 +123,9 @@ private extension TaskCell {
                 }.padding(.leading, 6)
             }
             .background {
-                RoundedRectangle(cornerRadius: .mediumCornerRadius)
+                RoundedRectangle(cornerRadius: .regularCornerRadius)
                     .stroke(.messRed, lineWidth: 2)
-                    .clipShape(.rect(cornerRadius: .mediumCornerRadius))
+                    .clipShape(.rect(cornerRadius: .regularCornerRadius))
             }
         }
     }
@@ -194,24 +196,24 @@ private extension TaskCell {
     func shouldRoundCorner() -> CGFloat {
         
         if (stringFromSchedule() == nil) {
-            return .mediumCornerRadius
+            return .regularCornerRadius
         } else {
             return 0
         }
     }
     
     func stringFromSchedule() -> String? {
-        if let start = task.schedule.start,
-           let end = task.schedule.end {
+        if let start = task.schedule?.start,
+           let end = task.schedule?.end {
             
             let startString = timeString(from: start)
             let endString = timeString(from: end)
             
             return "\(startString) - \(endString)"
             
-        } else if let start = task.schedule.start {
+        } else if let start = task.schedule?.start {
             return timeString(from: start)
-        } else if let end = task.schedule.end {
+        } else if let end = task.schedule?.end {
             return timeString(from: end)
         } else {
             return nil

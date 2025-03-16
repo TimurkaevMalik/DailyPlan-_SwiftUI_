@@ -10,9 +10,11 @@ import SwiftUI
 struct CategoriesView: View {
     
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var vm: TaskConfigurationViewModel
+    @ObservedObject var vm: TaskConfigurationViewModel
     
-    init() {}
+    init(viewModel: TaskConfigurationViewModel) {
+        vm = viewModel
+    }
     
     var body: some View {
         NavigationStack {
@@ -21,7 +23,7 @@ struct CategoriesView: View {
                     
                     categoryItemView(
                         vm.categories[index])
-                    .setCornerRadius(.mediumCornerRadius, basedOn: positionOf(vm.categories[index]))
+                    .setCornerRadius(.regularCornerRadius, basedOn: positionOf(vm.categories[index]))
                     .overlay(alignment:.init(horizontal: .center, vertical: .top)) {
                         if index != 0 {
                             Divider()
@@ -57,11 +59,12 @@ struct CategoriesView: View {
     }
 }
 
+#if DEBUG
 #Preview {
-    CategoriesView()
-        .environmentObject(
-            TaskConfigurationViewModel())
+    CategoriesView(
+        viewModel: TaskConfigurationViewModel())
 }
+#endif
 
 private extension CategoriesView {
     func categoryItemView(_ category: String) -> some View {
@@ -73,7 +76,7 @@ private extension CategoriesView {
             
             NonBindingToggle(
                 isOn: category == vm.category,
-                color: vm.task.color) {
+                color: vm.color) {
                     if vm.category == category {
                         vm.category = ""
                     } else {
@@ -88,11 +91,7 @@ private extension CategoriesView {
         .padding(.trailing, 28)
         .background(.ypMediumLightGray)
     }
-}
 
-
-
-private extension CategoriesView {
     func positionOf(_ category: String) -> ListItemPosition {
         
         if vm.categories.count == 1 {

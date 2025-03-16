@@ -44,11 +44,11 @@ struct CheckMarkButton: View {
                     }
             }
         }
-        .clipShape(RoundedRectangle(cornerRadius: .mediumCornerRadius))
+        .clipShape(RoundedRectangle(cornerRadius: .regularCornerRadius))
     }
 }
 
-
+#if DEBUG
 #Preview {
     @Previewable
     @State var isDone = true
@@ -57,3 +57,4 @@ struct CheckMarkButton: View {
                     isDone: $isDone)
     .setSize(.checkMarkButton)
 }
+#endif

@@ -59,7 +59,7 @@ struct DescriptionView: View {
             }
         }
         .background {
-            RoundedRectangle(cornerRadius: .mediumCornerRadius)
+            RoundedRectangle(cornerRadius: .regularCornerRadius)
                 .stroke(color)
         }
         .onChange(of: isFocused, {
@@ -69,6 +69,7 @@ struct DescriptionView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable @State var text: String = ""
     DescriptionView(text: $text,
@@ -77,6 +78,7 @@ struct DescriptionView: View {
                     placeHolder: "Description")
     .padding(.horizontal)
 }
+#endif
 
 extension DescriptionView {
     enum FocusedHeight: CGFloat {

@@ -44,6 +44,7 @@ struct NonBindingToggle: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable @State var isOn: Bool = false
     
@@ -51,6 +52,7 @@ struct NonBindingToggle: View {
                      color: .ypWarmYellow,
                      tapAction: { isOn.toggle() })
 }
+#endif
 
 private extension NonBindingToggle {
     func changeState() {
