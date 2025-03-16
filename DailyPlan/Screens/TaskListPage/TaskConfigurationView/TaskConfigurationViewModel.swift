@@ -12,32 +12,42 @@ final class TaskConfigurationViewModel: ObservableObject {
     @Published var presentCategoriesView: Bool
     @Published var categoriesButtonState: Visibility
     
-    @Published var task: TaskInfo
+    @Published var taskText: String
     @Published var category: String
     @Published var categories: [String]
+    @Published var color: Color
+    @Published var schedule: Schedule
     
-    let colors: [Color]
+    let availableColors: [Color]
     
     init() {
         presentCategoriesView = false
         categoriesButtonState = .visible
         
-        categories = []
-        colors = [.ypLightPink, .ypCyan,
-                   .ypRed, .ypWarmYellow,
-                   .ypGreen]
-        
+        taskText = ""
         category = ""
-        task = .init(description: "",
-                     color: .ypWarmYellow,
-                     schedule: .init(),
-                     isDone: false)
+        color = .ypWarmYellow
+        schedule = Schedule()
+        
+        categories = []
+        availableColors = [.ypLightPink,
+                           .ypCyan,
+                           .ypRed,
+                           .ypWarmYellow,
+                           .ypGreen]
         
         fetchCategories()
     }
     
     func storeNewTask() {
-        print("\(category)\n\(task)")
+        if let colorHex = color.hexString() {
+            let taskInfo = TaskInfo(text: taskText,
+                                    colorHex: colorHex,
+                                    schedule: schedule,
+                                    isDone: false)
+            
+            print("\(category)\n\(taskInfo)")
+        }
     }
     
     func deleteCategory(at offSet: IndexSet) {

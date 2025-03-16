@@ -53,7 +53,7 @@ struct TaskCell: View {
                 }
                 
                 DescriptionView(
-                    text: $task.description,
+                    text: $task.text,
                     color: .clear,
                     focusedHeight: .large,
                     placeHolder: "Description")
@@ -79,15 +79,17 @@ struct TaskCell: View {
     }
 }
 
+#if DEBUG
 #Preview {
     TaskCell(task: TaskInfo(
-        description: "description",
-        color: .ypCyan,
+        text: "description",
+        colorHex: Color.ypCyan.hexString() ?? "#1A1B22",
         schedule: .init(start: .distantPast, end: .distantFuture),
         isDone: false),
              onDelete: {})
     .padding(.horizontal)
 }
+#endif
 
 private extension TaskCell {
     func scheduleView(_ schedule: String) -> some View {
@@ -201,17 +203,17 @@ private extension TaskCell {
     }
     
     func stringFromSchedule() -> String? {
-        if let start = task.schedule.start,
-           let end = task.schedule.end {
+        if let start = task.schedule?.start,
+           let end = task.schedule?.end {
             
             let startString = timeString(from: start)
             let endString = timeString(from: end)
             
             return "\(startString) - \(endString)"
             
-        } else if let start = task.schedule.start {
+        } else if let start = task.schedule?.start {
             return timeString(from: start)
-        } else if let end = task.schedule.end {
+        } else if let end = task.schedule?.end {
             return timeString(from: end)
         } else {
             return nil

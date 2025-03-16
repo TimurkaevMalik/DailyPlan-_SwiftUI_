@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import RealmSwift
 struct TaskConfigurationView: View {
     
     @FocusState var isFocused: Bool
@@ -19,26 +19,27 @@ struct TaskConfigurationView: View {
             VStack(spacing: 16) {
                 
                 DescriptionView(
-                    text: $vm.task.description,
-                    color: vm.task.color,
+                    text: $vm.taskText,
+                    color: vm.color,
                     focusedHeight: .large,
                     placeHolder: "Description")
                 
                 CustomTextField(
                     text: $vm.category,
                     placeHolder: "placeHolder",
-                    color: vm.task.color)
+                    color: vm.color)
                 .focused($isFocused)
                 .modifier(categoriesButtonModifier)
                 
                 ScheduleView(
-                    color: vm.task.color,
-                    schedule: $vm.task.schedule)
+                    color: vm.color,
+                    schedule: $vm.schedule)
                 
                 Spacer(minLength: 0)
                 
                 HStack {
-                    ForEach(vm.colors, id: \.self) { color in
+                    ForEach(vm.availableColors,
+                            id: \.self) { color in
                         
                         buttonOf(color: color)
                     }
@@ -58,22 +59,31 @@ struct TaskConfigurationView: View {
             switchCategoriesButtonState()
         }
         .onDisappear {
-            if !vm.task.description.isEmpty {
+            if !vm.taskText.isEmpty {
                 vm.storeNewTask()
             }
         }
     }
 }
 
+#if DEBUG
+#Preview {
+    TaskConfigurationView()
+}
+#endif
+
 private extension TaskConfigurationView {
     var categoriesButtonModifier: some ViewModifier {
         
-        let predicate: Visibility = vm.categories.isEmpty ? .hidden : vm.categoriesButtonState
+        let statePredicate: Visibility = vm.categories.isEmpty ? .hidden : vm.categoriesButtonState
+        
+        let image: Image = Image(systemName:
+                                    "list.bullet")
         
         return ToggleVisibilityButton(
-            state: predicate,
-            image: Image(systemName: "list.bullet"),
-            color: vm.task.color,
+            state: statePredicate,
+            image: image,
+            color: vm.color,
             action: {
                 vm.presentCategoriesView.toggle()
             })
@@ -81,7 +91,7 @@ private extension TaskConfigurationView {
     
     private func buttonOf(color: Color) -> some View {
         Button {
-            vm.task.color = color
+            vm.color = color
         } label: {
             color
                 .frame(width: 48, height: 48)
@@ -109,8 +119,4 @@ private extension TaskConfigurationView {
             $0.lowercased() == vm.category.lowercased()
         }
     }
-}
-
-#Preview {
-    TaskConfigurationView()
 }

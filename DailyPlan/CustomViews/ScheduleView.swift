@@ -10,14 +10,14 @@ import SwiftUI
 struct ScheduleView: View {
     
     @Binding private var schedule: Schedule
-    @State private var date: Date
+    @State private var day: Date
     @State private var startTime: Date
     @State private var endTime: Date
     @State private var clearButtonState: Visibility
-    @State private var isDatePickerPresented: Bool
     @State private var isStartTimePresented: Bool
     @State private var isEndTimePresented: Bool
     
+    private let defaultDate: Date
     private var color: Color
     
     init(color: Color,
@@ -26,29 +26,26 @@ struct ScheduleView: View {
         self._schedule = schedule
         self.color = color
         clearButtonState = .hidden
-        isDatePickerPresented = false
         isStartTimePresented = false
         isEndTimePresented = false
         
-        let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
+        defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
         
-        date = defaultDate
+        day = defaultDate
         startTime = defaultDate
         endTime = defaultDate
     }
     
     var body: some View {
         HStack(spacing: 0) {
-            PopoverDatePicker(selection: $date,
-                              direction: .up,
-                              isPresented: $isDatePickerPresented)
+            CustomDatePicker(
+                selection: $day,
+                direction: .up)
             .padding(.leading, clearButtonState == .hidden ? 18 : 0)
-            .foregroundStyle(
-                setColorBy(schedule.date))
             
             Spacer(minLength: 0)
             
-            PopoverTimePicker(
+            TimePicker(
                 time: $startTime,
                 direction: .up,
                 isPresented: $isStartTimePresented)
@@ -59,7 +56,7 @@ struct ScheduleView: View {
                 .foregroundStyle(setDividerColor())
                 .padding(.horizontal, 2)
             
-            PopoverTimePicker(
+            TimePicker(
                 time: $endTime,
                 direction: .up,
                 isPresented: $isEndTimePresented)
@@ -74,39 +71,37 @@ struct ScheduleView: View {
                 .stroke(color)
         })
         .modifier(clearButtonModifier)
-        .onChange(of: isDatePickerPresented) {
-            schedule.date = date
-            
-            if isDatePickerPresented == false {
-                setClearButtonState()
-            }
-        }
         .onChange(of: isStartTimePresented, { _, newValue in
-            schedule.start = startTime
+            setStartTimeByDate()
             
             if isStartTimePresented == false {
                 setClearButtonState()
             }
         })
         .onChange(of: isEndTimePresented) {
-            schedule.end = endTime
+            setEndTimeByDate()
             
             if isEndTimePresented == false {
                 setClearButtonState()
             }
         }
-        .onChange(of: date) {
-            schedule.date = date
+        .onChange(of: day) {
+            setSchedule()
         }
         .onChange(of: startTime) {
-            schedule.start = startTime
+            if isStartTimePresented {
+                setSchedule()
+            }
         }
         .onChange(of: endTime) {
-            schedule.end = endTime
+            if isEndTimePresented {
+                setSchedule()
+            }
         }
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable
     @State var schedule: Schedule = Schedule()
@@ -115,25 +110,16 @@ struct ScheduleView: View {
                  schedule: $schedule)
     .padding(.horizontal)
 }
+#endif
 
 private extension ScheduleView {
-    struct DefaultValues {
-        let date: Date
-        let color: Color
-        
-        init() {
-            color = .messGrayUltraDark
-            date = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
-        }
-    }
-    
     var clearButtonModifier: some ViewModifier {
         ToggleVisibilityButton(
             state: clearButtonState,
             image: Image(systemName: "arrow.uturn.backward.square"),
             color: color,
             action: {
-                resetDates()
+                setDefaultSchedule()
                 setClearButtonState()
             })
     }
@@ -141,18 +127,17 @@ private extension ScheduleView {
 
 private extension ScheduleView  {
     func setClearButtonState() {
-        if schedule.date != nil ||
-            schedule.start != nil ||
+        if schedule.start != nil ||
             schedule.end != nil,
            clearButtonState == .hidden {
+            
             withAnimation {
                 clearButtonState = .visible
             }
-        } else
-        if schedule.date == nil,
-           schedule.start == nil,
-           schedule.end == nil,
-           clearButtonState == .visible {
+        } else if schedule.start == nil,
+                  schedule.end == nil,
+                  clearButtonState == .visible {
+            
             withAnimation {
                 clearButtonState = .hidden
             }
@@ -161,26 +146,11 @@ private extension ScheduleView  {
     
     func setDividerColor() -> Color {
         if schedule.start != nil,
-           schedule.end != nil { .ypBlack
+           schedule.end != nil {
+            return .ypBlack
         } else {
-            .ypGray
+            return .ypGray
         }
-    }
-    
-    func resetDates() {
-        let defaultDate = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
-        
-        date = defaultDate
-        startTime = defaultDate
-        endTime = defaultDate
-        
-        schedule.date = nil
-        schedule.start = nil
-        schedule.end = nil
-    }
-    
-    func setScheduleToNil() {
-        schedule = Schedule(date: nil, start: nil, end: nil)
     }
     
     func setColorBy(_ dateValue: Date?) -> Color {
@@ -189,5 +159,62 @@ private extension ScheduleView  {
         } else {
             return .messGrayUltraDark
         }
+    }
+    
+    func setDefaultSchedule() {
+        day = defaultDate
+        startTime = defaultDate
+        endTime = defaultDate
+        
+        schedule.day = defaultDate
+        schedule.start = nil
+        schedule.end = nil
+    }
+    
+    func setSchedule() {
+        schedule.day = day
+        
+        if schedule.start != nil,
+           schedule.end != nil {
+            
+            setStartTimeByDate()
+            setEndTimeByDate()
+        
+        } else if schedule.start != nil,
+                  schedule.end == nil {
+           
+            setStartTimeByDate()
+            
+        } else if schedule.end != nil,
+                  schedule.start == nil {
+            
+            setEndTimeByDate()
+        }
+    }
+    
+    func setStartTimeByDate() {
+        let startHour = startTime.get(.hour)
+        let startMinute = startTime.get(.minute)
+        
+        let startDate = Calendar.current.date(
+            bySettingHour: startHour,
+            minute: startMinute,
+            second: 0,
+            of: schedule.day) ?? Date()
+        
+        schedule.start = startDate
+    }
+    
+    func setEndTimeByDate() {
+        let endHour = endTime.get(.hour)
+        let endMinute = endTime.get(.minute)
+        
+        let endDate = Calendar.current.date(
+            bySettingHour: endHour,
+            minute: endMinute,
+            second: 0,
+            of: schedule.day) ?? Date()
+        
+        schedule.end = endDate
     }
 }

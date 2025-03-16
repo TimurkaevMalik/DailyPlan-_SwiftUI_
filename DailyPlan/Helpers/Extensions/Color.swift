@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Color {
-    init?(hex: String) {
+    init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)//
         
         let a, r, g, b: UInt64 // UInt64?
@@ -29,13 +29,13 @@ extension Color {
                             rgbValue >> 8 & 0xFF,
                             rgbValue & 0xFF)
             
-        case 9: // RGBA (32-bit)
-            (a, r, g, b) = (rgbValue >> 24,
+        case 8: // RGBA (32-bit)
+            (a, r, g, b) = (rgbValue & 0xFF,
+                            rgbValue >> 24,
                             rgbValue >> 16 & 0xFF,
-                            rgbValue >> 8 & 0xFF,
-                            rgbValue & 0xFF)
+                            rgbValue >> 8 & 0xFF)
         default:
-            return nil
+            (a, r, g, b) = (1, 1, 1, 0)
         }
         
         self.init(.sRGB,

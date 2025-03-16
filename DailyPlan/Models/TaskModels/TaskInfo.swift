@@ -6,105 +6,109 @@
 //
 
 import SwiftUI
+import RealmSwift
 
-struct TaskInfo: Identifiable {
-    let id = UUID()
-    var description: String
-    var color: Color
-    var schedule: Schedule
-    var isDone: Bool
+
+final class TaskInfo: Object, ObjectKeyIdentifiable {
+    @Persisted(primaryKey: true) var _id = UUID()
+    @Persisted var text: String
+    @Persisted var schedule: Schedule?
+    @Persisted var isDone: Bool
+    @Persisted var colorHex: String {
+        didSet {
+            color = Color(hex: colorHex)
+        }
+    }
+    
+    lazy var color: Color = Color(hex: colorHex)
+    
+    convenience init(text: String,
+         colorHex: String,
+         schedule: Schedule?,
+         isDone: Bool) {
+        self.init()
+        self.text = text
+        self.colorHex = colorHex
+        self.schedule = schedule
+        self.isDone = isDone
+        
+    }
 }
 
-//class TaskInfo: Object {
-//    @Persisted(primaryKey: true) var _id = UUID()
-//    @Persisted var text: String
-//    @Persisted var color: String
-////    @Persisted var schedule: Schedule
-//    @Persisted var isDone: Bool
-//    
-//    init(text: String,
-//         color: Color,
-//         schedule: Schedule,
-//         isDone: Bool) {
-//        self.text = text
-////        self.color = color
-////        self.schedule = schedule
-//        self.isDone = isDone
-//    }
-//}
-
+#if DEBUG
 extension TaskInfo {
     static func getTasksMock() -> [TaskInfo] {
         [
-            TaskInfo(description: "Eat food",
-                     color: .ypWarmYellow,
-                     schedule: Schedule(start: nil, end: .now),
-                 isDone: true),
+            TaskInfo(text: "Eat food",
+                     colorHex: Color.ypWarmYellow.hexString() ?? "#1A1B22",
+                     schedule: Schedule(start: .now, end: .now),
+                     isDone: true),
             
-            TaskInfo(description: "Go to school",
-                     color: .ypLightPink,
-                 schedule: Schedule(start: .now, end: .now),
+            TaskInfo(text: "Go to school",
+                     colorHex: Color.ypLightPink.hexString() ?? "#1A1B22",
+                     schedule: Schedule(start: .now, end: .now),
+                     isDone: false),
+            
+            TaskInfo(text: "Study at school again and again till I die",
+                     colorHex: Color.ypGreen.hexString() ?? "#1A1B22",
+                     schedule: Schedule(start: .now, end: nil),
+                     isDone: true),
+            
+            TaskInfo(text: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
+                     colorHex: Color.ypCyan.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                     isDone: true),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Study at school again and again till I die",
-                     color: .ypGreen,
-                 schedule: Schedule(start: .now, end: nil),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
-                     color: .ypCyan,
-                 schedule: Schedule(start: nil, end: nil),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Wash the dishes",
-                     color: .ypRed,
-                 schedule: Schedule(start: nil, end: .now),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Listen to music break the dishes",
-                     color: .ypRed,
-                 schedule: Schedule(start: .now, end: .now),
-                 isDone: true),
-            
-            TaskInfo(description: "Listen to music break the dishes",
-                     color: .ypRed,
-                 schedule: Schedule(start: nil, end: .now),
-                 isDone: true),
-            
-            TaskInfo(description: "Eat food",
-                     color: .ypCyan,
-                 schedule: Schedule(start: nil, end: nil),
-                 isDone: true),
-            
-            TaskInfo(description: "Go to school",
-                     color: .ypCyan,
-                 schedule: Schedule(start: nil, end: .now),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Study at school again and again till I die",
-                     color: .ypGreen,
-                 schedule: Schedule(start: nil, end: .now),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
-                     color: .ypLightPink,
-                 schedule: Schedule(start: nil, end: nil),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Wash the dishes",
-                 color: .ypCyan,
-                 schedule: Schedule(start: .now, end: nil),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
                  isDone: false),
             
-            TaskInfo(description: "Listen to music break the dishes",
-                 color: .ypWarmYellow,
-                 schedule: Schedule(start: .now, end: nil),
-                 isDone: true),
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
             
-            TaskInfo(description: "Listen to music break the dishes",
-                     color: .ypWarmYellow,
-                 schedule: Schedule(start: .now, end: nil),
-                 isDone: true)
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false)
         ]
     }
 }
+#endif

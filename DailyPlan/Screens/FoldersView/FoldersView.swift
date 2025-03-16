@@ -13,6 +13,8 @@ struct FoldersView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     FoldersView()
 }
+#endif

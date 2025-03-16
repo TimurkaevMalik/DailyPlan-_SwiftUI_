@@ -1,5 +1,5 @@
 //
-//  PopoverTimePicker.swift
+//  TimePicker.swift
 //  DailyPlan
 //
 //  Created by Malik Timurkaev on 11.02.2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PopoverTimePicker: View {
+struct TimePicker: View {
     
     @Binding private var time: Date
     @State private var hoursSelection: Int
@@ -45,24 +45,21 @@ struct PopoverTimePicker: View {
     }
     
     var body: some View {
-        
         Text(timeString(from: time))
             .frame(width: 70, height: 32)
             .background(.ypMilk)
             .clipShape(.rect(cornerRadius: .regularCornerRadius))
-            .onChange(of: shouldPresent, {
-                if shouldPresent == false {
-                    setPresentationState(false)
-                }
-            })
-            .onTapGesture {
-                setPresentationState(true)
-            }
             .onChange(of: hoursSelection) {
-                hoursValueChanged()
+                setTimeBySelectionValue()
             }
             .onChange(of: minutesSelection) {
-                minutesValueChanged()
+                setTimeBySelectionValue()
+            }
+            .onChange(of: time, {
+                setSelectionValueByTime()
+            })
+            .onTapGesture {
+                setPresentationState(!shouldPresent)
             }
             .popover(isPresented: $shouldPresent,
                      arrowEdge: arrowEdge) {
@@ -72,15 +69,17 @@ struct PopoverTimePicker: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable
     @State var time = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
     
-    PopoverTimePicker(time: $time,
-                      direction: .down)
+    TimePicker(time: $time,
+               direction: .down)
 }
+#endif
 
-private extension PopoverTimePicker {
+private extension TimePicker {
     var timeWheelView: some View {
         HStack(spacing: 0) {
             Picker("", selection: $hoursSelection) {
@@ -104,18 +103,19 @@ private extension PopoverTimePicker {
     }
 }
 
-private extension PopoverTimePicker {
-    func minutesValueChanged() {
+private extension TimePicker {
+    func setSelectionValueByTime() {
+        let minutes = time.get(.minute)
+        let hour = time.get(.hour)
+        
+        minutesSelection = 300 + minutes % 60
+        hoursSelection = 288 + hour % 24
+    }
+    
+    func setTimeBySelectionValue() {
         minutesSelection = 300 + minutesSelection % 60
-        setTime()
-    }
-    
-    func hoursValueChanged() {
         hoursSelection = 288 + hoursSelection % 24
-        setTime()
-    }
-    
-    func setTime() {
+        
         time = Calendar.current.date(bySettingHour: hours, minute: minutes, second: 0, of: Date()) ?? Date()
     }
     

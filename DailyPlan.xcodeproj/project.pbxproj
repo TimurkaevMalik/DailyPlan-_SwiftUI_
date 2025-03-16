@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546132C74C01300E6AD68 /* TaskCell.swift */; };
 		BC0546162C74D26E00E6AD68 /* CheckMarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */; };
-		BC083C822D5B86A500C6C354 /* PopoverTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */; };
+		BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC083C812D5B869D00C6C354 /* TimePicker.swift */; };
 		BC17779E2D67759B00445C62 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC17779D2D67759B00445C62 /* NavBarButton.swift */; };
 		BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2084BE2D4A5AA4008C1118 /* RootView.swift */; };
 		BC5DABBF2D7DC66800E30ADA /* ToggleVisiblityBtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DABBE2D7DC66800E30ADA /* ToggleVisiblityBtton.swift */; };
-		BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305B2D4F8C1900ECA960 /* UIAplication.swift */; };
 		BC64305E2D4F8D1100ECA960 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */; };
 		BC6430602D4FC35E00ECA960 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305F2D4FC35000ECA960 /* CustomTextField.swift */; };
 		BC6430622D4FC49700ECA960 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6430612D4FC49700ECA960 /* View.swift */; };
@@ -33,7 +32,7 @@
 		BC848A1A2D5C7D1C00776E8C /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A192D5C7CEF00776E8C /* CGSize.swift */; };
 		BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A1E2D5C836200776E8C /* ViewSize.swift */; };
 		BC848A212D5C867000776E8C /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A202D5C866900776E8C /* CGFloat.swift */; };
-		BC848A232D5C922300776E8C /* PopoverDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A222D5C922300776E8C /* PopoverDatePicker.swift */; };
+		BC848A232D5C922300776E8C /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC848A222D5C922300776E8C /* CustomDatePicker.swift */; };
 		BC98D61F2D5E3BB4004817DD /* ListItemPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC98D61E2D5E3BB4004817DD /* ListItemPosition.swift */; };
 		BC98D6212D5E3BD3004817DD /* ListItemCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC98D6202D5E3BD3004817DD /* ListItemCorner.swift */; };
 		BCA93C1A2C74F6B70028DE2D /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA93C192C74F6B70028DE2D /* DescriptionView.swift */; };
@@ -93,11 +92,10 @@
 /* Begin PBXFileReference section */
 		BC0546132C74C01300E6AD68 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkButton.swift; sourceTree = "<group>"; };
-		BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTimePicker.swift; sourceTree = "<group>"; };
+		BC083C812D5B869D00C6C354 /* TimePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePicker.swift; sourceTree = "<group>"; };
 		BC17779D2D67759B00445C62 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		BC2084BE2D4A5AA4008C1118 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BC5DABBE2D7DC66800E30ADA /* ToggleVisiblityBtton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleVisiblityBtton.swift; sourceTree = "<group>"; };
-		BC64305B2D4F8C1900ECA960 /* UIAplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAplication.swift; sourceTree = "<group>"; };
 		BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		BC64305F2D4FC35000ECA960 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		BC6430612D4FC49700ECA960 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -120,7 +118,7 @@
 		BC848A192D5C7CEF00776E8C /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		BC848A1E2D5C836200776E8C /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
 		BC848A202D5C866900776E8C /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
-		BC848A222D5C922300776E8C /* PopoverDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverDatePicker.swift; sourceTree = "<group>"; };
+		BC848A222D5C922300776E8C /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		BC98D61E2D5E3BB4004817DD /* ListItemPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemPosition.swift; sourceTree = "<group>"; };
 		BC98D6202D5E3BD3004817DD /* ListItemCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemCorner.swift; sourceTree = "<group>"; };
 		BCA93C192C74F6B70028DE2D /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
@@ -228,10 +226,12 @@
 			isa = PBXGroup;
 			children = (
 				BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */,
+				BCC288FB2C730740008E7176 /* Models */,
 				BC848A1C2D5C831A00776E8C /* Helpers */,
 				BCB295F22D4D34B400B75559 /* Services */,
+				BCEA4E4D2D76177C005FB175 /* ButtonStyles */,
+				BC848A1D2D5C833700776E8C /* ViewModifiers */,
 				BCEF08B12C74DBAA0014A8AA /* CustomViews */,
-				BCC288FB2C730740008E7176 /* Models */,
 				BCF0725D2C70D6EB00999035 /* Screens */,
 				BC7EFA372C6C6A8200FB24EA /* Preview Content */,
 				BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */,
@@ -267,8 +267,6 @@
 		BC848A1C2D5C831A00776E8C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BCEA4E4D2D76177C005FB175 /* ButtonStyles */,
-				BC848A1D2D5C833700776E8C /* ViewModifiers */,
 				BCF072612C70DC8300999035 /* Extensions */,
 			);
 			path = Helpers;
@@ -339,8 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				BCEA4E4B2D760C9C005FB175 /* NonBindingToggle.swift */,
-				BC848A222D5C922300776E8C /* PopoverDatePicker.swift */,
-				BC083C812D5B869D00C6C354 /* PopoverTimePicker.swift */,
+				BC848A222D5C922300776E8C /* CustomDatePicker.swift */,
+				BC083C812D5B869D00C6C354 /* TimePicker.swift */,
 				BC0546152C74D26E00E6AD68 /* CheckMarkButton.swift */,
 				BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */,
 				BC0546132C74C01300E6AD68 /* TaskCell.swift */,
@@ -375,7 +373,6 @@
 			children = (
 				BCCEFBDE2D81D72600FF40C5 /* Color.swift */,
 				BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */,
-				BC64305B2D4F8C1900ECA960 /* UIAplication.swift */,
 				BC848A202D5C866900776E8C /* CGFloat.swift */,
 				BC848A192D5C7CEF00776E8C /* CGSize.swift */,
 				BC6430612D4FC49700ECA960 /* View.swift */,
@@ -476,7 +473,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					BC7EFA2B2C6C6A8000FB24EA = {
 						CreatedOnToolsVersion = 15.4;
@@ -546,14 +543,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC848A182D5C629500776E8C /* Date.swift in Sources */,
-				BC083C822D5B86A500C6C354 /* PopoverTimePicker.swift in Sources */,
+				BC083C822D5B86A500C6C354 /* TimePicker.swift in Sources */,
 				BCF072682C71AD4800999035 /* TasksListView.swift in Sources */,
 				BCBE35332D5DD89700796ABB /* PopoverDirection.swift in Sources */,
 				BCF072632C70DC9F00999035 /* Font.swift in Sources */,
 				BC98D6212D5E3BD3004817DD /* ListItemCorner.swift in Sources */,
 				BC748A212D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift in Sources */,
 				BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */,
-				BC848A232D5C922300776E8C /* PopoverDatePicker.swift in Sources */,
+				BC848A232D5C922300776E8C /* CustomDatePicker.swift in Sources */,
 				BCE284042D4E110600224553 /* TaskConfigurationView.swift in Sources */,
 				BC83E9CE2D64862300D31B9D /* StrokeRoundedView.swift in Sources */,
 				BCF072602C70D72800999035 /* TabBarView.swift in Sources */,
@@ -585,7 +582,6 @@
 				BCCEFBDF2D81D72600FF40C5 /* Color.swift in Sources */,
 				BC5DABBF2D7DC66800E30ADA /* ToggleVisiblityBtton.swift in Sources */,
 				BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */,
-				BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */,
 				BC83E9D02D648C7700D31B9D /* BorderParameters.swift in Sources */,
 				BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */,
 			);
@@ -812,7 +808,6 @@
 		BC7EFA562C6C6A8200FB24EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -832,7 +827,6 @@
 		BC7EFA572C6C6A8200FB24EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -852,7 +846,6 @@
 		BC7EFA592C6C6A8200FB24EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8V4HQNY692;
@@ -870,7 +863,6 @@
 		BC7EFA5A2C6C6A8200FB24EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8V4HQNY692;

@@ -30,4 +30,15 @@ final class DateFormatManager {
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.string(from: date)
     }
+    
+    func hoursString(from date: Date) -> String {
+        formatter.dateFormat = "HH"
+        return formatter.string(from: date)
+    }
+    
+    func minutesString(from date: Date) -> String {
+        formatter.dateFormat = "mm"
+        return formatter.string(from: date)
+    }
+
 }

@@ -46,12 +46,7 @@ struct ToggleVisibilityButton: ViewModifier {
                 .padding(.leading, buttonState == .hidden ? 0 : 10)
                 .onTapGesture {
                     if buttonState == .visible {
-                        
                         action()
-                        
-                        //                        withAnimation {
-                        //                            buttonState = .hidden
-                        //                        }
                     }
                 }
         }
