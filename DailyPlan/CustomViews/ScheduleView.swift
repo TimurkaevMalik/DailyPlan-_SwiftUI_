@@ -72,14 +72,14 @@ struct ScheduleView: View {
         })
         .modifier(clearButtonModifier)
         .onChange(of: isStartTimePresented, { _, newValue in
-            setStartTimeByDate()
+            setStartTime()
             
             if isStartTimePresented == false {
                 setClearButtonState()
             }
         })
         .onChange(of: isEndTimePresented) {
-            setEndTimeByDate()
+            setEndTime()
             
             if isEndTimePresented == false {
                 setClearButtonState()
@@ -177,22 +177,22 @@ private extension ScheduleView  {
         if schedule.start != nil,
            schedule.end != nil {
             
-            setStartTimeByDate()
-            setEndTimeByDate()
+            setStartTime()
+            setEndTime()
         
         } else if schedule.start != nil,
                   schedule.end == nil {
            
-            setStartTimeByDate()
+            setStartTime()
             
         } else if schedule.end != nil,
                   schedule.start == nil {
             
-            setEndTimeByDate()
+            setEndTime()
         }
     }
     
-    func setStartTimeByDate() {
+    func setStartTime() {
         let startHour = startTime.get(.hour)
         let startMinute = startTime.get(.minute)
         
@@ -205,7 +205,7 @@ private extension ScheduleView  {
         schedule.start = startDate
     }
     
-    func setEndTimeByDate() {
+    func setEndTime() {
         let endHour = endTime.get(.hour)
         let endMinute = endTime.get(.minute)
         
