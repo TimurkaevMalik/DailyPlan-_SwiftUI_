@@ -165,6 +165,7 @@ private extension ScheduleView  {
     }
     
     func setDefaultSchedule() {
+        day = defaultDate
         startTime = defaultDate
         endTime = defaultDate
         
