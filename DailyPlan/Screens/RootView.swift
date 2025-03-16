@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+///TODO: if TasksListView isEmpty but FoldersView is not - show FoldersView with .onAppear method
 struct RootView: View {
     @State private var selectedTab: Tabs
     
@@ -27,9 +27,6 @@ struct RootView: View {
             Spacer(minLength: 0)
             
             TabBarView(selectedTab: $selectedTab)
-        }
-        .onAppear {
-            ///TODO: if TasksListView isEmpty but FoldersView is not - show FoldersView
         }
     }
 }

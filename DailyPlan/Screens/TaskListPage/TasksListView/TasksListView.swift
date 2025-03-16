@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-///TODO: make custom popover of TaskConfigurationView
-///TODO: Set List or LazyVStack
+
 struct TasksListView: View {
     
     @StateObject private var vm = TaskListViewModel()
