@@ -55,12 +55,14 @@ struct PopoverDatePicker: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable @State var selection = Date()
     
     PopoverDatePicker(selection: $selection,
                           direction: .up)
 }
+#endif
 
 private extension PopoverDatePicker {
     func setPresentationState(_ bool: Bool) {

@@ -59,10 +59,12 @@ struct CategoriesView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     CategoriesView(
         viewModel: TaskConfigurationViewModel())
 }
+#endif
 
 private extension CategoriesView {
     func categoryItemView(_ category: String) -> some View {
@@ -89,11 +91,7 @@ private extension CategoriesView {
         .padding(.trailing, 28)
         .background(.ypMediumLightGray)
     }
-}
 
-
-
-private extension CategoriesView {
     func positionOf(_ category: String) -> ListItemPosition {
         
         if vm.categories.count == 1 {

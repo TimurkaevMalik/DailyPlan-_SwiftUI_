@@ -59,9 +59,11 @@ struct TasksListView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     TasksListView()
 }
+#endif
 
 private extension TasksListView {
     var dividerView: some View {

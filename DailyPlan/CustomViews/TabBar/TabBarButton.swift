@@ -42,6 +42,20 @@ struct TabBarButton: View {
     }
 }
 
+#if DEBUG
+#Preview {
+    @Previewable @State var isActive = true
+    TabBarButton(imageName: "list.bullet.circle",
+                 buttonText: "Tasks",
+                 buttonColor: .iconsSecondary,
+                 isActive: isActive,
+                 action: {
+        isActive.toggle()
+    })
+    .frame(width: 100, height: 60)
+}
+#endif
+
 extension TabBarButton {
     private func makeCursor(geo: GeometryProxy) -> some View {
         Rectangle()
@@ -53,25 +67,11 @@ extension TabBarButton {
                 bottomTrailingRadius: 20,
                 topTrailingRadius: 0))
     }
-}
 
-private extension TabBarButton {
     var tabItemImage: some View {
         Image(systemName: imageName)
             .resizable()
             .scaledToFit()
             .frame(width: 24, height: 24)
     }
-}
-
-#Preview {
-    @Previewable @State var isActive = true
-    TabBarButton(imageName: "list.bullet.circle",
-                 buttonText: "Tasks",
-                 buttonColor: .iconsSecondary,
-                 isActive: isActive,
-                 action: {
-        isActive.toggle()
-    })
-    .frame(width: 100, height: 60)
 }

@@ -66,6 +66,12 @@ struct TaskConfigurationView: View {
     }
 }
 
+#if DEBUG
+#Preview {
+    TaskConfigurationView()
+}
+#endif
+
 private extension TaskConfigurationView {
     var categoriesButtonModifier: some ViewModifier {
         
@@ -113,8 +119,4 @@ private extension TaskConfigurationView {
             $0.lowercased() == vm.category.lowercased()
         }
     }
-}
-
-#Preview {
-    TaskConfigurationView()
 }

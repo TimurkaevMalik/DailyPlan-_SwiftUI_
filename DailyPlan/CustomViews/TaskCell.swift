@@ -79,6 +79,7 @@ struct TaskCell: View {
     }
 }
 
+#if DEBUG
 #Preview {
     TaskCell(task: TaskInfo(
         text: "description",
@@ -88,6 +89,7 @@ struct TaskCell: View {
              onDelete: {})
     .padding(.horizontal)
 }
+#endif
 
 private extension TaskCell {
     func scheduleView(_ schedule: String) -> some View {

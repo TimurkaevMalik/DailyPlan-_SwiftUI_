@@ -50,9 +50,11 @@ struct TabBarView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable
     @State var selectedTab: Tabs = .tasks
     
     TabBarView(selectedTab: $selectedTab)
 }
+#endif

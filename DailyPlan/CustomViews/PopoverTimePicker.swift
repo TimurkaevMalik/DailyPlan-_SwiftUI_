@@ -72,6 +72,7 @@ struct PopoverTimePicker: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable
     @State var time = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
@@ -79,6 +80,7 @@ struct PopoverTimePicker: View {
     PopoverTimePicker(time: $time,
                       direction: .down)
 }
+#endif
 
 private extension PopoverTimePicker {
     var timeWheelView: some View {

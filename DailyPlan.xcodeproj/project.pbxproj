@@ -13,7 +13,6 @@
 		BC17779E2D67759B00445C62 /* NavBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC17779D2D67759B00445C62 /* NavBarButton.swift */; };
 		BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2084BE2D4A5AA4008C1118 /* RootView.swift */; };
 		BC5DABBF2D7DC66800E30ADA /* ToggleVisiblityBtton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5DABBE2D7DC66800E30ADA /* ToggleVisiblityBtton.swift */; };
-		BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305B2D4F8C1900ECA960 /* UIAplication.swift */; };
 		BC64305E2D4F8D1100ECA960 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */; };
 		BC6430602D4FC35E00ECA960 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305F2D4FC35000ECA960 /* CustomTextField.swift */; };
 		BC6430622D4FC49700ECA960 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6430612D4FC49700ECA960 /* View.swift */; };
@@ -97,7 +96,6 @@
 		BC17779D2D67759B00445C62 /* NavBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarButton.swift; sourceTree = "<group>"; };
 		BC2084BE2D4A5AA4008C1118 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		BC5DABBE2D7DC66800E30ADA /* ToggleVisiblityBtton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleVisiblityBtton.swift; sourceTree = "<group>"; };
-		BC64305B2D4F8C1900ECA960 /* UIAplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAplication.swift; sourceTree = "<group>"; };
 		BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		BC64305F2D4FC35000ECA960 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		BC6430612D4FC49700ECA960 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -375,7 +373,6 @@
 			children = (
 				BCCEFBDE2D81D72600FF40C5 /* Color.swift */,
 				BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */,
-				BC64305B2D4F8C1900ECA960 /* UIAplication.swift */,
 				BC848A202D5C866900776E8C /* CGFloat.swift */,
 				BC848A192D5C7CEF00776E8C /* CGSize.swift */,
 				BC6430612D4FC49700ECA960 /* View.swift */,
@@ -585,7 +582,6 @@
 				BCCEFBDF2D81D72600FF40C5 /* Color.swift in Sources */,
 				BC5DABBF2D7DC66800E30ADA /* ToggleVisiblityBtton.swift in Sources */,
 				BC6EBB342C730AC900F86B52 /* TaskCategory.swift in Sources */,
-				BC64305C2D4F8C1900ECA960 /* UIAplication.swift in Sources */,
 				BC83E9D02D648C7700D31B9D /* BorderParameters.swift in Sources */,
 				BC2084BF2D4A5AA4008C1118 /* RootView.swift in Sources */,
 			);

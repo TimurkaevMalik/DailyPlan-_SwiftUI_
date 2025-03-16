@@ -35,6 +35,7 @@ final class TaskInfo: Object, ObjectKeyIdentifiable {
     }
 }
 
+#if DEBUG
 extension TaskInfo {
     static func getTasksMock() -> [TaskInfo] {
         [
@@ -110,3 +111,4 @@ extension TaskInfo {
         ]
     }
 }
+#endif

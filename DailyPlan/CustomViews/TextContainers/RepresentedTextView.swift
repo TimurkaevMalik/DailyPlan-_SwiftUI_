@@ -9,6 +9,11 @@ import SwiftUI
 
 struct RepresentedTextView: UIViewRepresentable {
     
+    enum TextViewState {
+        case notEmpty
+        case empty
+    }
+    
     @Binding private var text: String
     @State private var state: TextViewState
 
@@ -99,16 +104,13 @@ struct RepresentedTextView: UIViewRepresentable {
             }
         }
     }
-    
-    enum TextViewState {
-        case notEmpty
-        case empty
-    }
 }
 
+#if DEBUG
 #Preview {
     RepresentedTextView(
         text: .constant(""),
         placeHolder: "Placeholder",
         linesNumber: 5)
 }
+#endif

@@ -65,6 +65,18 @@ struct CustomTextField: View {
     }
 }
 
+#if DEBUG
+#Preview {
+    @Previewable@FocusState var isFocused: Bool
+    @Previewable @State var text: String = ""
+    
+    CustomTextField(
+        text: $text,
+        placeHolder: "Placeholder",
+        color: .ypWarmYellow)
+}
+#endif
+
 private extension CustomTextField {
     var clearButton: some View {
         Button {
@@ -81,14 +93,4 @@ private extension CustomTextField {
                 .frame(width: 40, height: 40)
         }
     }
-}
-
-#Preview {
-    @Previewable@FocusState var isFocused: Bool
-    @Previewable @State var text: String = ""
-    
-    CustomTextField(
-        text: $text,
-        placeHolder: "Placeholder",
-        color: .ypWarmYellow)
 }

@@ -43,9 +43,6 @@ struct ScheduleView: View {
                               direction: .up,
                               isPresented: $isDatePickerPresented)
             .padding(.leading, clearButtonState == .hidden ? 18 : 0)
-//            .foregroundStyle(
-//                setColorBy(schedule.start ||
-//                           schedule.end))
             
             Spacer(minLength: 0)
             
@@ -111,6 +108,7 @@ struct ScheduleView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable
     @State var schedule: Schedule = Schedule()
@@ -119,6 +117,7 @@ struct ScheduleView: View {
                  schedule: $schedule)
     .padding(.horizontal)
 }
+#endif
 
 private extension ScheduleView {
     struct DefaultValues {

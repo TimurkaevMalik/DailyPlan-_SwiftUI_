@@ -48,7 +48,7 @@ struct CheckMarkButton: View {
     }
 }
 
-
+#if DEBUG
 #Preview {
     @Previewable
     @State var isDone = true
@@ -57,3 +57,4 @@ struct CheckMarkButton: View {
                     isDone: $isDone)
     .setSize(.checkMarkButton)
 }
+#endif
