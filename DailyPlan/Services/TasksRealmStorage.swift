@@ -7,15 +7,28 @@
 
 import SwiftUI
 import RealmSwift
+import Combine
+
+class StorageServiceNotification {
+    static var shared = StorageServiceNotification()
+    
+    let insertedTaskSubject = PassthroughSubject<TaskInfo, Never>()
+    let updatedTaskSubject = PassthroughSubject<TaskInfo, Never>()
+    let deletedTaskSubject = PassthroughSubject<TaskInfo, Never>()
+    
+    private init() {}
+}
 
 class TasksRealmStorage: RealmContextProtocol {
     
     var dataBase: Realm?
     var realmQueue: DispatchQueue
     weak var delegate: TaskStorageDelegate?
+    private let notification: StorageServiceNotification
     
     init(delegate: TaskStorageDelegate?) {
         self.delegate = delegate
+        notification = StorageServiceNotification.shared
         realmQueue = DispatchQueue(label: "RealmQueue_Tasks",
                                    qos: .background)
         
@@ -95,6 +108,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 }
                 
                 DispatchQueue.main.async {
+                    self.notification.insertedTaskSubject.send(task)
                     completion(.success(task))
                 }
             } catch let error as NSError {
@@ -123,6 +137,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 }
                 
                 DispatchQueue.main.async {
+                    self.notification.updatedTaskSubject.send(task)
                     completion(.success(task))
                 }
             } catch let error as NSError {
@@ -151,6 +166,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 }
                 
                 DispatchQueue.main.async {
+                    self.notification.deletedTaskSubject.send(task)
                     completion(.success(task))
                 }
             } catch let error as NSError {

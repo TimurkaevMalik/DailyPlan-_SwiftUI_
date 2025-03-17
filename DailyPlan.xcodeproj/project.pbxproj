@@ -279,8 +279,8 @@
 		BC848A1C2D5C831A00776E8C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BCCAA8842D884470002B5426 /* Protocols */,
 				BC83E9CF2D648C7700D31B9D /* BorderParameters.swift */,
+				BCCAA8842D884470002B5426 /* Protocols */,
 				BCCAA8832D88443D002B5426 /* Enums */,
 				BCF072612C70DC8300999035 /* Extensions */,
 			);

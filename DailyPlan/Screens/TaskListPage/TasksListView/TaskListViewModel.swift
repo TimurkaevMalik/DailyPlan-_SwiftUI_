@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 final class TaskListViewModel: ObservableObject {
     
@@ -14,6 +15,8 @@ final class TaskListViewModel: ObservableObject {
     @Published var selection: Date
     
     private var allTasks: [TaskInfo]
+    private var cancellableSet = Set<AnyCancellable>()
+    private let notification = StorageServiceNotification.shared
     private lazy var tasksStorage: TaskStorageProtocol = TasksRealmStorage(delegate: self)
     
     init() {
@@ -45,6 +48,26 @@ final class TaskListViewModel: ObservableObject {
         tasks = allTasks.filter({ $0.isDone == false })
     }
     
+    private func subscribeToTaskUpdates() {
+        notification.insertedTaskSubject
+            .sink { task in
+                self.didInsertTask(task)
+            }
+            .store(in: &cancellableSet)
+        
+        notification.updatedTaskSubject
+            .sink { task in
+                self.didUpdateTask(task)
+            }
+            .store(in: &cancellableSet)
+        
+        notification.deletedTaskSubject
+            .sink { task in
+                self.didDeleteTask(task)
+            }
+            .store(in: &cancellableSet)
+    }
+    
     private func retrieveAllTasks() {
         
         tasksStorage.retrieveTasks { result in
@@ -60,8 +83,8 @@ final class TaskListViewModel: ObservableObject {
 }
 
 extension TaskListViewModel: TaskStorageDelegate {
-    func didAddTask(_ task: TaskInfo) {
-        
+    func didInsertTask(_ task: TaskInfo) {
+        tasks.append(task)
     }
     
     func didUpdateTask(_ task: TaskInfo) {

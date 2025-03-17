@@ -9,7 +9,7 @@ import Foundation
 
 protocol TaskStorageProtocol {
     typealias TaskResult = Result<TaskInfo, ErrorRealm>
-    
+    ///TODO: do I need delegate
     var delegate: TaskStorageDelegate? { get }
     
     func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void)
