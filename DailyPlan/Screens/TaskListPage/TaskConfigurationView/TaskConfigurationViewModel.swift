@@ -19,7 +19,7 @@ final class TaskConfigurationViewModel: ObservableObject {
     @Published var schedule: Schedule
     
     let availableColors: [Color]
-    private lazy var tasksStorage: TaskStorageProtocol = TasksRealmStorage(delegate: self)
+    private lazy var tasksStorage: TaskStorageProtocol = TasksRealmStorage(delegate: nil)
     
     init() {
         presentCategoriesView = false
@@ -67,8 +67,4 @@ final class TaskConfigurationViewModel: ObservableObject {
         categories = ["Education", "Work",
                       "Housework", "Unnecessary"]
     }
-}
-
-extension TaskConfigurationViewModel: TaskStorageDelegate {
-    
 }

@@ -11,11 +11,10 @@ import RealmSwift
 class TasksRealmStorage: RealmContextProtocol {
     
     var dataBase: Realm?
-    var token: NotificationToken?
     var realmQueue: DispatchQueue
     weak var delegate: TaskStorageDelegate?
     
-    init(delegate: TaskStorageDelegate) {
+    init(delegate: TaskStorageDelegate?) {
         self.delegate = delegate
         realmQueue = DispatchQueue(label: "RealmQueue_Tasks",
                                    qos: .background)
@@ -54,7 +53,32 @@ extension TasksRealmStorage: TaskStorageProtocol {
         }
     }
     
-    func insertTask(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
+    func retrieveTask(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
+        realmQueue.async { [weak self] in
+            guard
+                let self,
+                let dataBase = self.dataBase
+            else {
+                completion(.failure(.dataBaseAccessError()))
+                return
+            }
+
+            do {
+                if let task = dataBase.object(ofType: TaskInfo.self,
+                                                  forPrimaryKey: task.id) {
+                    
+                    DispatchQueue.main.async {
+                        completion(.success(task))
+                    }
+                } else {
+                    completion(.failure(.taskOperationError(.retrieve)))
+                }
+            }
+        }
+    }
+    
+    func insertTask(task: TaskInfo,
+                    _ completion: @escaping (TaskResult) -> Void) {
         
         realmQueue.async { [weak self] in
             guard
@@ -73,13 +97,16 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 DispatchQueue.main.async {
                     completion(.success(task))
                 }
-            } catch let error {
-                completion(.failure(.taskInsertionError("\(error.localizedDescription)")))
+            } catch let error as NSError {
+                completion(.failure(
+                    .taskOperationError(.insertion,
+                                        "\(error.code)")))
             }
         }
     }
     
-    func updateTask(task: TaskInfo, _ completion: @escaping (Result<TaskInfo, ErrorRealm>) -> Void) {
+    func updateTask(task: TaskInfo,
+                    _ completion: @escaping (TaskResult) -> Void) {
         
         realmQueue.async { [weak self] in
             guard
@@ -98,13 +125,17 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 DispatchQueue.main.async {
                     completion(.success(task))
                 }
-            } catch let error {
-                completion(.failure(.taskInsertionError("\(error.localizedDescription)")))
+            } catch let error as NSError {
+                completion(.failure(
+                    .taskOperationError(.update,
+                                        "\(error.code)")))
             }
         }
     }
     
-    func deleteTask(task: TaskInfo, _ completion: @escaping (Result<TaskInfo, ErrorRealm>) -> Void) {
+    func deleteTask(task: TaskInfo,
+                    _ completion: @escaping (TaskResult) -> Void) {
+        
         realmQueue.async { [weak self] in
             guard
                 let self,
@@ -122,8 +153,10 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 DispatchQueue.main.async {
                     completion(.success(task))
                 }
-            } catch let error {
-                completion(.failure(.taskInsertionError("\(error.localizedDescription)")))
+            } catch let error as NSError {
+                completion(.failure(
+                    .taskOperationError(.deletion,
+                                        "\(error.code)")))
             }
         }
     }

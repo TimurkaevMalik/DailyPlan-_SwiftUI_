@@ -10,7 +10,6 @@ import RealmSwift
 
 protocol RealmContextProtocol {
     var dataBase: Realm? { get }
-    var token: NotificationToken? { get }
     var realmQueue: DispatchQueue { get }
     
     func getRealm(_ completion:
