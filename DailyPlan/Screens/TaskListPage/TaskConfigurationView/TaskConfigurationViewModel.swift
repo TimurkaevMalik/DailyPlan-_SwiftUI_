@@ -19,6 +19,7 @@ final class TaskConfigurationViewModel: ObservableObject {
     @Published var schedule: Schedule
     
     let availableColors: [Color]
+    private lazy var tasksStorage: TaskStorageProtocol = TasksRealmStorage(delegate: self)
     
     init() {
         presentCategoriesView = false
@@ -39,14 +40,22 @@ final class TaskConfigurationViewModel: ObservableObject {
         fetchCategories()
     }
     
-    func storeNewTask() {
+    func insertNewTask() {
         if let colorHex = color.hexString() {
-            let taskInfo = TaskInfo(text: taskText,
-                                    colorHex: colorHex,
-                                    schedule: schedule,
-                                    isDone: false)
+            let task = TaskInfo(text: taskText,
+                                colorHex: colorHex,
+                                schedule: schedule,
+                                isDone: false)
             
-            print("\(category)\n\(taskInfo)")
+            tasksStorage.insertTask(task: task) { result in
+                switch result {
+                case .success:
+                    break
+                case .failure(let failure):
+                    print(failure)
+                    ///TODO: show alert
+                }
+            }
         }
     }
     
@@ -58,4 +67,8 @@ final class TaskConfigurationViewModel: ObservableObject {
         categories = ["Education", "Work",
                       "Housework", "Unnecessary"]
     }
+}
+
+extension TaskConfigurationViewModel: TaskStorageDelegate {
+    
 }

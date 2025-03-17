@@ -14,14 +14,15 @@ final class TaskListViewModel: ObservableObject {
     @Published var selection: Date
     
     private var allTasks: [TaskInfo]
+    private lazy var tasksStorage: TaskStorageProtocol = TasksRealmStorage(delegate: self)
     
     init() {
         addTaskTapped = false
         selection = Date()
         allTasks = []
         tasks = []
-        getAllTasks()
-        allTasksFilter()
+        
+        retrieveAllTasks()
     }
 
     func delete(task: TaskInfo) {
@@ -44,8 +45,20 @@ final class TaskListViewModel: ObservableObject {
         tasks = allTasks.filter({ $0.isDone == false })
     }
     
-    private func getAllTasks() {
-        allTasks = TaskInfo
-            .getTasksMock()
+    private func retrieveAllTasks() {
+        
+        tasksStorage.retrieveTasks { result in
+            switch result {
+            case .success(let tasks):
+                self.allTasks = tasks
+                self.allTasksFilter()
+            case .failure(let failure):
+                print(failure)
+            }
+        }
     }
+}
+
+extension TaskListViewModel: TaskStorageDelegate {
+    
 }
