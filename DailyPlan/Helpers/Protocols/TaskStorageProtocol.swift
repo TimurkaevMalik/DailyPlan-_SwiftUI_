@@ -11,10 +11,7 @@ protocol TaskStorageProtocol {
     typealias TaskResult = Result<TaskInfo, ErrorRealm>
     
     func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void)
-    
-    func retrieveTask(task: TaskInfo,
-                      _ completion: @escaping (TaskResult) -> Void)
-    
+     
     func insertTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void)
     

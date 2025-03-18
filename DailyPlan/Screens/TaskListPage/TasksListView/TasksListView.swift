@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TasksListView: View {
     
-    @StateObject private var vm = TaskListViewModel()
+    @StateObject private var vm = TasksListViewModel()
     
     init() {}
     

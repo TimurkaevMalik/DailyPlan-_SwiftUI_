@@ -18,7 +18,7 @@
 		BC64305E2D4F8D1100ECA960 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */; };
 		BC6430602D4FC35E00ECA960 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC64305F2D4FC35000ECA960 /* CustomTextField.swift */; };
 		BC6430622D4FC49700ECA960 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6430612D4FC49700ECA960 /* View.swift */; };
-		BC748A162D6B138C00EB9D5C /* TaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC748A152D6B138C00EB9D5C /* TaskListViewModel.swift */; };
+		BC748A162D6B138C00EB9D5C /* TasksListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC748A152D6B138C00EB9D5C /* TasksListViewModel.swift */; };
 		BC748A212D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC748A202D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift */; };
 		BC7EFA302C6C6A8000FB24EA /* DailyPlanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */; };
 		BC7EFA362C6C6A8200FB24EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFA352C6C6A8200FB24EA /* Assets.xcassets */; };
@@ -105,7 +105,7 @@
 		BC64305D2D4F8D0900ECA960 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		BC64305F2D4FC35000ECA960 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		BC6430612D4FC49700ECA960 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
-		BC748A152D6B138C00EB9D5C /* TaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModel.swift; sourceTree = "<group>"; };
+		BC748A152D6B138C00EB9D5C /* TasksListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListViewModel.swift; sourceTree = "<group>"; };
 		BC748A202D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskConfigurationViewModel.swift; sourceTree = "<group>"; };
 		BC7EFA2C2C6C6A8000FB24EA /* DailyPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7EFA2F2C6C6A8000FB24EA /* DailyPlanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPlanApp.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				BCF072672C71AD4800999035 /* TasksListView.swift */,
-				BC748A152D6B138C00EB9D5C /* TaskListViewModel.swift */,
+				BC748A152D6B138C00EB9D5C /* TasksListViewModel.swift */,
 			);
 			path = TasksListView;
 			sourceTree = "<group>";
@@ -325,8 +325,8 @@
 		BCCAA8742D884047002B5426 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				BC0B6D202D89846600DF7E23 /* RealmServices */,
 				BCCAA8812D88412B002B5426 /* ErrorRealm.swift */,
+				BC0B6D202D89846600DF7E23 /* RealmServices */,
 				BCCAA87E2D884066002B5426 /* TaskModels */,
 			);
 			path = Realm;
@@ -607,7 +607,7 @@
 				BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */,
 				BC6430602D4FC35E00ECA960 /* CustomTextField.swift in Sources */,
 				BC64305E2D4F8D1100ECA960 /* CategoriesView.swift in Sources */,
-				BC748A162D6B138C00EB9D5C /* TaskListViewModel.swift in Sources */,
+				BC748A162D6B138C00EB9D5C /* TasksListViewModel.swift in Sources */,
 				BC0B6D1F2D89843500DF7E23 /* StorageServiceNotification.swift in Sources */,
 				BCF0726E2C71B58600999035 /* SettingsView.swift in Sources */,
 				BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */,

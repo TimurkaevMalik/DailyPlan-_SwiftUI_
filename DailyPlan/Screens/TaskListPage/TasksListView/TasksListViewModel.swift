@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-final class TaskListViewModel: ObservableObject {
+final class TasksListViewModel: ObservableObject {
     
     @Published var addTaskTapped: Bool
     @Published var selection: Date
@@ -18,10 +18,10 @@ final class TaskListViewModel: ObservableObject {
     
     private var cancellableSet = [AnyCancellable]()
     private let notification = StorageServiceNotification.shared
-    private let tasksStorage: TaskStorageProtocol
+    private let taskStorage: TaskStorageProtocol
     
     init() {
-        tasksStorage = TasksRealmStorage()
+        taskStorage = TasksRealmStorage()
         addTaskTapped = false
         selection = Date()
         
@@ -30,9 +30,13 @@ final class TaskListViewModel: ObservableObject {
     }
 
     func delete(task: TaskInfo) {
-        withAnimation {
-            if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
-                visibleTasks.remove(at: index)
+        taskStorage.deleteTask(task: task) { result in ///[weak self]??
+            switch result {
+            case .success(let task):
+                self.didDeleteTask(task)
+            case .failure(let failure):
+                print(failure)
+                ///TODO: alert
             }
         }
     }
@@ -50,7 +54,7 @@ final class TaskListViewModel: ObservableObject {
     }
 }
 
-extension TaskListViewModel {
+extension TasksListViewModel {
     private func subscribeToTaskUpdates() {
         notification.insertedTaskSubject
             .sink { task in
@@ -73,24 +77,31 @@ extension TaskListViewModel {
     
     private func retrieveAllTasks() {
         
-        tasksStorage.retrieveTasks { result in
+        taskStorage.retrieveTasks { result in
             switch result {
             case .success(let tasks):
                 self.tasks = tasks
                 self.allTasksFilter()
             case .failure(let failure):
                 print(failure)
+                ///TODO: alert
             }
         }
     }
     
     private func didInsertTask(_ task: TaskInfo) {
-        visibleTasks.append(task)
+        withAnimation {
+            visibleTasks.insert(task, at: 0)
+        }
     }
     
     private func didUpdateTask(_ task: TaskInfo) {}
     
     private func didDeleteTask(_ task: TaskInfo) {
-        
+        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
+        withAnimation {
+                visibleTasks.remove(at: index)
+            }
+        }
     }
 }

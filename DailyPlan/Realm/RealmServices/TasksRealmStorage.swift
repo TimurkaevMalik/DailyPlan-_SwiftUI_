@@ -7,23 +7,37 @@
 
 import SwiftUI
 import RealmSwift
-import Combine
 
-class TasksRealmStorage {
+struct RealmQueues {
+    let utilityQueue: DispatchQueue
+    let userInitiatedQueue: DispatchQueue
     
-    var realmQueue: DispatchQueue
+    init(serviceName: String) {
+        
+        utilityQueue = DispatchQueue(
+            label: "RealmUtilityQueue_\(serviceName)",
+            qos: .utility)
+        ///TODO; should I set userInteractive
+        userInitiatedQueue = DispatchQueue(
+            label: "RealmUserInitiatedQueue_\(serviceName)",
+            qos: .userInitiated)
+    }
+}
+
+final class TasksRealmStorage {
+    
     private let notification = StorageServiceNotification.shared
+    private let realmQueues: RealmQueues
     
     init() {
-        realmQueue = DispatchQueue(label: "RealmQueue_Tasks",
-                                   qos: .background)
+        realmQueues = RealmQueues(serviceName: "TasksStorage")
     }
 }
 
 extension TasksRealmStorage: TaskStorageProtocol {
     func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void) {
         
-        realmQueue.async {
+        realmQueues.utilityQueue.async {
             do {
                 let dataBase = try Realm()
                 let tasks = dataBase.objects(TaskInfo.self).freeze()
@@ -37,35 +51,15 @@ extension TasksRealmStorage: TaskStorageProtocol {
         }
     }
     
-    func retrieveTask(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
-        
-        realmQueue.async {
-            do {
-                let dataBase = try Realm()
-                
-                if let task = dataBase.object(ofType: TaskInfo.self,
-                                              forPrimaryKey: task.id) {
-                    
-                    DispatchQueue.main.async {
-                        completion(.success(task))
-                    }
-                } else {
-                    completion(.failure(.taskOperationError(.retrieve)))
-                }
-            }  catch let error as NSError {
-                completion(.failure(.dataBaseAccessError("\(error.code)")))
-            }
-        }
-    }
-    
     func insertTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-        realmQueue.async { [weak self] in
+        realmQueues.userInitiatedQueue.async { [weak self] in
             guard let self else { return }
             
             do {
                 let dataBase = try Realm()
+                
                 try dataBase.write {
                     dataBase.add(task)
                 }
@@ -87,7 +81,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
     func updateTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-        realmQueue.async { [weak self] in
+        realmQueues.userInitiatedQueue.async { [weak self] in
             guard let self else { return }
             
             do {
@@ -109,15 +103,20 @@ extension TasksRealmStorage: TaskStorageProtocol {
     func deleteTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-        realmQueue.async { [weak self] in
+        realmQueues.userInitiatedQueue.async { [weak self] in
             guard let self else { return }
             
             do {
                 let dataBase = try Realm()
-                try dataBase.write{
-                    dataBase.delete(task)
-                }
                 
+                if let task = dataBase.object(
+                    ofType: TaskInfo.self,
+                    forPrimaryKey: task._id) {
+                    
+                    try dataBase.write{
+                        dataBase.delete(task)
+                    }
+                }
                 let task = task.freeze()
                 
                 DispatchQueue.main.async {
@@ -133,37 +132,24 @@ extension TasksRealmStorage: TaskStorageProtocol {
     }
 }
 
-///TODO: delete comments
-//    func retrieveTasks() async throws(ErrorRealm) -> [TaskInfo] {
-//        guard let dataBase else {
-//            throw .dataBaseAccessError("unknown")
-//        }
-//
-//        return Array(dataBase.objects(TaskInfo.self))
-//    }
-//
-//    func insertTask(_ task: TaskInfo) async throws(ErrorRealm) {
-//        guard let dataBase else {
-//            throw ErrorRealm.dataBaseAccessError("unknown")
-//        }
-//
+///TODO: remove comments
+//func retrieveTask(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
+//    
+//    realmQueues.backgroundQueue.async {
 //        do {
-//            try dataBase.write{
-//                dataBase.add(task)
+//            let dataBase = try Realm()
+//            
+//            if let task = dataBase.object(ofType: TaskInfo.self,
+//                                          forPrimaryKey: task.id) {
+//                
+//                DispatchQueue.main.async {
+//                    completion(.success(task))
+//                }
+//            } else {
+//                completion(.failure(.taskOperationError(.retrieve)))
 //            }
-//        } catch let error {
-//            throw ErrorRealm.taskInsertionError("\(error.localizedDescription)")
+//        }  catch let error as NSError {
+//            completion(.failure(.dataBaseAccessError("\(error.code)")))
 //        }
 //    }
-//
-//    func updateTask(_ task: TaskInfo) async throws(ErrorRealm) {
-////        guard let dataBase = context.dataBase() else {
-////            throw .dataBaseAccessError("unknown")
-////        }
-//    }
-//
-//    func deleteTask(_ task: TaskInfo) async throws(ErrorRealm) {
-////        guard let dataBase = context.dataBase() else {
-////            throw .dataBaseAccessError("unknown")
-////        }
-//    }
+//}
