@@ -10,44 +10,47 @@ import Combine
 
 final class TaskListViewModel: ObservableObject {
     
-    @Published var tasks: [TaskInfo]
     @Published var addTaskTapped: Bool
     @Published var selection: Date
     
-    private var allTasks: [TaskInfo]
-    private var cancellableSet = Set<AnyCancellable>()
+    @Published var visibleTasks: [TaskInfo] = []
+    private var tasks: [TaskInfo] = []
+    
+    private var cancellableSet = [AnyCancellable]()
     private let notification = StorageServiceNotification.shared
-    private lazy var tasksStorage: TaskStorageProtocol = TasksRealmStorage(delegate: self)
+    private let tasksStorage: TaskStorageProtocol
     
     init() {
+        tasksStorage = TasksRealmStorage()
         addTaskTapped = false
         selection = Date()
-        allTasks = []
-        tasks = []
         
+        subscribeToTaskUpdates()
         retrieveAllTasks()
     }
 
     func delete(task: TaskInfo) {
         withAnimation {
-            if let index = tasks.firstIndex(where: { $0.id == task.id }) {
-                tasks.remove(at: index)
+            if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
+                visibleTasks.remove(at: index)
             }
         }
     }
     
     func allTasksFilter() {
-        tasks = allTasks
+        visibleTasks = tasks
     }
     
     func doneTasksFilter() {
-        tasks = allTasks.filter({ $0.isDone == true })
+        visibleTasks = tasks.filter({ $0.isDone == true })
     }
     
     func activeTasksFilter() {
-        tasks = allTasks.filter({ $0.isDone == false })
+        visibleTasks = tasks.filter({ $0.isDone == false })
     }
-    
+}
+
+extension TaskListViewModel {
     private func subscribeToTaskUpdates() {
         notification.insertedTaskSubject
             .sink { task in
@@ -73,25 +76,21 @@ final class TaskListViewModel: ObservableObject {
         tasksStorage.retrieveTasks { result in
             switch result {
             case .success(let tasks):
-                self.allTasks = tasks
+                self.tasks = tasks
                 self.allTasksFilter()
             case .failure(let failure):
                 print(failure)
             }
         }
     }
-}
-
-extension TaskListViewModel: TaskStorageDelegate {
-    func didInsertTask(_ task: TaskInfo) {
-        tasks.append(task)
+    
+    private func didInsertTask(_ task: TaskInfo) {
+        visibleTasks.append(task)
     }
     
-    func didUpdateTask(_ task: TaskInfo) {
-        
-    }
+    private func didUpdateTask(_ task: TaskInfo) {}
     
-    func didDeleteTask(_ task: TaskInfo) {
+    private func didDeleteTask(_ task: TaskInfo) {
         
     }
 }

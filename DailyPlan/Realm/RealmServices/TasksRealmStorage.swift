@@ -9,76 +9,42 @@ import SwiftUI
 import RealmSwift
 import Combine
 
-class StorageServiceNotification {
-    static var shared = StorageServiceNotification()
+class TasksRealmStorage {
     
-    let insertedTaskSubject = PassthroughSubject<TaskInfo, Never>()
-    let updatedTaskSubject = PassthroughSubject<TaskInfo, Never>()
-    let deletedTaskSubject = PassthroughSubject<TaskInfo, Never>()
-    
-    private init() {}
-}
-
-class TasksRealmStorage: RealmContextProtocol {
-    
-    var dataBase: Realm?
     var realmQueue: DispatchQueue
-    weak var delegate: TaskStorageDelegate?
-    private let notification: StorageServiceNotification
+    private let notification = StorageServiceNotification.shared
     
-    init(delegate: TaskStorageDelegate?) {
-        self.delegate = delegate
-        notification = StorageServiceNotification.shared
+    init() {
         realmQueue = DispatchQueue(label: "RealmQueue_Tasks",
                                    qos: .background)
-        
-        getRealm { result in
-            switch result {
-                
-            case .success(let dataBase):
-                self.dataBase = dataBase
-                
-            case .failure(let failure):
-                print(failure)
-            }
-        }
     }
 }
 
 extension TasksRealmStorage: TaskStorageProtocol {
     func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void) {
-        realmQueue.async { [weak self] in
-            guard
-                let self,
-                let dataBase = self.dataBase
-            else {
-                completion(.failure(.dataBaseAccessError()))
-                return
-            }
-
+        
+        realmQueue.async {
             do {
+                let dataBase = try Realm()
                 let tasks = dataBase.objects(TaskInfo.self).freeze()
                 
                 DispatchQueue.main.async {
                     completion(.success(Array(tasks)))
                 }
+            } catch let error as NSError {
+                completion(.failure(.dataBaseAccessError("\(error.code)")))
             }
         }
     }
     
     func retrieveTask(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
-        realmQueue.async { [weak self] in
-            guard
-                let self,
-                let dataBase = self.dataBase
-            else {
-                completion(.failure(.dataBaseAccessError()))
-                return
-            }
-
+        
+        realmQueue.async {
             do {
+                let dataBase = try Realm()
+                
                 if let task = dataBase.object(ofType: TaskInfo.self,
-                                                  forPrimaryKey: task.id) {
+                                              forPrimaryKey: task.id) {
                     
                     DispatchQueue.main.async {
                         completion(.success(task))
@@ -86,6 +52,8 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 } else {
                     completion(.failure(.taskOperationError(.retrieve)))
                 }
+            }  catch let error as NSError {
+                completion(.failure(.dataBaseAccessError("\(error.code)")))
             }
         }
     }
@@ -94,18 +62,15 @@ extension TasksRealmStorage: TaskStorageProtocol {
                     _ completion: @escaping (TaskResult) -> Void) {
         
         realmQueue.async { [weak self] in
-            guard
-                let self,
-                let dataBase = self.dataBase
-            else {
-                completion(.failure(.dataBaseAccessError()))
-                return
-            }
+            guard let self else { return }
             
             do {
-                try dataBase.write{
+                let dataBase = try Realm()
+                try dataBase.write {
                     dataBase.add(task)
                 }
+                
+                let task = task.freeze()
                 
                 DispatchQueue.main.async {
                     self.notification.insertedTaskSubject.send(task)
@@ -123,18 +88,11 @@ extension TasksRealmStorage: TaskStorageProtocol {
                     _ completion: @escaping (TaskResult) -> Void) {
         
         realmQueue.async { [weak self] in
-            guard
-                let self,
-                let dataBase = self.dataBase
-            else {
-                completion(.failure(.dataBaseAccessError()))
-                return
-            }
+            guard let self else { return }
             
             do {
-                try dataBase.write{
-                    dataBase.add(task)
-                }
+                let dataBase = try Realm()
+                try dataBase.write{}
                 
                 DispatchQueue.main.async {
                     self.notification.updatedTaskSubject.send(task)
@@ -152,18 +110,15 @@ extension TasksRealmStorage: TaskStorageProtocol {
                     _ completion: @escaping (TaskResult) -> Void) {
         
         realmQueue.async { [weak self] in
-            guard
-                let self,
-                let dataBase = self.dataBase
-            else {
-                completion(.failure(.dataBaseAccessError()))
-                return
-            }
+            guard let self else { return }
             
             do {
+                let dataBase = try Realm()
                 try dataBase.write{
-                    dataBase.add(task)
+                    dataBase.delete(task)
                 }
+                
+                let task = task.freeze()
                 
                 DispatchQueue.main.async {
                     self.notification.deletedTaskSubject.send(task)

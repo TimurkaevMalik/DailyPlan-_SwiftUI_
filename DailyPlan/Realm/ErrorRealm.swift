@@ -8,6 +8,7 @@
 import Foundation
 
 enum ErrorRealm: Error {
+    ///TODO: add while/type operation for dataBaseAccessError
     case dataBaseAccessError(_ code: String = "unknown")
     case taskOperationError(_ type: TaskOperationType,
                             _ code: String = "unknown")

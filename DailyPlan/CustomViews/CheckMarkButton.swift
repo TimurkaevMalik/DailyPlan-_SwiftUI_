@@ -12,12 +12,9 @@ struct CheckMarkButton: View {
     @State var color: Color
     @Binding var isMarked: Bool
     
-    private var markSize: CGSize
-    
     init(color: Color, isDone: Binding<Bool>) {
         self.color = color
         self._isMarked = isDone
-        markSize = CGSize(width: 26, height: 26)
     }
     
     var body: some View {
@@ -30,14 +27,14 @@ struct CheckMarkButton: View {
                 color
                 Capsule()
                     .tint(.clear)
-                    .frame(width: markSize.width,
-                           height: markSize.height)
+                    .frame(width: 24,
+                           height: 24)
                     .overlay {
                         if isMarked {
-                            RoundedRectangle(cornerRadius: markSize.width / 2)
+                            RoundedRectangle(cornerRadius: 8)
                                 .tint(.iconsSecondary)
                         } else {
-                            RoundedRectangle(cornerRadius: markSize.width / 2)
+                            RoundedRectangle(cornerRadius: 8)
                                 .stroke(lineWidth: 4)
                                 .tint(.iconsSecondary)
                         }
