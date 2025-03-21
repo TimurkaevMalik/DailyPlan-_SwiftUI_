@@ -8,36 +8,20 @@
 import SwiftUI
 import RealmSwift
 
-struct RealmQueues {
-    let utilityQueue: DispatchQueue
-    let userInitiatedQueue: DispatchQueue
-    
-    init(serviceName: String) {
-        
-        utilityQueue = DispatchQueue(
-            label: "RealmUtilityQueue_\(serviceName)",
-            qos: .utility)
-        ///TODO; should I set userInteractive
-        userInitiatedQueue = DispatchQueue(
-            label: "RealmUserInitiatedQueue_\(serviceName)",
-            qos: .userInitiated)
-    }
-}
-
 final class TasksRealmStorage {
     
     private let notification = StorageServiceNotification.shared
-    private let realmQueues: RealmQueues
+    private let realmQueues: RealmQueue
     
     init() {
-        realmQueues = RealmQueues(serviceName: "TasksStorage")
+        realmQueues = RealmQueue(serviceName: "TasksStorage")
     }
 }
 
 extension TasksRealmStorage: TaskStorageProtocol {
     func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void) {
         
-        realmQueues.utilityQueue.async {
+        realmQueues.userInteractive.async {
             do {
                 let dataBase = try Realm()
                 let tasks = dataBase.objects(TaskInfo.self).freeze()
@@ -54,7 +38,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
     func insertTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-        realmQueues.userInitiatedQueue.async { [weak self] in
+        realmQueues.userInteractive.async { [weak self] in
             guard let self else { return }
             
             do {
@@ -63,7 +47,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 try dataBase.write {
                     dataBase.add(task)
                 }
-                
+
                 let task = task.freeze()
                 
                 DispatchQueue.main.async {
@@ -81,15 +65,13 @@ extension TasksRealmStorage: TaskStorageProtocol {
     func updateTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-        realmQueues.userInitiatedQueue.async { [weak self] in
-            guard let self else { return }
+        realmQueues.userInteractive.async {
             
             do {
                 let dataBase = try Realm()
                 try dataBase.write{}
                 
                 DispatchQueue.main.async {
-                    self.notification.updatedTaskSubject.send(task)
                     completion(.success(task))
                 }
             } catch let error as NSError {
@@ -103,8 +85,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
     func deleteTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-        realmQueues.userInitiatedQueue.async { [weak self] in
-            guard let self else { return }
+        realmQueues.userInteractive.async {
             
             do {
                 let dataBase = try Realm()
@@ -120,7 +101,6 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 let task = task.freeze()
                 
                 DispatchQueue.main.async {
-                    self.notification.deletedTaskSubject.send(task)
                     completion(.success(task))
                 }
             } catch let error as NSError {

@@ -30,12 +30,18 @@ final class TasksListViewModel: ObservableObject {
     }
 
     func delete(task: TaskInfo) {
+        withAnimation {
+        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
+                visibleTasks.remove(at: index)
+            }
+        }
+        
         taskStorage.deleteTask(task: task) { result in ///[weak self]??
             switch result {
             case .success(let task):
                 self.didDeleteTask(task)
-            case .failure(let failure):
-                print(failure)
+            case .failure(_):
+                self.failedToDeleteTask(task)
                 ///TODO: alert
             }
         }
@@ -59,18 +65,6 @@ extension TasksListViewModel {
         notification.insertedTaskSubject
             .sink { task in
                 self.didInsertTask(task)
-            }
-            .store(in: &cancellableSet)
-        
-        notification.updatedTaskSubject
-            .sink { task in
-                self.didUpdateTask(task)
-            }
-            .store(in: &cancellableSet)
-        
-        notification.deletedTaskSubject
-            .sink { task in
-                self.didDeleteTask(task)
             }
             .store(in: &cancellableSet)
     }
@@ -98,10 +92,18 @@ extension TasksListViewModel {
     private func didUpdateTask(_ task: TaskInfo) {}
     
     private func didDeleteTask(_ task: TaskInfo) {
-        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
+        ///TODO: why withAnimation can not be under if statement
         withAnimation {
+        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
                 visibleTasks.remove(at: index)
             }
+        }
+    }
+    
+    private func failedToDeleteTask(_ task: TaskInfo) {
+        ///TODO: why withAnimation can not be under if statement
+        withAnimation {
+            tasks.insert(task, at: 0)
         }
     }
 }
