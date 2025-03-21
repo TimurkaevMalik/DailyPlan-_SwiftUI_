@@ -9,12 +9,12 @@ import SwiftUI
 
 extension Color {
     init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)//
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         
-        let a, r, g, b: UInt64 // UInt64?
+        let a, r, g, b: UInt64
         var rgbValue: UInt64 = 0
         
-        Scanner(string: hex).scanHexInt64(&rgbValue) // &
+        Scanner(string: hex).scanHexInt64(&rgbValue)
         
         switch hex.count {
         case 3: // RGB (12-bit)

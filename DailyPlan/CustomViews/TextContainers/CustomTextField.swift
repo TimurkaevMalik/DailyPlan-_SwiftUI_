@@ -11,7 +11,7 @@ struct CustomTextField: View {
     
     @FocusState private var isFocused: Bool
     @Binding private var text: String
-    @State private var lastText: String
+    @State private var lastText: String = ""
     
     private let placeHolder: String
     private let color: Color
@@ -22,7 +22,6 @@ struct CustomTextField: View {
         self._text = text
         self.placeHolder = placeHolder
         self.color = color
-        lastText = ""
     }
     
     var body: some View {

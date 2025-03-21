@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-///TODO: make custom popover of TaskConfigurationView
-///TODO: Set List or LazyVStack
+
 struct TasksListView: View {
     
-    @StateObject private var vm = TaskListViewModel()
+    @StateObject private var vm = TasksListViewModel()
     
     init() {}
     
@@ -18,14 +17,14 @@ struct TasksListView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack {
-                    ForEach(vm.tasks, id: \.id) { task in
+                    ForEach(vm.visibleTasks, id: \.id) { task in
                         
                         TaskCell(task: task) {
                             vm.delete(task: task)
                         }
                         .padding(.vertical, 12)
                         .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                            if let lastTask = vm.tasks.last,
+                            if let lastTask = vm.visibleTasks.last,
                                lastTask.id != task.id {
                                 dividerView
                             }
