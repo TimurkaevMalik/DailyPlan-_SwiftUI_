@@ -60,7 +60,7 @@ struct TaskConfigurationView: View {
         }
         .onDisappear {
             if !vm.taskText.isEmpty {
-                vm.storeNewTask()
+                vm.insertNewTask()
             }
         }
     }

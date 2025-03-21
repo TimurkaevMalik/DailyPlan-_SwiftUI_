@@ -12,7 +12,7 @@ struct DescriptionView: View {
     @FocusState private var isFocused: Bool
     
     @Binding private var text: String
-    @State private var lastText: String
+    @State private var lastText: String = ""
     
     @State private var editorState: EditorState
     @State private var buttonsStateValues: ButtonStateValues
@@ -31,7 +31,6 @@ struct DescriptionView: View {
         self.focusedHeight = focusedHeight
         
         editorState = .default
-        lastText = ""
         buttonsStateValues = ButtonStateValues(state: .default)
     }
     

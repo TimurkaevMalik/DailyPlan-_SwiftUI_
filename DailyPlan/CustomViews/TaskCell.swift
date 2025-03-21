@@ -13,7 +13,7 @@ struct TaskCell: View {
     
     @State private var cellOffSet: CGSize
     @State private var descriptionViewOffSet: CGSize
-    
+    ///TODO: remove isDelayedAnimationActive
     @State private var isDelayedAnimationActive: Bool
     @State private var isAnimating: Bool
     @FocusState private var isFocused: Bool
@@ -70,7 +70,7 @@ struct TaskCell: View {
                     
                     if !isFocused,
                        isAnimating {
-                        dismissCellButton
+                        cellDismissingButton
                     }
                 }
             }
@@ -84,7 +84,8 @@ struct TaskCell: View {
     TaskCell(task: TaskInfo(
         text: "description",
         colorHex: Color.ypCyan.hexString() ?? "#1A1B22",
-        schedule: .init(start: .distantPast, end: .distantFuture),
+        schedule: .init(start: .distantPast,
+                        end: .distantFuture),
         isDone: false),
              onDelete: {})
     .padding(.horizontal)
@@ -104,7 +105,7 @@ private extension TaskCell {
                 bottomTrailing: 0)
     }
     
-    var dismissCellButton: some View {
+    var cellDismissingButton: some View {
         GeometryReader() { proxy in
             HStack {
                 Spacer(minLength: 0)
@@ -113,7 +114,14 @@ private extension TaskCell {
                     withAnimation(.linear(duration: 0.2)) {
                         cellOffSet.width = -(proxy.size.width * 1.4)
                     } completion: {
+                        
                         delete()
+                        
+                        ///TODO: remove hideDismissingButton()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            hideDismissingButton()
+                            cellOffSet.width = .zero
+                        }
                     }
                     
                 } label: {
@@ -133,6 +141,7 @@ private extension TaskCell {
     var dragGesture: some Gesture {
         DragGesture(minimumDistance: 20, coordinateSpace: .local)
             .onChanged { value in
+                
                 if !isFocused,
                    !isDelayedAnimationActive {
                     
@@ -149,10 +158,10 @@ private extension TaskCell {
                     
                     if value.translation.width > -30 {
                         
-                        hideDeletingButton()
+                        hideDismissingButton()
                     } else {
                         showDeletingButton(completion: {
-                            hideDeletingButton(delay: 2)
+                            hideDismissingButton(delay: 2)
                         })
                     }
                 }
@@ -177,7 +186,7 @@ private extension TaskCell {
         }
     }
     
-    func hideDeletingButton(delay: CGFloat = 0) {
+    func hideDismissingButton(delay: CGFloat = 0) {
         if delay > 0 {
             isDelayedAnimationActive = true
         } else {

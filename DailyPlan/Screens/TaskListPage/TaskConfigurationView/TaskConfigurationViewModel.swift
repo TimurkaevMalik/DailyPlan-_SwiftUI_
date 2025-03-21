@@ -9,27 +9,20 @@ import SwiftUI
 
 final class TaskConfigurationViewModel: ObservableObject {
     
-    @Published var presentCategoriesView: Bool
-    @Published var categoriesButtonState: Visibility
+    @Published var presentCategoriesView: Bool = false
+    @Published var categoriesButtonState: Visibility = .visible
     
-    @Published var taskText: String
-    @Published var category: String
-    @Published var categories: [String]
-    @Published var color: Color
-    @Published var schedule: Schedule
+    @Published var taskText: String = ""
+    @Published var category: String = ""
+    @Published var categories: [String] = []
+    @Published var color: Color = .ypWarmYellow
+    @Published var schedule: Schedule = Schedule()
     
     let availableColors: [Color]
+    private let tasksStorage: TaskStorageProtocol
     
     init() {
-        presentCategoriesView = false
-        categoriesButtonState = .visible
-        
-        taskText = ""
-        category = ""
-        color = .ypWarmYellow
-        schedule = Schedule()
-        
-        categories = []
+        tasksStorage = TasksRealmStorage()
         availableColors = [.ypLightPink,
                            .ypCyan,
                            .ypRed,
@@ -39,14 +32,22 @@ final class TaskConfigurationViewModel: ObservableObject {
         fetchCategories()
     }
     
-    func storeNewTask() {
+    func insertNewTask() {
         if let colorHex = color.hexString() {
-            let taskInfo = TaskInfo(text: taskText,
-                                    colorHex: colorHex,
-                                    schedule: schedule,
-                                    isDone: false)
+            let task = TaskInfo(text: taskText,
+                                colorHex: colorHex,
+                                schedule: schedule,
+                                isDone: false)
             
-            print("\(category)\n\(taskInfo)")
+            tasksStorage.insertTask(task: task) { result in
+                switch result {
+                case .success:
+                    break
+                case .failure(let failure):
+                    print(failure)
+                    ///TODO: show alert
+                }
+            }
         }
     }
     
