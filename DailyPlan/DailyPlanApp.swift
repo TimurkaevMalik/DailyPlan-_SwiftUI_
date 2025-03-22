@@ -12,6 +12,7 @@ struct DailyPlanApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .ignoresSafeArea(.keyboard, edges: .bottom)
         }
     }
 }
