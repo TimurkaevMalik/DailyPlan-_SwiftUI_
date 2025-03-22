@@ -19,7 +19,7 @@ protocol TaskStorageProtocol {
                     _ completion: @escaping (TaskResult) -> Void)
     
     func deleteTask(task: TaskInfo,
-                    _ completion: @escaping (TaskResult) -> Void)
+                    _ completion: @escaping (Result<Bool, ErrorRealm>) -> Void)
 }
 
 

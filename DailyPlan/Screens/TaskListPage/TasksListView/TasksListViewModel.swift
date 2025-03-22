@@ -30,16 +30,19 @@ final class TasksListViewModel: ObservableObject {
     }
 
     func delete(task: TaskInfo) {
-        withAnimation {
-        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
-                visibleTasks.remove(at: index)
-            }
-        }
+//        withAnimation {
+//        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
+//                visibleTasks.remove(at: index)
+//            }
+//        }
         
         taskStorage.deleteTask(task: task) { result in ///[weak self]??
             switch result {
             case .success(let task):
-                self.didDeleteTask(task)
+                self.visibleTasks.remove(at: 0)
+                print(self.visibleTasks.count)
+                print(task)
+//                self.didDeleteTask(task)
             case .failure(_):
                 self.failedToDeleteTask(task)
                 ///TODO: alert

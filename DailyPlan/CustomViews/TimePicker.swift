@@ -58,6 +58,11 @@ struct TimePicker: View {
             .onChange(of: time, {
                 setSelectionValueByTime()
             })
+            .onChange(of: shouldPresent) {
+                if !shouldPresent {
+                    setPresentationState(shouldPresent)
+                }
+            }
             .onTapGesture {
                 setPresentationState(!shouldPresent)
             }
@@ -73,9 +78,12 @@ struct TimePicker: View {
 #Preview {
     @Previewable
     @State var time = Calendar.current.date(bySettingHour: 12, minute: 00, second: 0, of: Date()) ?? Date()
+    @Previewable
+    @State var isPresented: Bool = false
     
     TimePicker(time: $time,
-               direction: .down)
+               direction: .down,
+               isPresented: $isPresented)
 }
 #endif
 

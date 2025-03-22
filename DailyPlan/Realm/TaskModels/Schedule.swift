@@ -8,8 +8,8 @@
 import Foundation
 import RealmSwift
 
-final class Schedule: Object, ObjectKeyIdentifiable {
-    @Persisted(primaryKey: true) var _id = UUID()
+final class Schedule: Object/*, ObjectKeyIdentifiable*/ {
+//    @Persisted(primaryKey: true) var _id = UUID()
     @Persisted var day: Date
     @Persisted var start: Date?
     @Persisted var end: Date?

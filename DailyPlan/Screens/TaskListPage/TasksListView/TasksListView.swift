@@ -24,10 +24,10 @@ struct TasksListView: View {
                         }
                         .padding(.vertical, 12)
                         .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-                            if let lastTask = vm.visibleTasks.last,
-                               lastTask.id != task.id {
-                                dividerView
-                            }
+//                            if let lastTask = vm.visibleTasks.last,
+//                               lastTask.id != task.id {
+//                                dividerView
+//                            }
                         }
                     }
                     .padding(.top, 14)
