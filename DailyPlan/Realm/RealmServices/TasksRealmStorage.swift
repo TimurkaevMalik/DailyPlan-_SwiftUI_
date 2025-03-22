@@ -58,10 +58,17 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 let dataBase = try Realm()
                 let predicate = "isDeleted == 0"
                 let tasks = dataBase.objects(TaskInfo.self).filter(predicate)
-                let frozenTasks = tasks.freeze()
                 
+                let ref = ThreadSafeReference(to: tasks)
                 DispatchQueue.main.async {
-                    completion(.success(Array(frozenTasks)))
+                    do {
+                        let dataBase = try Realm()
+                        if let res = dataBase.resolve(ref) {
+                            completion(.success(Array(res)))
+                        }
+                    } catch {
+                        completion(.failure(.dataBaseAccessError()))
+                    }
                 }
             } catch let error as NSError {
                 completion(.failure(.dataBaseAccessError("\(error.code)")))
@@ -81,12 +88,11 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 try dataBase.write {
                     dataBase.add(task)
                 }
-
-                let task = task.freeze()
+                let frozenTask = task.freeze()
                 
                 DispatchQueue.main.async {
-                    self.notification.insertedTaskSubject.send(task)
-                    completion(.success(task))
+                    self.notification.insertedTaskSubject.send(frozenTask)
+                    completion(.success(Void()))
                 }
             } catch let error as NSError {
                 completion(.failure(
@@ -106,7 +112,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 try dataBase.write{}
                 
                 DispatchQueue.main.async {
-                    completion(.success(task))
+                    completion(.success(Void()))
                 }
             } catch let error as NSError {
                 completion(.failure(
@@ -116,23 +122,50 @@ extension TasksRealmStorage: TaskStorageProtocol {
         }
     }
     
-    func markAsDeleted(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
-        do {
-            let dataBase = try Realm()
-            if let task = task.thaw() {
-                try dataBase.write{
+    func markAsDone(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
+        realmQueues.userInteractive.async {
+            
+            do {
+                let dataBase = try Realm()
+                if let task = task.thaw() {
+                    try dataBase.write{
+                        
+                        task.isDeleted = true
+                    }
                     
-                    task.isDeleted = true
+                    DispatchQueue.main.async {
+                        completion(.success(Void()))
+                    }
                 }
-                
-                DispatchQueue.main.async {
-                    completion(.success(task.freeze()))
-                }
+            } catch let error as NSError {
+                completion(.failure(
+                    .taskOperationError(.update,
+                                        "\(error.code)")))
             }
-        } catch let error as NSError {
-            completion(.failure(
-                .taskOperationError(.update,
-                                    "\(error.code)")))
+        }
+    }
+
+    func markAsDeleted(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
+        realmQueues.userInteractive.async {
+            
+            do {
+                let dataBase = try Realm()
+                
+                if let task = task.thaw() {
+                    try dataBase.write{
+                        
+                        task.isDeleted = true
+                    }
+                    
+                    DispatchQueue.main.async {
+                        completion(.success(Void()))
+                    }
+                }
+            } catch let error as NSError {
+                completion(.failure(
+                    .taskOperationError(.update,
+                                        "\(error.code)")))
+            }
         }
     }
 }

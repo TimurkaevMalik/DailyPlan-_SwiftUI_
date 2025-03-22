@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TaskStorageProtocol {
-    typealias TaskResult = Result<TaskInfo, ErrorDataBase>
+    typealias TaskResult = Result<Void, ErrorDataBase>
     
     func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorDataBase>) -> Void)
      
@@ -16,6 +16,9 @@ protocol TaskStorageProtocol {
                     _ completion: @escaping (TaskResult) -> Void)
     
     func updateTask(task: TaskInfo,
+                    _ completion: @escaping (TaskResult) -> Void)
+    
+    func markAsDone(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void)
     
     func markAsDeleted(task: TaskInfo,
