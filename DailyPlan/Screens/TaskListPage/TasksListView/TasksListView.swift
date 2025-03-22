@@ -17,7 +17,7 @@ struct TasksListView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack {
-                    ForEach(vm.visibleTasks, id: \.id) { task in
+                    ForEach(vm.tasks, id: \.id) { task in
                         
                         if !task.isDeleted {
                             cell(task: task)
@@ -65,7 +65,7 @@ private extension TasksListView {
         .padding(.vertical, 12)
         .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
             
-            if let lastTask = vm.visibleTasks.last,
+            if let lastTask = vm.tasks.last,
                lastTask.id != task.id {
                 
                 dividerView

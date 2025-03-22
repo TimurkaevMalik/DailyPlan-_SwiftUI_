@@ -13,8 +13,7 @@ final class TasksListViewModel: ObservableObject {
     @Published var addTaskTapped: Bool
     @Published var selection: Date
     
-    @Published var visibleTasks: [TaskInfo] = []
-    private var tasks: [TaskInfo] = []
+    @Published var tasks: [TaskInfo] = []
     
     private var cancellableSet = [AnyCancellable]()
     private let notification = StorageServiceNotification.shared
@@ -29,29 +28,25 @@ final class TasksListViewModel: ObservableObject {
         retrieveAllTasks()
     }
     
-    func allTasksFilter() {
-        visibleTasks = tasks
-    }
+    func allTasksFilter() {}
     
-    func doneTasksFilter() {
-        visibleTasks = tasks.filter({ $0.isDone == true })
-    }
+    func doneTasksFilter() {}
     
-    func activeTasksFilter() {
-        visibleTasks = tasks.filter({ $0.isDone == false })
-    }
+    func activeTasksFilter() {}
 }
 
 extension TasksListViewModel {
     
     func delete(task: TaskInfo) {
         withAnimation {
-        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
-                visibleTasks.remove(at: index)
+        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
+                tasks.remove(at: index)
             }
         }
         
-        taskStorage.markAsDeleted(task: task) { result in
+        taskStorage.markAsDeleted(task: task) { [weak self] result in
+            guard let self else { return }
+            
             switch result {
             case .success:
                 break
@@ -64,11 +59,12 @@ extension TasksListViewModel {
     
     private func retrieveAllTasks() {
         
-        taskStorage.retrieveTasks { result in
+        taskStorage.retrieveTasks { [weak self] result in
+            guard let self else { return }
+            
             switch result {
             case .success(let tasks):
                 self.tasks = tasks
-                self.allTasksFilter()
             case .failure(let failure):
                 print(failure)
                 ///TODO: alert
@@ -78,7 +74,7 @@ extension TasksListViewModel {
     
     private func didInsertTask(_ task: TaskInfo) {
         withAnimation {
-            visibleTasks.insert(task, at: 0)
+            tasks.insert(task, at: 0)
         }
     }
     
@@ -87,7 +83,7 @@ extension TasksListViewModel {
     private func failedToDeleteTask(_ task: TaskInfo) {
         ///TODO: why withAnimation can not be under if statement
         withAnimation {
-            visibleTasks.insert(task, at: 0)
+            tasks.insert(task, at: 0)
         }
     }
     
