@@ -112,7 +112,7 @@ private extension TaskCell {
                 
                 Button {
                     withAnimation(.linear(duration: 0.2)) {
-//                        cellOffSet.width = -(proxy.size.width * 1.4)
+                        cellOffSet.width = -(proxy.size.width * 1.4)
                     } completion: {
                         
                         delete()

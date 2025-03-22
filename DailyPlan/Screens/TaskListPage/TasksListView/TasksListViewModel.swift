@@ -28,27 +28,6 @@ final class TasksListViewModel: ObservableObject {
         subscribeToTaskUpdates()
         retrieveAllTasks()
     }
-
-    func delete(task: TaskInfo) {
-//        withAnimation {
-//        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
-//                visibleTasks.remove(at: index)
-//            }
-//        }
-        
-        taskStorage.deleteTask(task: task) { result in ///[weak self]??
-            switch result {
-            case .success(let task):
-                self.visibleTasks.remove(at: 0)
-                print(self.visibleTasks.count)
-                print(task)
-//                self.didDeleteTask(task)
-            case .failure(_):
-                self.failedToDeleteTask(task)
-                ///TODO: alert
-            }
-        }
-    }
     
     func allTasksFilter() {
         visibleTasks = tasks
@@ -64,12 +43,23 @@ final class TasksListViewModel: ObservableObject {
 }
 
 extension TasksListViewModel {
-    private func subscribeToTaskUpdates() {
-        notification.insertedTaskSubject
-            .sink { task in
-                self.didInsertTask(task)
+    
+    func delete(task: TaskInfo) {
+        withAnimation {
+        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
+                visibleTasks.remove(at: index)
             }
-            .store(in: &cancellableSet)
+        }
+        
+        taskStorage.markAsDeleted(task: task) { result in
+            switch result {
+            case .success:
+                break
+            case .failure(_):
+                self.failedToDeleteTask(task)
+                ///TODO: alert
+            }
+        }
     }
     
     private func retrieveAllTasks() {
@@ -94,19 +84,18 @@ extension TasksListViewModel {
     
     private func didUpdateTask(_ task: TaskInfo) {}
     
-    private func didDeleteTask(_ task: TaskInfo) {
-        ///TODO: why withAnimation can not be under if statement
-        withAnimation {
-        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
-                visibleTasks.remove(at: index)
-            }
-        }
-    }
-    
     private func failedToDeleteTask(_ task: TaskInfo) {
         ///TODO: why withAnimation can not be under if statement
         withAnimation {
-            tasks.insert(task, at: 0)
+            visibleTasks.insert(task, at: 0)
         }
+    }
+    
+    private func subscribeToTaskUpdates() {
+        notification.insertedTaskSubject
+            .sink { task in
+                self.didInsertTask(task)
+            }
+            .store(in: &cancellableSet)
     }
 }

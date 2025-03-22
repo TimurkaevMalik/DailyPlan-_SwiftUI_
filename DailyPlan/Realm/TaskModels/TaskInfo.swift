@@ -14,6 +14,7 @@ final class TaskInfo: Object, ObjectKeyIdentifiable {
     @Persisted var text: String
 //    @Persisted var schedule: Schedule?
     @Persisted var isDone: Bool
+    @Persisted var isDeleted: Bool
     @Persisted var colorHex: String {
         didSet {
             color = Color(hex: colorHex)
@@ -25,13 +26,14 @@ final class TaskInfo: Object, ObjectKeyIdentifiable {
     convenience init(text: String,
          colorHex: String,
 //         schedule: Schedule?,
-         isDone: Bool) {
+         isDone: Bool = false,
+         isDeleted: Bool = false) {
         self.init()
         self.text = text
         self.colorHex = colorHex
 //        self.schedule = schedule
         self.isDone = isDone
-        
+        self.isDeleted = isDeleted
     }
 }
 

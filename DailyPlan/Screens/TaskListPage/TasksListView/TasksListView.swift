@@ -19,15 +19,8 @@ struct TasksListView: View {
                 LazyVStack {
                     ForEach(vm.visibleTasks, id: \.id) { task in
                         
-                        TaskCell(task: task) {
-                            vm.delete(task: task)
-                        }
-                        .padding(.vertical, 12)
-                        .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
-//                            if let lastTask = vm.visibleTasks.last,
-//                               lastTask.id != task.id {
-//                                dividerView
-//                            }
+                        if !task.isDeleted {
+                            cell(task: task)
                         }
                     }
                     .padding(.top, 14)
@@ -65,6 +58,21 @@ struct TasksListView: View {
 #endif
 
 private extension TasksListView {
+    func cell(task: TaskInfo) -> some View {
+        TaskCell(task: task) {
+            vm.delete(task: task)
+        }
+        .padding(.vertical, 12)
+        .overlay(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
+            
+            if let lastTask = vm.visibleTasks.last,
+               lastTask.id != task.id {
+                
+                dividerView
+            }
+        }
+    }
+    
     var dividerView: some View {
         Divider()
             .padding(.leading, CGSize.checkMarkButton.width + CGFloat.defaultSpacing)

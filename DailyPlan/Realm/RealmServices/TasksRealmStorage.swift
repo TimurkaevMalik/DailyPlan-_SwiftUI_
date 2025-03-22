@@ -15,31 +15,65 @@ final class TasksRealmStorage {
     
     init() {
         realmQueues = RealmQueue(serviceName: "TasksStorage")
+        
+        deleteMarkedTasks() { result in
+            switch result {
+            case .success:
+                break
+            case .failure:
+                break
+            }
+        }
+    }
+    
+    private func deleteMarkedTasks(_ completion: @escaping (Result<Void, ErrorDataBase>) -> Void) {
+        
+        realmQueues.userInteractive.async {
+            
+            do {
+                let dataBase = try Realm()
+                let predicate = "isDeleted == 1"
+                
+                let tasks = dataBase.objects(TaskInfo.self).filter(predicate)
+                
+                    try dataBase.write{
+                        dataBase.delete(tasks)
+                    }
+                
+                completion(.success(Void()))
+            } catch let error as NSError {
+                completion(.failure(
+                    .taskOperationError(.deletion,
+                                        "\(error.code)")))
+            }
+        }
     }
 }
 
 extension TasksRealmStorage: TaskStorageProtocol {
-    func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void) {
+    func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorDataBase>) -> Void) {
         
-//        realmQueues.userInteractive.async {
+        realmQueues.userInteractive.async {
             do {
                 let dataBase = try Realm()
-                let tasks = dataBase.objects(TaskInfo.self).freeze()
+                let predicate = "isDeleted == 0"
+                let tasks = dataBase.objects(TaskInfo.self).filter(predicate)
+                let frozenTasks = tasks.freeze()
                 
                 DispatchQueue.main.async {
-                    completion(.success(Array(tasks)))
+                    completion(.success(Array(frozenTasks)))
                 }
             } catch let error as NSError {
                 completion(.failure(.dataBaseAccessError("\(error.code)")))
             }
-//        }
+        }
     }
     
     func insertTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-//        realmQueues.userInteractive.async { [weak self] in
-//            guard let self else { return }
+        realmQueues.userInteractive.async { [weak self] in
+            guard let self else { return }
             
             do {
                 let dataBase = try Realm()
@@ -59,13 +93,13 @@ extension TasksRealmStorage: TaskStorageProtocol {
                     .taskOperationError(.insertion,
                                         "\(error.code)")))
             }
-//        }
+        }
     }
     
     func updateTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void) {
         
-//        realmQueues.userInteractive.async {
+        realmQueues.userInteractive.async {
             
             do {
                 let dataBase = try Realm()
@@ -79,41 +113,26 @@ extension TasksRealmStorage: TaskStorageProtocol {
                     .taskOperationError(.update,
                                         "\(error.code)")))
             }
-//        }
+        }
     }
     
-    func deleteTask(task: TaskInfo,
-                    _ completion: @escaping (Result<Bool, ErrorRealm>) -> Void) {
-        
-//        realmQueues.userInteractive.async {
-            
-            do {
-                let dataBase = try Realm()
-                
-                if let task = dataBase.object(
-                    ofType: TaskInfo.self,
-                    forPrimaryKey: task._id) {
+    func markAsDeleted(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
+        do {
+            let dataBase = try Realm()
+            if let task = task.thaw() {
+                try dataBase.write{
                     
-                    try dataBase.write{
-                        dataBase.delete(task)
-                    }
+                    task.isDeleted = true
                 }
-//                let task = task.freeze()
                 
-//                DispatchQueue.main.async {
-                if dataBase.object(
-                    ofType: TaskInfo.self,
-                    forPrimaryKey: task._id) != nil {
-                    completion(.success(false))
-                } else {
-                    completion(.success(true))
+                DispatchQueue.main.async {
+                    completion(.success(task.freeze()))
                 }
-//                }
-            } catch let error as NSError {
-                completion(.failure(
-                    .taskOperationError(.deletion,
-                                        "\(error.code)")))
             }
-//        }
+        } catch let error as NSError {
+            completion(.failure(
+                .taskOperationError(.update,
+                                    "\(error.code)")))
+        }
     }
 }
