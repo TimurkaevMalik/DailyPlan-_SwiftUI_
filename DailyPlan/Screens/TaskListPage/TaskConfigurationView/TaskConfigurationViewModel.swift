@@ -36,7 +36,7 @@ final class TaskConfigurationViewModel: ObservableObject {
         if let colorHex = color.hexString() {
             let task = TaskInfo(text: taskText,
                                 colorHex: colorHex,
-                                schedule: schedule,
+//                                schedule: schedule,
                                 isDone: false)
             
             tasksStorage.insertTask(task: task) { result in
