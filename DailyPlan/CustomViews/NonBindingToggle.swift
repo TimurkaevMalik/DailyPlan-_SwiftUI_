@@ -22,7 +22,7 @@ struct NonBindingToggle: View {
         
         state = isOn ? .on : .off
     }
-    @State var isOn1: Bool = false
+    
     var body: some View {
         
         Button {
@@ -50,7 +50,9 @@ struct NonBindingToggle: View {
     
     NonBindingToggle(isOn: isOn,
                      color: .ypWarmYellow,
-                     tapAction: { isOn.toggle() })
+                     tapAction: {
+        isOn.toggle()
+    })
 }
 #endif
 

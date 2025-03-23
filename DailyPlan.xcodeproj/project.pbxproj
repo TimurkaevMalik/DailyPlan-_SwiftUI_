@@ -192,6 +192,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BC6359D42D906C42001DBF77 /* ViewCustomization */ = {
+			isa = PBXGroup;
+			children = (
+				BC83E9CF2D648C7700D31B9D /* BorderParameters.swift */,
+				BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */,
+			);
+			path = ViewCustomization;
+			sourceTree = "<group>";
+		};
 		BC748A172D6B13A900EB9D5C /* TaskConfigurationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,12 +291,11 @@
 		BC848A1C2D5C831A00776E8C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BC83E9CF2D648C7700D31B9D /* BorderParameters.swift */,
-				BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */,
+				BC6359D42D906C42001DBF77 /* ViewCustomization */,
+				BC848A1D2D5C833700776E8C /* ViewModifiers */,
+				BCF072612C70DC8300999035 /* Extensions */,
 				BCCAA8842D884470002B5426 /* Protocols */,
 				BCCAA8832D88443D002B5426 /* Enums */,
-				BCF072612C70DC8300999035 /* Extensions */,
-				BC848A1D2D5C833700776E8C /* ViewModifiers */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
