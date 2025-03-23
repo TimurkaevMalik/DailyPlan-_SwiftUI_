@@ -44,7 +44,7 @@
 		BCCAA87B2D88404E002B5426 /* TaskCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAA8762D88404E002B5426 /* TaskCategory.swift */; };
 		BCCAA87C2D88404E002B5426 /* TaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAA8772D88404E002B5426 /* TaskRecord.swift */; };
 		BCCAA87D2D88404E002B5426 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAA8782D88404E002B5426 /* Schedule.swift */; };
-		BCCAA8822D88412B002B5426 /* ErrorRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAA8812D88412B002B5426 /* ErrorRealm.swift */; };
+		BCCAA8822D88412B002B5426 /* ErrorDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAA8812D88412B002B5426 /* ErrorDataBase.swift */; };
 		BCCAA8862D88449F002B5426 /* TaskStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCAA8852D88449F002B5426 /* TaskStorageProtocol.swift */; };
 		BCCEFBDF2D81D72600FF40C5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCEFBDE2D81D72600FF40C5 /* Color.swift */; };
 		BCE0D7DB2D533C3700255FC4 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */; };
@@ -54,7 +54,6 @@
 		BCE76B502D78760200478A56 /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = BCE76B4E2D78760200478A56 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		BCEA4E4C2D760C9C005FB175 /* NonBindingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E4B2D760C9C005FB175 /* NonBindingToggle.swift */; };
 		BCEA4E4F2D761787005FB175 /* StaticButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */; };
-		BCEA4E512D7618B6005FB175 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */; };
 		BCF072602C70D72800999035 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF0725F2C70D72800999035 /* TabBarView.swift */; };
 		BCF072632C70DC9F00999035 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072622C70DC9F00999035 /* Font.swift */; };
 		BCF072652C70F0F300999035 /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF072642C70F0F300999035 /* TabBarButton.swift */; };
@@ -135,7 +134,7 @@
 		BCCAA8762D88404E002B5426 /* TaskCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategory.swift; sourceTree = "<group>"; };
 		BCCAA8772D88404E002B5426 /* TaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRecord.swift; sourceTree = "<group>"; };
 		BCCAA8782D88404E002B5426 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
-		BCCAA8812D88412B002B5426 /* ErrorRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorRealm.swift; sourceTree = "<group>"; };
+		BCCAA8812D88412B002B5426 /* ErrorDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDataBase.swift; sourceTree = "<group>"; };
 		BCCAA8852D88449F002B5426 /* TaskStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorageProtocol.swift; sourceTree = "<group>"; };
 		BCCEFBDE2D81D72600FF40C5 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		BCE0D7DA2D533C3700255FC4 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
@@ -143,7 +142,6 @@
 		BCE284052D4E68ED00224553 /* RepresentedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepresentedTextView.swift; sourceTree = "<group>"; };
 		BCEA4E4B2D760C9C005FB175 /* NonBindingToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonBindingToggle.swift; sourceTree = "<group>"; };
 		BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticButtonStyle.swift; sourceTree = "<group>"; };
-		BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		BCF0725F2C70D72800999035 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		BCF072622C70DC9F00999035 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		BCF072642C70F0F300999035 /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
@@ -283,8 +281,8 @@
 		BC848A1C2D5C831A00776E8C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */,
 				BC83E9CF2D648C7700D31B9D /* BorderParameters.swift */,
+				BCEA4E4E2D761787005FB175 /* StaticButtonStyle.swift */,
 				BCCAA8842D884470002B5426 /* Protocols */,
 				BCCAA8832D88443D002B5426 /* Enums */,
 				BCF072612C70DC8300999035 /* Extensions */,
@@ -328,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				BCC2A8742D8D8DAC002A94A1 /* RealmQueue.swift */,
-				BCCAA8812D88412B002B5426 /* ErrorRealm.swift */,
 				BC0B6D202D89846600DF7E23 /* RealmServices */,
 				BCCAA87E2D884066002B5426 /* TaskModels */,
 			);
@@ -349,8 +346,9 @@
 		BCCAA8832D88443D002B5426 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				BC98D61E2D5E3BB4004817DD /* ListItemPosition.swift */,
 				BCBE35322D5DD89700796ABB /* PopoverDirection.swift */,
+				BC98D61E2D5E3BB4004817DD /* ListItemPosition.swift */,
+				BCCAA8812D88412B002B5426 /* ErrorDataBase.swift */,
 				BCBE35342D5DDACF00796ABB /* Tabs.swift */,
 			);
 			path = Enums;
@@ -403,7 +401,6 @@
 			isa = PBXGroup;
 			children = (
 				BCCEFBDE2D81D72600FF40C5 /* Color.swift */,
-				BCEA4E502D7618B6005FB175 /* ButtonStyle.swift */,
 				BC848A202D5C866900776E8C /* CGFloat.swift */,
 				BC848A192D5C7CEF00776E8C /* CGSize.swift */,
 				BC6430612D4FC49700ECA960 /* View.swift */,
@@ -582,7 +579,7 @@
 				BC98D6212D5E3BD3004817DD /* ListItemCorner.swift in Sources */,
 				BCCAA87D2D88404E002B5426 /* Schedule.swift in Sources */,
 				BCCAA87B2D88404E002B5426 /* TaskCategory.swift in Sources */,
-				BCCAA8822D88412B002B5426 /* ErrorRealm.swift in Sources */,
+				BCCAA8822D88412B002B5426 /* ErrorDataBase.swift in Sources */,
 				BC748A212D6B40AC00EB9D5C /* TaskConfigurationViewModel.swift in Sources */,
 				BC848A1F2D5C836200776E8C /* ViewSize.swift in Sources */,
 				BC848A232D5C922300776E8C /* CustomDatePicker.swift in Sources */,
@@ -615,7 +612,6 @@
 				BC0B6D1F2D89843500DF7E23 /* StorageServiceNotification.swift in Sources */,
 				BCF0726E2C71B58600999035 /* SettingsView.swift in Sources */,
 				BC0546142C74C01300E6AD68 /* TaskCell.swift in Sources */,
-				BCEA4E512D7618B6005FB175 /* ButtonStyle.swift in Sources */,
 				BCCEFBDF2D81D72600FF40C5 /* Color.swift in Sources */,
 				BC5DABBF2D7DC66800E30ADA /* ToggleVisiblityBtton.swift in Sources */,
 				BC83E9D02D648C7700D31B9D /* BorderParameters.swift in Sources */,

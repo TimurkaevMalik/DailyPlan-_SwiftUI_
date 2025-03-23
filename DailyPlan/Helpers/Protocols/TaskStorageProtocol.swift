@@ -15,12 +15,6 @@ protocol TaskStorageProtocol {
     func insertTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void)
     
-    func updateTask(task: TaskInfo,
-                    _ completion: @escaping (TaskResult) -> Void)
-    
-    func markAsDone(task: TaskInfo,
-                    _ completion: @escaping (TaskResult) -> Void)
-    
     func markAsDeleted(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void)
 }

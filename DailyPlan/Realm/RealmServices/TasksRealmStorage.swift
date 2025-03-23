@@ -112,45 +112,6 @@ extension TasksRealmStorage: TaskStorageProtocol {
             }
         }
     }
-    
-    func updateTask(task: TaskInfo,
-                    _ completion: @escaping (TaskResult) -> Void) {
-        
-        realmQueues.userInteractive.async {
-            
-            do {
-                let dataBase = try Realm()
-                try dataBase.write{}
-                
-                completion(.success(Void()))
-            } catch let error as NSError {
-                completion(.failure(
-                    .taskOperationError(.update,
-                                        "\(error.code)")))
-            }
-        }
-    }
-    ///TODO: remove
-    func markAsDone(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
-//        realmQueues.userInteractive.async {
-//            
-//            do {
-//                let dataBase = try Realm()
-//                
-//                if let task = task.thaw() {
-//                    try dataBase.write{
-//                        task.isDeleted = true
-//                    }
-//                    
-//                    completion(.success(Void()))
-//                }
-//            } catch let error as NSError {
-//                completion(.failure(
-//                    .taskOperationError(.update,
-//                                        "\(error.code)")))
-//            }
-//        }
-    }
 
     func markAsDeleted(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
         

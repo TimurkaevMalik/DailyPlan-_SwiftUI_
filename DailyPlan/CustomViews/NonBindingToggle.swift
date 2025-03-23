@@ -37,7 +37,7 @@ struct NonBindingToggle: View {
         .background(state == .on ?
                     color : .messGradientTop)
         .clipShape(.rect(cornerRadius: 8))
-        .buttonStyle(.staticButton())
+        .buttonStyle(StaticButtonStyle())
         .onChange(of: isOn) {
             changeState()
         }
