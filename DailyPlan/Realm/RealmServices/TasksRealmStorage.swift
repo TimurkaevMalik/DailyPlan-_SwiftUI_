@@ -12,9 +12,16 @@ final class TasksRealmStorage {
     
     private let notification = StorageServiceNotification.shared
     private let realmQueues: RealmQueue
+    private let mainThreadRealm: Realm
     
-    init() {
+    init?() {
         realmQueues = RealmQueue(serviceName: "TasksStorage")
+        
+        do {
+            mainThreadRealm = try Realm()
+        } catch {
+            return nil
+        }
         
         deleteMarkedTasks() { result in
             switch result {
@@ -59,15 +66,15 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 let predicate = "isDeleted == 0"
                 let tasks = dataBase.objects(TaskInfo.self).filter(predicate)
                 
-                let ref = ThreadSafeReference(to: tasks)
+                let tasksRef = ThreadSafeReference(to: tasks)
+                
                 DispatchQueue.main.async {
-                    do {
-                        let dataBase = try Realm()
-                        if let res = dataBase.resolve(ref) {
-                            completion(.success(Array(res)))
-                        }
-                    } catch {
-                        completion(.failure(.dataBaseAccessError()))
+                    
+                    if let tasksRes = self.mainThreadRealm.resolve(tasksRef) {
+                        
+                        completion(.success(Array(tasksRes)))
+                    } else {
+                        completion(.success([]))
                     }
                 }
             } catch let error as NSError {
@@ -88,10 +95,14 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 try dataBase.write {
                     dataBase.add(task)
                 }
-                let frozenTask = task.freeze()
+
+                let taskRef = ThreadSafeReference(to: task)
                 
                 DispatchQueue.main.async {
-                    self.notification.insertedTaskSubject.send(frozenTask)
+                    
+                    if let taskRes = self.mainThreadRealm.resolve(taskRef) {
+                        self.notification.insertedTaskSubject.send(taskRes)
+                    }
                     completion(.success(Void()))
                 }
             } catch let error as NSError {
@@ -111,9 +122,7 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 let dataBase = try Realm()
                 try dataBase.write{}
                 
-                DispatchQueue.main.async {
-                    completion(.success(Void()))
-                }
+                completion(.success(Void()))
             } catch let error as NSError {
                 completion(.failure(
                     .taskOperationError(.update,
@@ -121,46 +130,47 @@ extension TasksRealmStorage: TaskStorageProtocol {
             }
         }
     }
-    
+    ///TODO: remove
     func markAsDone(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
-        realmQueues.userInteractive.async {
-            
-            do {
-                let dataBase = try Realm()
-                if let task = task.thaw() {
-                    try dataBase.write{
-                        
-                        task.isDeleted = true
-                    }
-                    
-                    DispatchQueue.main.async {
-                        completion(.success(Void()))
-                    }
-                }
-            } catch let error as NSError {
-                completion(.failure(
-                    .taskOperationError(.update,
-                                        "\(error.code)")))
-            }
-        }
+//        realmQueues.userInteractive.async {
+//            
+//            do {
+//                let dataBase = try Realm()
+//                
+//                if let task = task.thaw() {
+//                    try dataBase.write{
+//                        task.isDeleted = true
+//                    }
+//                    
+//                    completion(.success(Void()))
+//                }
+//            } catch let error as NSError {
+//                completion(.failure(
+//                    .taskOperationError(.update,
+//                                        "\(error.code)")))
+//            }
+//        }
     }
 
     func markAsDeleted(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
+        
+        let id = task._id
+        
         realmQueues.userInteractive.async {
             
             do {
                 let dataBase = try Realm()
                 
-                if let task = task.thaw() {
+                if let task = dataBase.object(
+                    ofType: TaskInfo.self,
+                    forPrimaryKey: id) {
+                    
                     try dataBase.write{
-                        
                         task.isDeleted = true
                     }
-                    
-                    DispatchQueue.main.async {
-                        completion(.success(Void()))
-                    }
                 }
+                
+                completion(.success(Void()))
             } catch let error as NSError {
                 completion(.failure(
                     .taskOperationError(.update,

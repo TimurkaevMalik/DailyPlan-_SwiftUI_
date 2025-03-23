@@ -19,7 +19,7 @@ final class TaskConfigurationViewModel: ObservableObject {
     @Published var schedule: Schedule = Schedule()
     
     let availableColors: [Color]
-    private let tasksStorage: TaskStorageProtocol
+    private var tasksStorage: TaskStorageProtocol?
     
     init() {
         tasksStorage = TasksRealmStorage()
@@ -39,7 +39,7 @@ final class TaskConfigurationViewModel: ObservableObject {
 //                                schedule: schedule,
                                 isDone: false)
             
-            tasksStorage.insertTask(task: task) { result in
+            tasksStorage?.insertTask(task: task) { result in
                 switch result {
                 case .success:
                     break

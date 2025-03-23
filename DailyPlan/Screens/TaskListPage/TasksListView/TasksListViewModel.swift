@@ -13,11 +13,20 @@ final class TasksListViewModel: ObservableObject {
     @Published var addTaskTapped: Bool
     @Published var selection: Date
     
-    @Published var tasks: [TaskInfo] = []
+    @Published var tasks: [TaskInfo] = [] {
+        didSet {
+            cancellableTasks = tasks.map {
+                $0.objectWillChange.sink {
+                    self.objectWillChange.send()
+                }
+            }
+        }
+    }
     
+    private var cancellableTasks = [AnyCancellable]()
     private var cancellableSet = [AnyCancellable]()
     private let notification = StorageServiceNotification.shared
-    private let taskStorage: TaskStorageProtocol
+    private var taskStorage: TaskStorageProtocol?
     
     init() {
         taskStorage = TasksRealmStorage()
@@ -37,14 +46,14 @@ final class TasksListViewModel: ObservableObject {
 
 extension TasksListViewModel {
     
-    func delete(task: TaskInfo) {
+    func deleteTask(at index: Int) {
         withAnimation {
-        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
-                tasks.remove(at: index)
-            }
+            tasks.remove(at: index)
         }
         
-        taskStorage.markAsDeleted(task: task) { [weak self] result in
+        let task = tasks[index]
+        
+        taskStorage?.markAsDeleted(task: task) { [weak self] result in
             guard let self else { return }
             
             switch result {
@@ -59,7 +68,7 @@ extension TasksListViewModel {
     
     private func retrieveAllTasks() {
         
-        taskStorage.retrieveTasks { [weak self] result in
+        taskStorage?.retrieveTasks { [weak self] result in
             guard let self else { return }
             
             switch result {
@@ -77,8 +86,6 @@ extension TasksListViewModel {
             tasks.insert(task, at: 0)
         }
     }
-    
-    private func didUpdateTask(_ task: TaskInfo) {}
     
     private func failedToDeleteTask(_ task: TaskInfo) {
         ///TODO: why withAnimation can not be under if statement
