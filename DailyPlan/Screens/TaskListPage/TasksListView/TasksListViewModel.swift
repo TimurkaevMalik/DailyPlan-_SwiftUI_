@@ -47,11 +47,11 @@ final class TasksListViewModel: ObservableObject {
 extension TasksListViewModel {
     
     func deleteTask(at index: Int) {
-        withAnimation {
-            tasks.remove(at: index)
-        }
-        
         let task = tasks[index]
+        
+        withAnimation {
+            _ = tasks.remove(at: index)
+        }
         
         taskStorage?.markAsDeleted(task: task) { [weak self] result in
             guard let self else { return }

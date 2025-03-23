@@ -17,23 +17,14 @@ struct TasksListView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack {
-                    ForEach(vm.tasks.indices, id: \.self) { index in
+                    ForEach(Array(vm.tasks.enumerated()), id: \.element._id) { index, task in
                         
-                        if !vm.tasks[index].isDeleted {
-                            taskCell(at: index)
+                        if !task.isDeleted {
+                            cell(of: task, at: index)
                         }
                     }
                     .padding(.top, 14)
                     .padding(.horizontal, .screenHorizontalSpacing)
-                    
-//                    ForEach(vm.tasks, id: \.id) { task in
-//                        
-//                        if !task.isDeleted {
-//                            cell(task: task)
-//                        }
-//                    }
-//                    .padding(.top, 14)
-//                    .padding(.horizontal, .screenHorizontalSpacing)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -67,9 +58,7 @@ struct TasksListView: View {
 #endif
 
 private extension TasksListView {
-    func taskCell(at index: Int) -> some View {
-        
-        let task = vm.tasks[index]
+    func cell(of task: TaskInfo, at index: Int) -> some View {
         
         return TaskCell(task: task) {
             vm.deleteTask(at: index)
