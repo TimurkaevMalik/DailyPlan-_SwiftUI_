@@ -22,7 +22,7 @@ struct NonBindingToggle: View {
         
         state = isOn ? .on : .off
     }
-    @State var isOn1: Bool = false
+    
     var body: some View {
         
         Button {
@@ -37,7 +37,7 @@ struct NonBindingToggle: View {
         .background(state == .on ?
                     color : .messGradientTop)
         .clipShape(.rect(cornerRadius: 8))
-        .buttonStyle(.staticButton())
+        .buttonStyle(StaticButtonStyle())
         .onChange(of: isOn) {
             changeState()
         }
@@ -50,7 +50,9 @@ struct NonBindingToggle: View {
     
     NonBindingToggle(isOn: isOn,
                      color: .ypWarmYellow,
-                     tapAction: { isOn.toggle() })
+                     tapAction: {
+        isOn.toggle()
+    })
 }
 #endif
 

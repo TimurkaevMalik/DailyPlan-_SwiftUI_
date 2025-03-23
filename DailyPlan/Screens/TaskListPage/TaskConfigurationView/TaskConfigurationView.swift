@@ -26,7 +26,7 @@ struct TaskConfigurationView: View {
                 
                 CustomTextField(
                     text: $vm.category,
-                    placeHolder: "placeHolder",
+                    placeHolder: "Category",
                     color: vm.color)
                 .focused($isFocused)
                 .modifier(categoriesButtonModifier)

@@ -71,7 +71,7 @@ struct ScheduleView: View {
                 .stroke(color)
         })
         .modifier(clearButtonModifier)
-        .onChange(of: isStartTimePresented, { _, newValue in
+        .onChange(of: isStartTimePresented, {
             setStartTime()
             
             if isStartTimePresented == false {

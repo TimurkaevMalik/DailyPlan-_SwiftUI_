@@ -35,7 +35,7 @@ struct CheckMarkButton: View {
                                 .tint(.iconsSecondary)
                         } else {
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(lineWidth: 4)
+                                .stroke(lineWidth: 3)
                                 .tint(.iconsSecondary)
                         }
                     }

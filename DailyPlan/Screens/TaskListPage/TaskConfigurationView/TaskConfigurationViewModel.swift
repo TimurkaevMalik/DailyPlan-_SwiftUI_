@@ -19,7 +19,7 @@ final class TaskConfigurationViewModel: ObservableObject {
     @Published var schedule: Schedule = Schedule()
     
     let availableColors: [Color]
-    private let tasksStorage: TaskStorageProtocol
+    private var tasksStorage: TaskStorageProtocol?
     
     init() {
         tasksStorage = TasksRealmStorage()
@@ -34,12 +34,12 @@ final class TaskConfigurationViewModel: ObservableObject {
     
     func insertNewTask() {
         if let colorHex = color.hexString() {
+            
             let task = TaskInfo(text: taskText,
                                 colorHex: colorHex,
-                                schedule: schedule,
-                                isDone: false)
+                                schedule: schedule)
             
-            tasksStorage.insertTask(task: task) { result in
+            tasksStorage?.insertTask(task: task) { result in
                 switch result {
                 case .success:
                     break

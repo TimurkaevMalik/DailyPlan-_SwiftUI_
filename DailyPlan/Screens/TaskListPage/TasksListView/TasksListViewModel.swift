@@ -13,12 +13,20 @@ final class TasksListViewModel: ObservableObject {
     @Published var addTaskTapped: Bool
     @Published var selection: Date
     
-    @Published var visibleTasks: [TaskInfo] = []
-    private var tasks: [TaskInfo] = []
+    @Published var tasks: [TaskInfo] = [] {
+        didSet {
+            cancellableTasks = tasks.map {
+                $0.objectWillChange.sink {
+                    self.objectWillChange.send()
+                }
+            }
+        }
+    }
     
+    private var cancellableTasks = [AnyCancellable]()
     private var cancellableSet = [AnyCancellable]()
     private let notification = StorageServiceNotification.shared
-    private let taskStorage: TaskStorageProtocol
+    private var taskStorage: TaskStorageProtocol?
     
     init() {
         taskStorage = TasksRealmStorage()
@@ -28,18 +36,29 @@ final class TasksListViewModel: ObservableObject {
         subscribeToTaskUpdates()
         retrieveAllTasks()
     }
+    
+    func allTasksFilter() {}
+    
+    func doneTasksFilter() {}
+    
+    func activeTasksFilter() {}
+}
 
-    func delete(task: TaskInfo) {
+extension TasksListViewModel {
+    
+    func deleteTask(at index: Int) {
+        let task = tasks[index]
+        
         withAnimation {
-        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
-                visibleTasks.remove(at: index)
-            }
+            _ = tasks.remove(at: index)
         }
         
-        taskStorage.deleteTask(task: task) { result in ///[weak self]??
+        taskStorage?.markAsDeleted(task: task) { [weak self] result in
+            guard let self else { return }
+            
             switch result {
-            case .success(let task):
-                self.didDeleteTask(task)
+            case .success:
+                break
             case .failure(_):
                 self.failedToDeleteTask(task)
                 ///TODO: alert
@@ -47,35 +66,14 @@ final class TasksListViewModel: ObservableObject {
         }
     }
     
-    func allTasksFilter() {
-        visibleTasks = tasks
-    }
-    
-    func doneTasksFilter() {
-        visibleTasks = tasks.filter({ $0.isDone == true })
-    }
-    
-    func activeTasksFilter() {
-        visibleTasks = tasks.filter({ $0.isDone == false })
-    }
-}
-
-extension TasksListViewModel {
-    private func subscribeToTaskUpdates() {
-        notification.insertedTaskSubject
-            .sink { task in
-                self.didInsertTask(task)
-            }
-            .store(in: &cancellableSet)
-    }
-    
     private func retrieveAllTasks() {
         
-        taskStorage.retrieveTasks { result in
+        taskStorage?.retrieveTasks { [weak self] result in
+            guard let self else { return }
+            
             switch result {
             case .success(let tasks):
                 self.tasks = tasks
-                self.allTasksFilter()
             case .failure(let failure):
                 print(failure)
                 ///TODO: alert
@@ -85,18 +83,7 @@ extension TasksListViewModel {
     
     private func didInsertTask(_ task: TaskInfo) {
         withAnimation {
-            visibleTasks.insert(task, at: 0)
-        }
-    }
-    
-    private func didUpdateTask(_ task: TaskInfo) {}
-    
-    private func didDeleteTask(_ task: TaskInfo) {
-        ///TODO: why withAnimation can not be under if statement
-        withAnimation {
-        if let index = visibleTasks.firstIndex(where: { $0.id == task.id }) {
-                visibleTasks.remove(at: index)
-            }
+            tasks.insert(task, at: 0)
         }
     }
     
@@ -105,5 +92,13 @@ extension TasksListViewModel {
         withAnimation {
             tasks.insert(task, at: 0)
         }
+    }
+    
+    private func subscribeToTaskUpdates() {
+        notification.insertedTaskSubject
+            .sink { task in
+                self.didInsertTask(task)
+            }
+            .store(in: &cancellableSet)
     }
 }
