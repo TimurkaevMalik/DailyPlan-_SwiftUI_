@@ -8,23 +8,13 @@
 import Foundation
 
 protocol TaskStorageProtocol {
-    typealias TaskResult = Result<TaskInfo, ErrorRealm>
+    typealias TaskResult = Result<Void, ErrorDataBase>
     
-    func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void)
+    func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorDataBase>) -> Void)
      
     func insertTask(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void)
     
-    func updateTask(task: TaskInfo,
-                    _ completion: @escaping (TaskResult) -> Void)
-    
-    func deleteTask(task: TaskInfo,
+    func markAsDeleted(task: TaskInfo,
                     _ completion: @escaping (TaskResult) -> Void)
 }
-
-
-///TODO: delete comments
-//    func retrieveTasks() async throws(ErrorRealm) -> [TaskInfo]
-//    func insertTask(_ task: TaskInfo, ) async throws(ErrorRealm)
-//    func updateTask(_ task: TaskInfo) async throws(ErrorRealm)
-//    func deleteTask(_ task: TaskInfo) async throws(ErrorRealm)

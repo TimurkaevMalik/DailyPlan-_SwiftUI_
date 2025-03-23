@@ -28,7 +28,7 @@ struct CustomTextField: View {
         HStack(spacing: 0) {
             TextField(text: $text, label: {
                 if !isFocused {
-                    Text("Category")
+                    Text(placeHolder)
                         .foregroundStyle(.ypGray)
                         .font(.taskText)
                 }

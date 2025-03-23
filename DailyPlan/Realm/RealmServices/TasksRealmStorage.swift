@@ -12,22 +12,69 @@ final class TasksRealmStorage {
     
     private let notification = StorageServiceNotification.shared
     private let realmQueues: RealmQueue
+    private let mainThreadRealm: Realm
     
-    init() {
+    init?() {
         realmQueues = RealmQueue(serviceName: "TasksStorage")
+        
+        do {
+            mainThreadRealm = try Realm()
+        } catch {
+            return nil
+        }
+    }
+    
+    private func deleteMarkedTasks(_ completion: @escaping (Result<Void, ErrorDataBase>) -> Void) {
+        
+        realmQueues.userInteractive.async {
+            
+            do {
+                let dataBase = try Realm()
+                let predicate = "isDeleted == 1"
+                
+                let tasks = dataBase.objects(TaskInfo.self).filter(predicate)
+                
+                    try dataBase.write{
+                        dataBase.delete(tasks)
+                    }
+                
+                completion(.success(Void()))
+            } catch let error as NSError {
+                completion(.failure(
+                    .taskOperationError(.deletion,
+                                        "\(error.code)")))
+            }
+        }
     }
 }
 
 extension TasksRealmStorage: TaskStorageProtocol {
-    func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorRealm>) -> Void) {
+    func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorDataBase>) -> Void) {
+        deleteMarkedTasks() { result in
+            switch result {
+            case .success:
+                break
+            case .failure:
+                break
+            }
+        }
         
         realmQueues.userInteractive.async {
             do {
                 let dataBase = try Realm()
-                let tasks = dataBase.objects(TaskInfo.self).freeze()
+                let predicate = "isDeleted == 0"
+                let tasks = dataBase.objects(TaskInfo.self).filter(predicate)
+                
+                let tasksRef = ThreadSafeReference(to: tasks)
                 
                 DispatchQueue.main.async {
-                    completion(.success(Array(tasks)))
+                    
+                    if let tasksRes = self.mainThreadRealm.resolve(tasksRef) {
+                        
+                        completion(.success(Array(tasksRes)))
+                    } else {
+                        completion(.success([]))
+                    }
                 }
             } catch let error as NSError {
                 completion(.failure(.dataBaseAccessError("\(error.code)")))
@@ -48,11 +95,14 @@ extension TasksRealmStorage: TaskStorageProtocol {
                     dataBase.add(task)
                 }
 
-                let task = task.freeze()
+                let taskRef = ThreadSafeReference(to: task)
                 
                 DispatchQueue.main.async {
-                    self.notification.insertedTaskSubject.send(task)
-                    completion(.success(task))
+                    
+                    if let taskRes = self.mainThreadRealm.resolve(taskRef) {
+                        self.notification.insertedTaskSubject.send(taskRes)
+                    }
+                    completion(.success(Void()))
                 }
             } catch let error as NSError {
                 completion(.failure(
@@ -61,29 +111,10 @@ extension TasksRealmStorage: TaskStorageProtocol {
             }
         }
     }
-    
-    func updateTask(task: TaskInfo,
-                    _ completion: @escaping (TaskResult) -> Void) {
+
+    func markAsDeleted(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
         
-        realmQueues.userInteractive.async {
-            
-            do {
-                let dataBase = try Realm()
-                try dataBase.write{}
-                
-                DispatchQueue.main.async {
-                    completion(.success(task))
-                }
-            } catch let error as NSError {
-                completion(.failure(
-                    .taskOperationError(.update,
-                                        "\(error.code)")))
-            }
-        }
-    }
-    
-    func deleteTask(task: TaskInfo,
-                    _ completion: @escaping (TaskResult) -> Void) {
+        let id = task._id
         
         realmQueues.userInteractive.async {
             
@@ -92,44 +123,21 @@ extension TasksRealmStorage: TaskStorageProtocol {
                 
                 if let task = dataBase.object(
                     ofType: TaskInfo.self,
-                    forPrimaryKey: task._id) {
+                    forPrimaryKey: id) {
                     
                     try dataBase.write{
-                        dataBase.delete(task)
+                        task.isDeleted = true
                     }
-                }
-                let task = task.freeze()
-                
-                DispatchQueue.main.async {
-                    completion(.success(task))
+                    
+                    completion(.success(Void()))
+                } else {
+                    completion(.failure(.taskOperationError(.deletion, "task doesn't exist")))
                 }
             } catch let error as NSError {
                 completion(.failure(
-                    .taskOperationError(.deletion,
+                    .taskOperationError(.update,
                                         "\(error.code)")))
             }
         }
     }
 }
-
-///TODO: remove comments
-//func retrieveTask(task: TaskInfo, _ completion: @escaping (TaskResult) -> Void) {
-//    
-//    realmQueues.backgroundQueue.async {
-//        do {
-//            let dataBase = try Realm()
-//            
-//            if let task = dataBase.object(ofType: TaskInfo.self,
-//                                          forPrimaryKey: task.id) {
-//                
-//                DispatchQueue.main.async {
-//                    completion(.success(task))
-//                }
-//            } else {
-//                completion(.failure(.taskOperationError(.retrieve)))
-//            }
-//        }  catch let error as NSError {
-//            completion(.failure(.dataBaseAccessError("\(error.code)")))
-//        }
-//    }
-//}

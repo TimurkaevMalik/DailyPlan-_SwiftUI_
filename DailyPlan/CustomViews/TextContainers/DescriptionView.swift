@@ -62,7 +62,6 @@ struct DescriptionView: View {
                 .stroke(color)
         }
         .onChange(of: isFocused, {
-            lastText = text
             switchStateWithAnimation()
         })
     }
@@ -71,6 +70,7 @@ struct DescriptionView: View {
 #if DEBUG
 #Preview {
     @Previewable @State var text: String = ""
+    
     DescriptionView(text: $text,
                     color: .messRed,
                     focusedHeight: .large,
@@ -123,6 +123,7 @@ private extension DescriptionView {
     
     var confirmationButton: some View {
         Button {
+            lastText = text
             isFocused = false
         } label: {
             Image(systemName: "checkmark")
