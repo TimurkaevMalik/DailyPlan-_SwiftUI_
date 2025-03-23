@@ -7,7 +7,7 @@
 
 import Foundation
 import RealmSwift
-
+///TODO: do something with comments
 final class Schedule: Object/*, ObjectKeyIdentifiable*/ {
 //    @Persisted(primaryKey: true) var _id = UUID()
     @Persisted var day: Date

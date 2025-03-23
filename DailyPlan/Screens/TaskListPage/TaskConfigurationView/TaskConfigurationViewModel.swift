@@ -34,10 +34,10 @@ final class TaskConfigurationViewModel: ObservableObject {
     
     func insertNewTask() {
         if let colorHex = color.hexString() {
+            
             let task = TaskInfo(text: taskText,
                                 colorHex: colorHex,
-//                                schedule: schedule,
-                                isDone: false)
+                                schedule: schedule)
             
             tasksStorage?.insertTask(task: task) { result in
                 switch result {

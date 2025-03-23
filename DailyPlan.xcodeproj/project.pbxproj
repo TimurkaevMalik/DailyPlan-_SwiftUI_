@@ -179,6 +179,7 @@
 		BC0B6D202D89846600DF7E23 /* RealmServices */ = {
 			isa = PBXGroup;
 			children = (
+				BCC2A8742D8D8DAC002A94A1 /* RealmQueue.swift */,
 				BC5334552D86D9CB00F2BAF4 /* TasksRealmStorage.swift */,
 			);
 			path = RealmServices;
@@ -325,7 +326,6 @@
 		BCCAA8742D884047002B5426 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				BCC2A8742D8D8DAC002A94A1 /* RealmQueue.swift */,
 				BC0B6D202D89846600DF7E23 /* RealmServices */,
 				BCCAA87E2D884066002B5426 /* TaskModels */,
 			);

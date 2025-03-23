@@ -12,7 +12,7 @@ import RealmSwift
 final class TaskInfo: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id = UUID()
     @Persisted var text: String
-//    @Persisted var schedule: Schedule?
+    @Persisted var schedule: Schedule?
     @Persisted var isDone: Bool
     @Persisted var isDeleted: Bool
     @Persisted var colorHex: String {
@@ -25,13 +25,13 @@ final class TaskInfo: Object, ObjectKeyIdentifiable {
     
     convenience init(text: String,
          colorHex: String,
-//         schedule: Schedule?,
+         schedule: Schedule? = Schedule(),
          isDone: Bool = false,
          isDeleted: Bool = false) {
         self.init()
         self.text = text
         self.colorHex = colorHex
-//        self.schedule = schedule
+        self.schedule = schedule
         self.isDone = isDone
         self.isDeleted = isDeleted
     }
@@ -43,73 +43,73 @@ extension TaskInfo {
         [
             TaskInfo(text: "Eat food",
                      colorHex: Color.ypWarmYellow.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(start: .now, end: .now),
-                     isDone: true)
-//            
-//            TaskInfo(text: "Go to school",
-//                     colorHex: Color.ypLightPink.hexString() ?? "#1A1B22",
-////                     schedule: Schedule(start: .now, end: .now),
-//                     isDone: false),
-//            
-//            TaskInfo(text: "Study at school again and again till I die",
-//                     colorHex: Color.ypGreen.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(start: .now, end: nil),
-//                     isDone: true),
-//            
-//            TaskInfo(text: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
-//                     colorHex: Color.ypCyan.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                     isDone: true),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false),
-//            
-//            TaskInfo(text: "Wash the dishes",
-//                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
-//                     schedule: Schedule(),
-//                 isDone: false)
+                     schedule: Schedule(start: .now, end: .now),
+                     isDone: true),
+            
+            TaskInfo(text: "Go to school",
+                     colorHex: Color.ypLightPink.hexString() ?? "#1A1B22",
+                     schedule: Schedule(start: .now, end: .now),
+                     isDone: false),
+            
+            TaskInfo(text: "Study at school again and again till I die",
+                     colorHex: Color.ypGreen.hexString() ?? "#1A1B22",
+                     schedule: Schedule(start: .now, end: nil),
+                     isDone: true),
+            
+            TaskInfo(text: "Come back from school, eat food again, do homework, build spaceship, fly to the moon",
+                     colorHex: Color.ypCyan.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                     isDone: true),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false),
+            
+            TaskInfo(text: "Wash the dishes",
+                     colorHex: Color.ypRed.hexString() ?? "#1A1B22",
+                     schedule: Schedule(),
+                 isDone: false)
         ]
     }
 }

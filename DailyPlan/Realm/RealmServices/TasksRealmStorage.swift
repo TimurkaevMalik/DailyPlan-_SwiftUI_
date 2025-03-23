@@ -22,15 +22,6 @@ final class TasksRealmStorage {
         } catch {
             return nil
         }
-        
-        deleteMarkedTasks() { result in
-            switch result {
-            case .success:
-                break
-            case .failure:
-                break
-            }
-        }
     }
     
     private func deleteMarkedTasks(_ completion: @escaping (Result<Void, ErrorDataBase>) -> Void) {
@@ -59,6 +50,14 @@ final class TasksRealmStorage {
 
 extension TasksRealmStorage: TaskStorageProtocol {
     func retrieveTasks(_ completion: @escaping (Result<[TaskInfo], ErrorDataBase>) -> Void) {
+        deleteMarkedTasks() { result in
+            switch result {
+            case .success:
+                break
+            case .failure:
+                break
+            }
+        }
         
         realmQueues.userInteractive.async {
             do {
@@ -129,9 +128,11 @@ extension TasksRealmStorage: TaskStorageProtocol {
                     try dataBase.write{
                         task.isDeleted = true
                     }
+                    
+                    completion(.success(Void()))
+                } else {
+                    completion(.failure(.taskOperationError(.deletion, "task doesn't exist")))
                 }
-                
-                completion(.success(Void()))
             } catch let error as NSError {
                 completion(.failure(
                     .taskOperationError(.update,
